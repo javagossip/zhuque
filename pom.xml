@@ -17,5 +17,6 @@
   	<module>zhuque-adx-connector</module>
   	<module>zhuque-openapi</module>
   	<module>zhuque-rtb-proto</module>
+  	<module>zhuque-crontab</module>
   </modules>
 </project>
