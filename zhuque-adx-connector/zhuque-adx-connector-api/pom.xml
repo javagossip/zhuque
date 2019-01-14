@@ -2,15 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>ai.houyi</groupId>
-    <artifactId>zhuque-all</artifactId>
+    <artifactId>zhuque-adx-connector</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>zhuque-adx-connector</artifactId>
-  <packaging>pom</packaging>
-  <name>zhuque-adx-connector</name>
-  <description>the ad-exchange connector module for zhuque</description>
-  <modules>
-  	<module>zhuque-adx-connector-api</module>
-  	<module>zhuque-adx-connector-builtin</module>
-  </modules>
+  <artifactId>zhuque-adx-connector-api</artifactId>
+  <name>zhuque-adx-connector-api</name>
+  <description>zhuque-adx-connector-api</description>
 </project>
