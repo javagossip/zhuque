@@ -37,7 +37,13 @@
        <!--    <table tableName="advertiser_audit" schema="zhuque" domainObjectName="AuditAdvertiser">
         <generatedKey column="id" sqlStatement="JDBC"/>
         </table> -->
-         <table tableName="agent" schema="zhuque" domainObjectName="Agent">
+       <!--   <table tableName="agent" schema="zhuque" domainObjectName="Agent">
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table> -->
+          <table tableName="agent_bill" schema="zhuque">
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+            <table tableName="advertiser_bill" schema="zhuque">
         <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>
