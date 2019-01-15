@@ -1,11 +1,57 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>ai.houyi</groupId>
-    <artifactId>zhuque-all</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>zhuque-dao</artifactId>
-  <name>zhuque-dao</name>
-  <description>the data access module for zhuque</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ai.houyi</groupId>
+		<artifactId>zhuque-all</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>zhuque-dao</artifactId>
+	<name>zhuque-dao</name>
+	<description>the data access module for zhuque</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis-generator-maven-plugin.version}</version>
+
+				<configuration>
+					<configurationFile>src/main/resources/mybatis-generator.xml</configurationFile>
+					<overwrite>true</overwrite>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql-connector-java.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.itfsw</groupId>
+						<artifactId>mybatis-generator-plugin</artifactId>
+						<version>${com.itfsw.mybatis-generator-plugin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.freemarker</groupId>
+						<artifactId>freemarker</artifactId>
+						<version>2.3.26-incubating</version>
+					</dependency>
+					<!-- xml 解析 -->
+					<dependency>
+						<groupId>dom4j</groupId>
+						<artifactId>dom4j</artifactId>
+						<version>1.6.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 </project>

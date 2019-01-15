@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ai.houyi.zhuque.dao.DspMapper">
+  <resultMap id="BaseResultMap" type="ai.houyi.zhuque.dao.model.Dsp">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="rtb_url" jdbcType="VARCHAR" property="rtbUrl" />
+    <result column="qps" jdbcType="INTEGER" property="qps" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, token, uuid, rtb_url, qps, create_time, status, contacts, address, phone, 
+    email
+  </sql>
+  <select id="selectByExample" parameterType="ai.houyi.zhuque.dao.model.DspExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dsp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dsp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ai.houyi.zhuque.dao.model.DspExample">
+    delete from dsp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Dsp" useGeneratedKeys="true">
+    insert into dsp (name, token, uuid, 
+      rtb_url, qps, create_time, 
+      status, contacts, address, 
+      phone, email)
+    values (#{name,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, 
+      #{rtbUrl,jdbcType=VARCHAR}, #{qps,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{contacts,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Dsp" useGeneratedKeys="true">
+    insert into dsp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="rtbUrl != null">
+        rtb_url,
+      </if>
+      <if test="qps != null">
+        qps,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="rtbUrl != null">
+        #{rtbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qps != null">
+        #{qps,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ai.houyi.zhuque.dao.model.DspExample" resultType="java.lang.Long">
+    select count(*) from dsp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dsp
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rtbUrl != null">
+        rtb_url = #{record.rtbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qps != null">
+        qps = #{record.qps,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.contacts != null">
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dsp
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      rtb_url = #{record.rtbUrl,jdbcType=VARCHAR},
+      qps = #{record.qps,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ai.houyi.zhuque.dao.model.Dsp">
+    update dsp
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="rtbUrl != null">
+        rtb_url = #{rtbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qps != null">
+        qps = #{qps,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ai.houyi.zhuque.dao.model.Dsp">
+    update dsp
+    set name = #{name,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      rtb_url = #{rtbUrl,jdbcType=VARCHAR},
+      qps = #{qps,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectOneByExample" parameterType="ai.houyi.zhuque.dao.model.DspExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from dsp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into dsp
+    (name, token, uuid, rtb_url, qps, create_time, status, contacts, address, phone, 
+      email)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.name,jdbcType=VARCHAR}, #{item.token,jdbcType=VARCHAR}, #{item.uuid,jdbcType=VARCHAR}, 
+        #{item.rtbUrl,jdbcType=VARCHAR}, #{item.qps,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.status,jdbcType=INTEGER}, #{item.contacts,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, 
+        #{item.phone,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into dsp (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'name'.toString() == column.value">
+          #{item.name,jdbcType=VARCHAR}
+        </if>
+        <if test="'token'.toString() == column.value">
+          #{item.token,jdbcType=VARCHAR}
+        </if>
+        <if test="'uuid'.toString() == column.value">
+          #{item.uuid,jdbcType=VARCHAR}
+        </if>
+        <if test="'rtb_url'.toString() == column.value">
+          #{item.rtbUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="'qps'.toString() == column.value">
+          #{item.qps,jdbcType=INTEGER}
+        </if>
+        <if test="'create_time'.toString() == column.value">
+          #{item.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'status'.toString() == column.value">
+          #{item.status,jdbcType=INTEGER}
+        </if>
+        <if test="'contacts'.toString() == column.value">
+          #{item.contacts,jdbcType=VARCHAR}
+        </if>
+        <if test="'address'.toString() == column.value">
+          #{item.address,jdbcType=VARCHAR}
+        </if>
+        <if test="'phone'.toString() == column.value">
+          #{item.phone,jdbcType=VARCHAR}
+        </if>
+        <if test="'email'.toString() == column.value">
+          #{item.email,jdbcType=VARCHAR}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+</mapper>
