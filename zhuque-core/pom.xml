@@ -8,4 +8,11 @@
   <artifactId>zhuque-core</artifactId>
   <name>zhuque-core</name>
   <description>the core module for zhuque</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>ai.houyi</groupId>
+  		<artifactId>zhuque-commons</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
