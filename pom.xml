@@ -17,6 +17,16 @@
 	</parent>
 
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>ai.houyi</groupId>
+				<artifactId>dorado-core</artifactId>
+				<version>${dorado.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
