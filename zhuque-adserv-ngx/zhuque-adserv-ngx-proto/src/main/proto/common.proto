@@ -1,0 +1,143 @@
+/*
+ * Copyright 2017-2019 The OpenAds Project
+ *
+ * The OpenAds Project licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+syntax = "proto2";
+
+package ai.houyi.adserv.ngx.proto;
+
+option java_outer_classname = "CommonProto";
+
+// 所有unknown的值对于投放来说都不存在，只有请求才会存在该值，
+// 如果广告主对于某一定向不限定，则不需要填写任何值
+
+//网络连接类型
+enum ConnectType{
+    kConnectTypeUnKnown = 0;
+    kWifi = 1;
+    k2g = 2;
+    k3g = 3;
+    k4g = 4;
+    k5g = 5;
+}
+
+// 运营商
+enum Carrier{
+    kCarrierUnKnown = 0;
+    kMobile = 1;               // 移动
+    kUnicom = 2;               // 联通
+    kTelecom = 3;              // 电信
+}
+
+enum OSType{
+    kOSUnKnown = 0;
+    kIOS = 1;
+    kAndroid = 2;
+    kHtml5 = 6;
+    kPc = 7;
+}
+
+enum CreativeType{
+    kPic = 1;    // 图片
+    kVideo = 2;  //贴片
+    kNative = 3; //原生广告
+}
+
+//推广类型
+enum PromotionType {
+    kExtWebsite = 1;  //网站
+    kExtIos = 2;    //IOS应用
+    kExtAndroid = 3; //安卓应用
+    kExtDeeplink = 4; //深度链接
+}
+
+//付费类型
+enum CostType {
+    kCpc = 1;
+    kCpm = 2;
+    kCpa = 3;
+    kCpt = 4; //包段投放
+    kCpfc = 5;//按照固定cpc投放
+    kCpfm = 6; //按照固定cpm投放
+}
+
+//ADX素材信息
+message AdxInfo {
+    optional uint32 adx_id = 1;        // adx类型
+    optional string crid = 2;         // adx对应的素材id
+    optional string material_url = 3; // adx素材地址
+}
+
+// 流量来源
+enum TrafficType {
+    kTrafficTypeUnKnown = 0;
+    kAdExchange = 1;  // adx流量
+    kMobileUnion = 2; // 移动联盟
+}
+
+// 终端类型
+enum TerminalType {
+    kTerminalTypeUnKnown = 0;
+    kMobileTerminal = 1;           // 移动终端
+    kPcTerminal = 2;               // pc终端
+    kH5Terminal = 3; //h5
+}
+
+//代理商类型枚举
+enum AgentType {
+	kAgentTypeKA = 1; //直客代理商
+	kAgentTypeNM = 2; //普通代理商
+}
+
+enum DeliveryMode {
+    kDefault = 1;
+    kSmoothBudgetDelivery = 2;
+}
+
+enum FrequencyPeriod {
+    kFrequencyPeriodDay   = 1;
+    kFrequencyPeriodWeek  = 2;
+    kFrequencyPeriodMonth = 3;
+}
+
+enum EntityType {
+    kAgent = 1;
+    kAdvertiser = 2;
+    kCampaign = 3;
+    kAdGroup = 4;
+    kCreative = 5;
+    kAgentFloor = 6;
+    kAdPositionFloor = 7;
+    kDsp = 8;
+    kDspCreative = 9;
+    kMedia = 10;
+    kApp = 11;
+    kAreaGroup = 12;
+}
+
+message MapEntry {
+    optional string key = 1;
+    optional string value = 2;
+}
+
+message FrequencyCapping {
+    optional bool frequency_capping = 1; //是否启用频次控制
+	optional uint32 frequency = 2; //频次
+	optional FrequencyPeriod frequency_period = 3; //频次控制周期
+	optional bool ip_capping = 4; //是否ip频控
+}
+
+message Pmp {
+    required string deal_id = 1;
+}

@@ -1,0 +1,104 @@
+/*
+ * Copyright 2017-2019 The OpenAds Project
+ *
+ * The OpenAds Project licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+syntax = "proto2";
+
+package ai.houyi.adserv.ngx.proto;
+
+import "common.proto";
+import "model.proto";
+
+option java_outer_classname = "BiddingProto";
+
+option java_generic_services = true;
+option optimize_for = SPEED;
+
+// 请求广告位信息
+message PosInfo{
+    optional string id = 16;
+    optional bytes app_id = 1;          // 应用id
+    optional bytes pos_id = 2;          // 广告位id
+    optional uint32 ad_num = 3;          // 请求的广告个数
+    optional uint32 height = 4;
+    optional uint32 width = 5;
+    repeated CreativeType creative_type = 6; //创意类型
+    repeated CostType cost_type = 7; // 收费类型cpc/cpm
+    optional string media_tagid = 10;   //媒体广告位id
+    optional uint32 min_duration = 12; //最小时长
+    optional uint32 max_duration = 13; //最大时长
+    repeated string dealid = 14;       //pmp/pdb dealid
+    optional string app_version = 15;
+    repeated MapEntry ext = 11;       //广告位扩展属性
+}
+
+// 请求的用户信息
+message UserInfo{
+    optional string ip = 1;           //用户ip
+    optional bytes did = 3;           //设备id
+    optional string device_brand = 4; //手机品牌
+    optional string device_model = 5; //手机型号
+    optional OSType os = 6;           //操作系统
+    optional ConnectType connect_type = 7;  //链接方式
+    optional Carrier carrier = 8;           //运营商
+    //地域码，共6位，每2位一级，分别是省级、市级、县级
+    optional uint32 area_code = 9;         
+    optional uint32 adx_id = 10;
+    //流量来源
+    optional TrafficType traffic_type = 11 [default = kTrafficTypeUnKnown];  
+    //终端类型，如果为pc，则上述的各种移动字段无意义
+    optional TerminalType terminal_type = 12 [default = kTerminalTypeUnKnown]; 
+    optional string osv = 14; //操作系统版本号
+	optional string mac = 15; //mac地址
+	repeated MapEntry ext = 16; //用户扩展属性
+}
+
+message Ad {
+    optional string id = 1;
+    optional string impid = 2;
+    optional uint32 agent_id = 3;
+    optional uint32 advertiser_id = 4;
+    optional uint32 campaign_id = 5;
+    optional uint32 ad_group_id = 6;
+    optional uint32 creative_id = 7;
+    //推广类型
+    optional PromotionType promotion_type = 8;
+   
+    optional string bundle = 9;
+    optional CostType cost_type = 10;
+    optional uint32 adx_bid_price = 11;
+    optional uint32 bid_price = 12;
+    optional AgentType agent_type = 13;
+    //频次控制
+    optional FrequencyCapping frequency_capping = 14;
+    //原生广告数据
+    optional NativeAd native_ad = 15;
+	optional Pmp pmp = 16; //pmp
+	repeated string imp_monitor_url = 17;
+	repeated string clk_monitor_url = 18;
+}
+
+message NativeAd {
+}
+
+message BiddingReq{
+    optional string id = 1;
+    repeated PosInfo imp = 2;
+    optional UserInfo userInfo = 3;
+}
+
+message BiddingRsp {
+    optional string id=1;
+    repeated Ad ad = 2;
+}
