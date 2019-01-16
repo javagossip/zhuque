@@ -15,6 +15,8 @@
  */
 package ai.houyi.zhuque.dashboard.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
@@ -61,7 +63,13 @@ public class TemplateController {
 	@Path("/{id}")
 	///template/123
 	public Template loadById(@PathVariable("id") Integer templateId) {
-		return templateService.loadById(templateId);
+		return templateService.loadById(templateId);	
+	}
+	
+	@GET
+	@Path("/")
+	public List<Template> selectByName(String name){
+		return templateService.selectByName(name);
 		
 	}
 	

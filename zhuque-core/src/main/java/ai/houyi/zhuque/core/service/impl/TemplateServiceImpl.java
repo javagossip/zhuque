@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
@@ -79,6 +80,17 @@ public class TemplateServiceImpl implements TemplateService{
 		int in = (int) templateMapper.countByExample(te);
 		List<Template> list = templateMapper.selectByExample(te);
 		return Page.create(in, queryReq.getPageSize(), list);
+	}
+	
+	@Override
+	public List<Template> selectByName(String name){
+		if (name == null) {
+			ExceptionUtils.throwZhuqueException("名称不可为空");
+		}
+		TemplateExample example = new TemplateExample();
+		example.createCriteria().andNameLike(String.format("%%s%", name)).example();
+		return templateMapper.selectByExample(example);
+		
 	}
 	
 	
