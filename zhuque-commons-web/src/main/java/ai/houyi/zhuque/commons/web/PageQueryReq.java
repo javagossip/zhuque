@@ -19,30 +19,36 @@ package ai.houyi.zhuque.commons.web;
  *
  * @author weiping wang
  */
-@SuppressWarnings("serial")
-public class AuthFailedException extends RuntimeException {
+public abstract class PageQueryReq<E> extends QueryReq<E> {
+	private Integer pageNo;
+	private Integer pageSize;
 
-	public AuthFailedException() {
-		super();
-	}
-	
-	public AuthFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
-
-	
-	public AuthFailedException(String message, Throwable cause) {
-		super(message, cause);
+	/**
+	 * @return the pageNo
+	 */
+	public Integer getPageNo() {
+		return pageNo;
 	}
 
-	
-	public AuthFailedException(String message) {
-		super(message);
+	/**
+	 * @param pageNo the pageNo to set
+	 */
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
 	}
 
-	
-	public AuthFailedException(Throwable cause) {
-		super(cause);
+	/**
+	 * @return the pageSize
+	 */
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	/**
+	 * @param pageSize the pageSize to set
+	 */
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 
 }
