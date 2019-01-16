@@ -1,30 +1,24 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 4541
-#
-# http://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
-# Host: 182.92.173.117 (MySQL 5.5.28-log)
-# Database: zhuque
-# Generation Time: 2019-01-16 10:51:58 +0000
-# ************************************************************
+/*
+Navicat MySQL Data Transfer
 
+Source Server         : 182.92.173.117
+Source Server Version : 50528
+Source Host           : 182.92.173.117:3306
+Source Database       : zhuque
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+Target Server Type    : MYSQL
+Target Server Version : 50528
+File Encoding         : 65001
 
+Date: 2019-01-17 00:57:19
+*/
 
-# Dump of table ad_group
-# ------------------------------------------------------------
+SET FOREIGN_KEY_CHECKS=0;
 
+-- ----------------------------
+-- Table structure for ad_group
+-- ----------------------------
 DROP TABLE IF EXISTS `ad_group`;
-
 CREATE TABLE `ad_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -69,13 +63,14 @@ CREATE TABLE `ad_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告组(系列),广告投放定向设定';
 
+-- ----------------------------
+-- Records of ad_group
+-- ----------------------------
 
-
-# Dump of table ad_position
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for ad_position
+-- ----------------------------
 DROP TABLE IF EXISTS `ad_position`;
-
 CREATE TABLE `ad_position` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '广告位id',
   `uuid` varchar(32) NOT NULL COMMENT '广告位唯一标识符',
@@ -91,25 +86,27 @@ CREATE TABLE `ad_position` (
   UNIQUE KEY `idx_unique_ad_pos_uid` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统广告位';
 
+-- ----------------------------
+-- Records of ad_position
+-- ----------------------------
 
-
-# Dump of table ad_position_floor
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for ad_position_floor
+-- ----------------------------
 DROP TABLE IF EXISTS `ad_position_floor`;
-
 CREATE TABLE `ad_position_floor` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告位底价';
 
+-- ----------------------------
+-- Records of ad_position_floor
+-- ----------------------------
 
-
-# Dump of table advertiser
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for advertiser
+-- ----------------------------
 DROP TABLE IF EXISTS `advertiser`;
-
 CREATE TABLE `advertiser` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `advertiser_audit_id` int(11) DEFAULT NULL COMMENT '广告主id(真实)',
@@ -129,13 +126,14 @@ CREATE TABLE `advertiser` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告主';
 
+-- ----------------------------
+-- Records of advertiser
+-- ----------------------------
 
-
-# Dump of table advertiser_audit
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for advertiser_audit
+-- ----------------------------
 DROP TABLE IF EXISTS `advertiser_audit`;
-
 CREATE TABLE `advertiser_audit` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '广告主名称',
@@ -151,13 +149,14 @@ CREATE TABLE `advertiser_audit` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用来向ad-exchange审核的广告主';
 
+-- ----------------------------
+-- Records of advertiser_audit
+-- ----------------------------
 
-
-# Dump of table advertiser_bill
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for advertiser_bill
+-- ----------------------------
 DROP TABLE IF EXISTS `advertiser_bill`;
-
 CREATE TABLE `advertiser_bill` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '账单id',
   `advertiser_id` int(11) DEFAULT NULL COMMENT '广告主id',
@@ -168,13 +167,14 @@ CREATE TABLE `advertiser_bill` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='广告主账单';
 
+-- ----------------------------
+-- Records of advertiser_bill
+-- ----------------------------
 
-
-# Dump of table advertiser_qualification
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for advertiser_qualification
+-- ----------------------------
 DROP TABLE IF EXISTS `advertiser_qualification`;
-
 CREATE TABLE `advertiser_qualification` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `advertiser_audit_id` int(11) NOT NULL COMMENT '广告主id',
@@ -183,13 +183,14 @@ CREATE TABLE `advertiser_qualification` (
   PRIMARY KEY (`id`,`advertiser_audit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告主资质';
 
+-- ----------------------------
+-- Records of advertiser_qualification
+-- ----------------------------
 
-
-# Dump of table agent
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for agent
+-- ----------------------------
 DROP TABLE IF EXISTS `agent`;
-
 CREATE TABLE `agent` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL COMMENT '代理商名称',
@@ -206,15 +207,17 @@ CREATE TABLE `agent` (
   `status` int(4) DEFAULT NULL COMMENT '代理商状态,0-无效、1-有效、2-余额不足',
   `deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除,0-正常,1-删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='代理商';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='代理商';
 
+-- ----------------------------
+-- Records of agent
+-- ----------------------------
+INSERT INTO `agent` VALUES ('1', 'wwp_测试代理商', 'http://icon.com/logo.jpg', 'wangweiping', '北京市朝阳区', '13621088515', '100', '0.2', '2', null, '2019-01-16 22:38:41', null, '1', '0');
 
-
-# Dump of table agent_bill
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for agent_bill
+-- ----------------------------
 DROP TABLE IF EXISTS `agent_bill`;
-
 CREATE TABLE `agent_bill` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `agent_id` int(11) DEFAULT NULL COMMENT '代理商id',
@@ -225,25 +228,27 @@ CREATE TABLE `agent_bill` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='代理商账单';
 
+-- ----------------------------
+-- Records of agent_bill
+-- ----------------------------
 
-
-# Dump of table agent_floor
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for agent_floor
+-- ----------------------------
 DROP TABLE IF EXISTS `agent_floor`;
-
 CREATE TABLE `agent_floor` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='代理商底价配置';
 
+-- ----------------------------
+-- Records of agent_floor
+-- ----------------------------
 
-
-# Dump of table campaign
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for campaign
+-- ----------------------------
 DROP TABLE IF EXISTS `campaign`;
-
 CREATE TABLE `campaign` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '推广活动id',
   `advertiser_id` int(10) unsigned DEFAULT NULL COMMENT '广告主id',
@@ -256,13 +261,14 @@ CREATE TABLE `campaign` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推广活动';
 
+-- ----------------------------
+-- Records of campaign
+-- ----------------------------
 
-
-# Dump of table creative
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for creative
+-- ----------------------------
 DROP TABLE IF EXISTS `creative`;
-
 CREATE TABLE `creative` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '创意id,主键自增',
   `creative_url` varchar(128) DEFAULT NULL,
@@ -278,13 +284,14 @@ CREATE TABLE `creative` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告(创意)';
 
+-- ----------------------------
+-- Records of creative
+-- ----------------------------
 
-
-# Dump of table dsp
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for dsp
+-- ----------------------------
 DROP TABLE IF EXISTS `dsp`;
-
 CREATE TABLE `dsp` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL COMMENT 'dsp名称',
@@ -302,13 +309,14 @@ CREATE TABLE `dsp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='第三方广告平台';
 
+-- ----------------------------
+-- Records of dsp
+-- ----------------------------
 
-
-# Dump of table dsp_target
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for dsp_target
+-- ----------------------------
 DROP TABLE IF EXISTS `dsp_target`;
-
 CREATE TABLE `dsp_target` (
   `id` int(11) NOT NULL,
   `dsp_id` int(11) DEFAULT NULL,
@@ -316,13 +324,14 @@ CREATE TABLE `dsp_target` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='dsp受众定向设置';
 
+-- ----------------------------
+-- Records of dsp_target
+-- ----------------------------
 
-
-# Dump of table material
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for material
+-- ----------------------------
 DROP TABLE IF EXISTS `material`;
-
 CREATE TABLE `material` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '素材id',
   `name` varchar(100) DEFAULT NULL COMMENT '素材名称',
@@ -334,13 +343,14 @@ CREATE TABLE `material` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告素材';
 
+-- ----------------------------
+-- Records of material
+-- ----------------------------
 
-
-# Dump of table media_ad_position
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for media_ad_position
+-- ----------------------------
 DROP TABLE IF EXISTS `media_ad_position`;
-
 CREATE TABLE `media_ad_position` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `ad_position_id` int(11) DEFAULT NULL COMMENT '广告位id',
@@ -349,25 +359,59 @@ CREATE TABLE `media_ad_position` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='媒体广告位';
 
+-- ----------------------------
+-- Records of media_ad_position
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(11) DEFAULT NULL COMMENT '父菜单id',
+  `name` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '菜单名称',
+  `url` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '菜单url',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-# Dump of table sys_log
-# ------------------------------------------------------------
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `description` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
-
 CREATE TABLE `sys_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
 
-
-# Dump of table template
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for template
+-- ----------------------------
 DROP TABLE IF EXISTS `template`;
-
 CREATE TABLE `template` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) DEFAULT NULL,
@@ -380,24 +424,39 @@ CREATE TABLE `template` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告位模板';
 
+-- ----------------------------
+-- Records of template
+-- ----------------------------
 
-
-# Dump of table user
-# ------------------------------------------------------------
-
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
 DROP TABLE IF EXISTS `user`;
-
 CREATE TABLE `user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) DEFAULT NULL,
+  `passwd` varchar(32) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `real_name` varchar(128) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户';
 
+-- ----------------------------
+-- Records of user
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
