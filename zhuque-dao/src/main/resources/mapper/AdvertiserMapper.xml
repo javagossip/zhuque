@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="ai.houyi.zhuque.dao.model.Advertiser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="advertiser_audit_id" jdbcType="INTEGER" property="advertiserAuditId" />
+    <result column="agent_id" jdbcType="INTEGER" property="agentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="industry_id" jdbcType="INTEGER" property="industryId" />
     <result column="website" jdbcType="VARCHAR" property="website" />
@@ -76,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, advertiser_audit_id, name, industry_id, website, address, phone, contacts, audit_status, 
-    audit_comments, create_time, update_time, status, deleted
+    id, advertiser_audit_id, agent_id, name, industry_id, website, address, phone, contacts, 
+    audit_status, audit_comments, create_time, update_time, status, deleted
   </sql>
   <select id="selectByExample" parameterType="ai.houyi.zhuque.dao.model.AdvertiserExample" resultMap="BaseResultMap">
     select
@@ -118,22 +119,25 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Advertiser" useGeneratedKeys="true">
-    insert into advertiser (advertiser_audit_id, name, industry_id, 
-      website, address, phone, 
-      contacts, audit_status, audit_comments, 
-      create_time, update_time, status, 
-      deleted)
-    values (#{advertiserAuditId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{industryId,jdbcType=INTEGER}, 
-      #{website,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{contacts,jdbcType=INTEGER}, #{auditStatus,jdbcType=INTEGER}, #{auditComments,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{deleted,jdbcType=BIT})
+    insert into advertiser (advertiser_audit_id, agent_id, name, 
+      industry_id, website, address, 
+      phone, contacts, audit_status, 
+      audit_comments, create_time, update_time, 
+      status, deleted)
+    values (#{advertiserAuditId,jdbcType=INTEGER}, #{agentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{industryId,jdbcType=INTEGER}, #{website,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{contacts,jdbcType=INTEGER}, #{auditStatus,jdbcType=INTEGER}, 
+      #{auditComments,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Advertiser" useGeneratedKeys="true">
     insert into advertiser
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="advertiserAuditId != null">
         advertiser_audit_id,
+      </if>
+      <if test="agentId != null">
+        agent_id,
       </if>
       <if test="name != null">
         name,
@@ -175,6 +179,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="advertiserAuditId != null">
         #{advertiserAuditId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -229,6 +236,9 @@
       <if test="record.advertiserAuditId != null">
         advertiser_audit_id = #{record.advertiserAuditId,jdbcType=INTEGER},
       </if>
+      <if test="record.agentId != null">
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -274,6 +284,7 @@
     update advertiser
     set id = #{record.id,jdbcType=INTEGER},
       advertiser_audit_id = #{record.advertiserAuditId,jdbcType=INTEGER},
+      agent_id = #{record.agentId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       industry_id = #{record.industryId,jdbcType=INTEGER},
       website = #{record.website,jdbcType=VARCHAR},
@@ -295,6 +306,9 @@
     <set>
       <if test="advertiserAuditId != null">
         advertiser_audit_id = #{advertiserAuditId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null">
+        agent_id = #{agentId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -338,6 +352,7 @@
   <update id="updateByPrimaryKey" parameterType="ai.houyi.zhuque.dao.model.Advertiser">
     update advertiser
     set advertiser_audit_id = #{advertiserAuditId,jdbcType=INTEGER},
+      agent_id = #{agentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       industry_id = #{industryId,jdbcType=INTEGER},
       website = #{website,jdbcType=VARCHAR},
@@ -376,15 +391,16 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into advertiser
-    (advertiser_audit_id, name, industry_id, website, address, phone, contacts, audit_status, 
-      audit_comments, create_time, update_time, status, deleted)
+    (advertiser_audit_id, agent_id, name, industry_id, website, address, phone, contacts, 
+      audit_status, audit_comments, create_time, update_time, status, deleted)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.advertiserAuditId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.industryId,jdbcType=INTEGER}, 
-        #{item.website,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, #{item.phone,jdbcType=VARCHAR}, 
-        #{item.contacts,jdbcType=INTEGER}, #{item.auditStatus,jdbcType=INTEGER}, #{item.auditComments,jdbcType=VARCHAR}, 
-        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=INTEGER}, 
-        #{item.deleted,jdbcType=BIT})
+      (#{item.advertiserAuditId,jdbcType=INTEGER}, #{item.agentId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, 
+        #{item.industryId,jdbcType=INTEGER}, #{item.website,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, 
+        #{item.phone,jdbcType=VARCHAR}, #{item.contacts,jdbcType=INTEGER}, #{item.auditStatus,jdbcType=INTEGER}, 
+        #{item.auditComments,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=INTEGER}, #{item.deleted,jdbcType=BIT}
+        )
     </foreach>
   </insert>
   <insert id="batchInsertSelective" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
@@ -404,6 +420,9 @@
       <foreach collection="selective" item="column" separator=",">
         <if test="'advertiser_audit_id'.toString() == column.value">
           #{item.advertiserAuditId,jdbcType=INTEGER}
+        </if>
+        <if test="'agent_id'.toString() == column.value">
+          #{item.agentId,jdbcType=INTEGER}
         </if>
         <if test="'name'.toString() == column.value">
           #{item.name,jdbcType=VARCHAR}
