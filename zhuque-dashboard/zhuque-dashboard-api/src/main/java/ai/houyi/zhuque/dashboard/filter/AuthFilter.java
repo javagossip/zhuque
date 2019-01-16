@@ -13,40 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.model.query;
+package ai.houyi.zhuque.dashboard.filter;
 
-import org.apache.commons.lang3.StringUtils;
-
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.dao.model.AgentExample;
+import ai.houyi.dorado.rest.http.Filter;
+import ai.houyi.dorado.rest.http.HttpRequest;
+import ai.houyi.dorado.rest.http.HttpResponse;
 
 /**
  *
  * @author weiping wang
  */
-public class AgentQueryReq extends PageQueryReq<AgentExample> {
-	private String name;
+public class AuthFilter implements Filter {
 
 	@Override
-	public AgentExample toExample() {
-		AgentExample example = new AgentExample();
-		AgentExample.Criteria criteria = example.createCriteria();
-
-		if (StringUtils.isNotBlank(name)) {
-			criteria.andNameLike(String.format("%%s%", name));
-		}
-
-		example.setOffset(getOffset());
-		example.setRows(pageSize);
-
-		return example;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public boolean preFilter(HttpRequest request, HttpResponse response) {
+		return Filter.super.preFilter(request, response);
 	}
 
 }
