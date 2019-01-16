@@ -15,13 +15,53 @@
  */
 package ai.houyi.zhuque.dashboard.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
+import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.zhuque.core.service.TemplateService;
+import ai.houyi.zhuque.dao.model.Template;
 
 /**
  *
  * @author weiping wang
  */
 @Controller
+@Path("/Template")
 public class TemplateController {
+	@Autowired
+	private TemplateService templateService;
+	
+	@POST
+	@Path
+	public void saveOrupdateTemplate(Template template) {
+		if(template.getId() != null) {
+			templateService.save(template);
+		}
+		else {templateService.update(template);
+		}	
+	}
+	
+	@POST
+	@Path("/delete/{templateid}")
+	public void deleteById(int templateid) {
+		templateService.softDeleteById(templateid);
+	}
+	
+	@POST
+	@Path("/selectAll")
+	public void selectAll() {
+		templateService.selectAll();	
+	}
+	
+	@GET
+	@Path("/{loadById}")
+	public Template loadById(Integer pk) {
+		return templateService.loadById(pk);
+		
+	}
+	
 	
 }
