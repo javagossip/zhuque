@@ -15,6 +15,7 @@
  */
 package ai.houyi.zhuque.dashboard.api;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 
 import ai.houyi.dorado.springboot.DoradoSpringBootApplication;
@@ -24,6 +25,7 @@ import ai.houyi.dorado.springboot.DoradoSpringBootApplication;
  *
  */
 @DoradoSpringBootApplication
+@MapperScan("ai.houyi.zhuque.dao")
 public class Application {
 
 	public static void main(String[] args) {
