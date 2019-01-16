@@ -14,8 +14,8 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
+		<relativePath/>
 	</parent>
-
 
 	<dependencyManagement>
 		<dependencies>
@@ -85,6 +85,7 @@
 		<module>zhuque-openapi</module>
 		<module>zhuque-rtb-proto</module>
 		<module>zhuque-crontab</module>
+		<module>zhuque-auth</module>
 	</modules>
 
 	<build>
