@@ -15,12 +15,59 @@
  */
 package ai.houyi.zhuque.auth.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
+import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.zhuque.auth.service.RoleService;
+import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.RoleQueryReq;
+import ai.houyi.zhuque.dao.model.Role;
 
 /**
  * @author weiping wang
  */
 @Controller
+@Path("/role")
 public class RoleController {
-
+	@Autowired
+	private RoleService roleService;
+	
+	@POST
+	@Path
+	public void saveOrUpdate(Role role) {
+		if(role.getId()==null) {
+			roleService.save(role);
+		}else {
+			roleService.update(role);
+		}
+	}
+	
+	@GET
+	@Path("/{roleId}")
+	public Role loadById(int roleId) {
+		return roleService.loadById(roleId);
+	}
+	
+	@POST
+	@Path("/delete/{roleId}")
+	public void deleteById(int roleId) {
+		roleService.deleteById(roleId);
+	}
+	
+	@GET
+	@Path
+	public List<Role> selectAll(){
+		return roleService.selectAll();
+	}
+	
+	@POST
+	@Path("/list")
+	public Page<Role> selectPage(RoleQueryReq queryReq){
+		return roleService.selectPageList(queryReq);
+	}
 }
