@@ -67,7 +67,7 @@ public class TemplateController {
 	}
 	
 	@GET
-	@Path("/")
+	@Path("/listByName")
 	public List<Template> selectByName(String name){
 		return templateService.selectByName(name);
 		
