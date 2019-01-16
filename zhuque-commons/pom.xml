@@ -8,4 +8,10 @@
   <artifactId>zhuque-commons</artifactId>
   <name>zhuque-commons</name>
   <description>公共模块</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-lang3</artifactId>
+  	</dependency>
+  </dependencies>
 </project>

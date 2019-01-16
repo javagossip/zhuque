@@ -23,65 +23,64 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.dorado.rest.annotation.RequestBody;
 import ai.houyi.zhuque.commons.page.Page;
-import ai.houyi.zhuque.core.model.query.DspQueryReq;
-import ai.houyi.zhuque.core.service.DspService;
-import ai.houyi.zhuque.dao.model.Dsp;
+import ai.houyi.zhuque.core.model.query.AgentQueryReq;
+import ai.houyi.zhuque.core.service.AgentService;
+import ai.houyi.zhuque.dao.model.Agent;
 
 /**
+ *
  * @author weiping wang
  */
 @Controller
-@Path("/dsp")
-public class DspController {
-
+@Path("/agent")
+public class AgentController {
 	@Autowired
-	private DspService dspService;
+	private AgentService agentService;
 
 	@POST
 	@Path
-	public void saveOrUpdateDsp(Dsp dsp) {
-		if (dsp.getId() != null) {
-			dspService.save(dsp);
+	public void saveOrUpdateAgent(Agent agent) {
+		if (agent.getId() != null) {
+			agentService.save(agent);
 		} else {
-			dspService.update(dsp);
+			agentService.update(agent);
 		}
 	}
 
 	@POST
-	@Path("/delete/{dspId}")
-	public void deleteById(int dspId) {
-		dspService.softDeleteById(dspId);
+	@Path("/delete/{agentId}")
+	public void deleteById(int agentId) {
+		agentService.softDeleteById(agentId);
 	}
-
+	
 	@POST
-	@Path("/on/{dspId}")
-	public void dspOn(int dspId) {
-		dspService.updateStatus(dspId, 1);
+	@Path("/on/{agentId}")
+	public void agentOn(int agentId) {
+		agentService.updateStatus(agentId,1);
 	}
-
+	
 	@POST
-	@Path("/off/{dspId}")
-	public void dspOff(int dspId) {
-		dspService.updateStatus(dspId, 0);
+	@Path("/off/{agentId}")
+	public void agentOff(int agentId) {
+		agentService.updateStatus(agentId,0);
 	}
-
+	
 	@GET
-	@Path("/{dspId}")
-	public Dsp loadById(int dspId) {
-		return dspService.loadById(dspId);
+	@Path("/{agentId}")
+	public Agent loadAgentById(int agentId) {
+		return agentService.loadById(agentId);
 	}
 	
 	@GET
 	@Path("/listByName")
-	public List<Dsp> selectByName(String name){
-		return dspService.selectByName(name);
+	public List<Agent> selectByName(String name){
+		return agentService.selectByName(name);
 	}
 	
 	@POST
 	@Path("/list")
-	public Page<Dsp> selectPage(@RequestBody DspQueryReq queryReq){
-		return dspService.selectPageList(queryReq);
+	public Page<Agent> selectPage(AgentQueryReq queryReq){
+		return agentService.selectPageList(queryReq);
 	}
 }
