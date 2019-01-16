@@ -56,7 +56,7 @@
 			<table tableName="role" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table> -->
-		 <table tableName="user_role" schema="zhuque">
+		 <table tableName="menu" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table>
 	</context>

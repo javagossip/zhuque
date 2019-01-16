@@ -32,5 +32,10 @@
   		<groupId>commons-codec</groupId>
   		<artifactId>commons-codec</artifactId>
   	</dependency>
+  	<dependency>
+  		<groupId>ai.houyi</groupId>
+  		<artifactId>zhuque-commons-web</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
