@@ -13,8 +13,32 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+package ai.houyi.zhuque.commons.web;
+
 /**
  * @author weiping wang
  *
  */
-package ai.houyi.zhuque.dashboard.api.helper;
+public class Response {
+	private int code;
+	private String msg;
+	private Object data;
+
+	public Response(int code, String msg, Object data) {
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public Object getData() {
+		return data;
+	}
+}

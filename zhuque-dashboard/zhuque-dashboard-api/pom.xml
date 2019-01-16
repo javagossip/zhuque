@@ -25,5 +25,15 @@
 			<artifactId>zhuque-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>ai.houyi</groupId>
+			<artifactId>zhuque-commons-web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>ai.houyi</groupId>
+			<artifactId>zhuque-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

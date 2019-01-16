@@ -13,10 +13,11 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.dashboard.api.helper;
+package ai.houyi.zhuque.commons.web;
 
 import ai.houyi.dorado.rest.annotation.ExceptionAdvice;
 import ai.houyi.dorado.rest.annotation.ExceptionType;
+import ai.houyi.dorado.rest.annotation.Status;
 import ai.houyi.zhuque.commons.exception.ZhuqueException;
 
 /**
@@ -34,6 +35,11 @@ public class ZhuqueExceptionAdvisor {
 
 	@ExceptionType(value = Exception.class)
 	public Response handleException(Exception exception) {
+		return new Response(1, exception.getMessage(), null);
+	}
+
+	@Status(value = 403)
+	public Response handleException(AuthFailedException exception) {
 		return new Response(1, exception.getMessage(), null);
 	}
 }
