@@ -70,7 +70,7 @@ public class TemplateServiceImpl implements TemplateService{
 		TemplateExample tem = queryReq.toExample();
 		return templateMapper.selectByExample(tem);
 		
-		//return templateMapper.selectByExample(new TemplateExample());
+		//return templateMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
