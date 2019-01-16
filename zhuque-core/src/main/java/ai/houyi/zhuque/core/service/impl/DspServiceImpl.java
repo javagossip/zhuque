@@ -15,11 +15,62 @@
  */
 package ai.houyi.zhuque.core.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
+import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.service.DspService;
+import ai.houyi.zhuque.dao.DspMapper;
+import ai.houyi.zhuque.dao.model.Dsp;
+import ai.houyi.zhuque.dao.model.DspExample;
 
 /**
  * @author weiping wang
  */
+@Service
 public class DspServiceImpl implements DspService {
+	private DspMapper dspMapper;
 
+	@Override
+	public void save(Dsp t) {
+		dspMapper.insert(t);
+	}
+
+	@Override
+	public void update(Dsp t) {
+		dspMapper.updateByPrimaryKeySelective(t);
+	}
+
+	@Override
+	public void deleteById(Integer pk) {
+		dspMapper.deleteByPrimaryKey(pk);
+	}
+
+	@Override
+	public Dsp loadById(Integer pk) {
+		return dspMapper.selectByPrimaryKey(pk);
+	}
+
+	@Override
+	public List<Dsp> selectAll() {
+		return dspMapper.selectByExample(new DspExample());
+	}
+
+	@Override
+	public List<Dsp> selectByQueryReq(QueryReq<DspExample> queryReq) {
+		DspExample example = queryReq.toExample();
+		return dspMapper.selectByExample(example);
+	}
+
+	@Override
+	public Page<Dsp> selectPageList(PageQueryReq<DspExample> queryReq) {
+		DspExample example = queryReq.toExample();
+		int total = (int) dspMapper.countByExample(example);
+		List<Dsp> dataList = dspMapper.selectByExample(example);
+
+		return Page.create(total, queryReq.getPageSize(), dataList);
+	}
 }

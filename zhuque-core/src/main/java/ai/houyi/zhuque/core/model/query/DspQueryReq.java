@@ -13,16 +13,36 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
+package ai.houyi.zhuque.core.model.query;
 
-import ai.houyi.zhuque.core.BaseService;
-import ai.houyi.zhuque.dao.model.Dsp;
+import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.dao.model.DspExample;
 
 /**
- * @author weiping wang
  *
+ * @author weiping wang
  */
-public interface DspService extends BaseService<Dsp, DspExample, Integer>{
-	
+public class DspQueryReq extends PageQueryReq<DspExample> {
+	private Integer id;
+	private Integer status;
+	private String name;
+
+	@Override
+	public DspExample toExample() {
+		DspExample example = new DspExample();
+		DspExample.Criteria criteria = example.createCriteria();
+
+		if (id != null)
+			criteria.andIdEqualTo(id);
+		if (status != null)
+			criteria.andStatusEqualTo(status);
+		if (name != null)
+			criteria.andNameLike(String.format("%%s%", name));
+		
+		example.setOffset(getOffset());
+		example.setRows(getPageSize());
+		
+		return example;
+	}
+
 }

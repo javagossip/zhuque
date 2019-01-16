@@ -36,6 +36,10 @@ public final class Page<T> {
 		this.result=result;
 	}
 
+	public static <T> Page<T> create(int total,int pageSize,List<T> result){
+		return new Page<T>(total,pageSize,result);
+	}
+	
 	public int getTotal() {
 		return total;
 	}

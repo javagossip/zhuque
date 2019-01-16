@@ -13,16 +13,8 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
-
-import ai.houyi.zhuque.core.BaseService;
-import ai.houyi.zhuque.dao.model.Dsp;
-import ai.houyi.zhuque.dao.model.DspExample;
-
 /**
- * @author weiping wang
  *
+ * @author weiping wang
  */
-public interface DspService extends BaseService<Dsp, DspExample, Integer>{
-	
-}
+package ai.houyi.zhuque.commons.model;

@@ -18,21 +18,26 @@ package ai.houyi.zhuque.core;
 import java.io.Serializable;
 import java.util.List;
 
+import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 
 /**
  * @author weiping wang
  */
-public interface BaseService<T, Example,PK extends Serializable> {
+public interface BaseService<T, E, PK extends Serializable> {
 	void save(T t);
 
 	void update(T t);
-	
+
 	void deleteById(PK pk);
-	
+
 	T loadById(PK pk);
-	
-	List<T> selectByExample(Example example);
-	
-	Page<T> selectPageByExample(Example example);
+
+	List<T> selectAll();
+
+	List<T> selectByQueryReq(QueryReq<E> queryReq);
+
+	Page<T> selectPageList(PageQueryReq<E> queryReq);
+
 }

@@ -13,42 +13,8 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.commons.web;
-
 /**
  *
  * @author weiping wang
  */
-public abstract class PageQueryReq<E> extends QueryReq<E> {
-	private Integer pageNo;
-	private Integer pageSize;
-
-	/**
-	 * @return the pageNo
-	 */
-	public Integer getPageNo() {
-		return pageNo;
-	}
-
-	/**
-	 * @param pageNo the pageNo to set
-	 */
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
-	}
-
-	/**
-	 * @return the pageSize
-	 */
-	public Integer getPageSize() {
-		return pageSize;
-	}
-
-	/**
-	 * @param pageSize the pageSize to set
-	 */
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
-
-}
+package ai.houyi.zhuque.core.model.query;
