@@ -14,7 +14,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 	<dependencyManagement>
@@ -46,6 +46,12 @@
 				<artifactId>mybatis-spring-boot-starter</artifactId>
 				<version>${mybatis-spring.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.google.protobuf</groupId>
+				<artifactId>protobuf-java</artifactId>
+				<version>${protobuf-java.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -55,6 +61,7 @@
 		<java.version>1.8</java.version>
 
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<protoc-jar-maven-plugin.version>3.6.0.1</protoc-jar-maven-plugin.version>
 
 		<fastjson.version>1.1.31</fastjson.version>
 		<jackson1.version>1.9.13</jackson1.version>
@@ -102,8 +109,23 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.github.os72</groupId>
+					<artifactId>protoc-jar-maven-plugin</artifactId>
+					<version>${protoc-jar-maven-plugin.version}</version>
+					<configuration>
+						<protocVersion>3.6.0</protocVersion>
+						<includeStdTypes>true</includeStdTypes>
+						<inputDirectories>
+							<include>src/main/proto</include>
+						</inputDirectories>
+
+						<outputDirectory>src/main/java</outputDirectory>
+						<cleanOutputFolder>true</cleanOutputFolder>
 					</configuration>
 				</plugin>
 			</plugins>
