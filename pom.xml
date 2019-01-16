@@ -90,7 +90,6 @@
 		<module>zhuque-dao</module>
 		<module>zhuque-core</module>
 		<module>zhuque-dashboard</module>
-		<module>zhuque-springboot-parent</module>
 		<module>zhuque-pixel-services</module>
 		<module>zhuque-adserv-ngx</module>
 		<module>zhuque-adx-connector</module>
