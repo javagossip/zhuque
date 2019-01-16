@@ -14,6 +14,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, token, uuid, rtb_url, qps, create_time, status, contacts, address, phone, 
-    email
+    email, deleted
   </sql>
   <select id="selectByExample" parameterType="ai.houyi.zhuque.dao.model.DspExample" resultMap="BaseResultMap">
     select
@@ -119,11 +120,11 @@
     insert into dsp (name, token, uuid, 
       rtb_url, qps, create_time, 
       status, contacts, address, 
-      phone, email)
+      phone, email, deleted)
     values (#{name,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, 
       #{rtbUrl,jdbcType=VARCHAR}, #{qps,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER}, #{contacts,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Dsp" useGeneratedKeys="true">
     insert into dsp
@@ -161,6 +162,9 @@
       <if test="email != null">
         email,
       </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -195,6 +199,9 @@
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -243,6 +250,9 @@
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,7 +271,8 @@
       contacts = #{record.contacts,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
+      email = #{record.email,jdbcType=VARCHAR},
+      deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,6 +313,9 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -317,7 +331,8 @@
       contacts = #{contacts,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
+      email = #{email,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectOneByExample" parameterType="ai.houyi.zhuque.dao.model.DspExample" resultMap="BaseResultMap">
@@ -345,13 +360,14 @@
     -->
     insert into dsp
     (name, token, uuid, rtb_url, qps, create_time, status, contacts, address, phone, 
-      email)
+      email, deleted)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.name,jdbcType=VARCHAR}, #{item.token,jdbcType=VARCHAR}, #{item.uuid,jdbcType=VARCHAR}, 
         #{item.rtbUrl,jdbcType=VARCHAR}, #{item.qps,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, 
         #{item.status,jdbcType=INTEGER}, #{item.contacts,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, 
-        #{item.phone,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR})
+        #{item.phone,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, #{item.deleted,jdbcType=BIT}
+        )
     </foreach>
   </insert>
   <insert id="batchInsertSelective" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
@@ -401,6 +417,9 @@
         </if>
         <if test="'email'.toString() == column.value">
           #{item.email,jdbcType=VARCHAR}
+        </if>
+        <if test="'deleted'.toString() == column.value">
+          #{item.deleted,jdbcType=BIT}
         </if>
       </foreach>
       )

@@ -15,9 +15,73 @@
  */
 package ai.houyi.zhuque.dashboard.api.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
+import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.dorado.rest.annotation.RequestBody;
+import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.DspQueryReq;
+import ai.houyi.zhuque.core.service.DspService;
+import ai.houyi.zhuque.dao.model.Dsp;
+
 /**
  * @author weiping wang
  */
+@Controller
+@Path("/dsp")
 public class DspController {
+
+	@Autowired
+	private DspService dspService;
+
+	@POST
+	@Path
+	public void saveOrUpdateDsp(Dsp dsp) {
+		if (dsp.getId() != null) {
+			dspService.save(dsp);
+		} else {
+			dspService.update(dsp);
+		}
+	}
+
+	@POST
+	@Path("/delete/{dspId}")
+	public void deleteById(int dspId) {
+		dspService.softDeleteById(dspId);
+	}
+
+	@POST
+	@Path("/on/{dspId}")
+	public void dspOn(int dspId) {
+		dspService.updateStatus(dspId, 1);
+	}
+
+	@POST
+	@Path("/off/{dspId}")
+	public void dspOff(int dspId) {
+		dspService.updateStatus(dspId, 0);
+	}
+
+	@GET
+	@Path("/{dspId}")
+	public Dsp loadById(int dspId) {
+		return dspService.loadById(dspId);
+	}
 	
+	@GET
+	@Path("/list")
+	public List<Dsp> selectByName(String name){
+		return dspService.selectByName(name);
+	}
+	
+	@POST
+	@Path("/list")
+	public Page<Dsp> selectPage(@RequestBody DspQueryReq queryReq){
+		return dspService.selectPageList(queryReq);
+	}
 }

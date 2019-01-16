@@ -3,48 +3,55 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <!-- 一个数据库一个context -->
-    <!--defaultModelType="flat" 大数据字段，不分表 -->
-    <context id="MysqlTables" targetRuntime="MyBatis3" defaultModelType="flat">
-    <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin" />
-		<plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin" />
-		<plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin" />
+	<!-- 一个数据库一个context -->
+	<!--defaultModelType="flat" 大数据字段，不分表 -->
+	<context id="MysqlTables" targetRuntime="MyBatis3"
+		defaultModelType="flat">
+		<plugin
+			type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin" />
+		<plugin
+			type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin" />
+		<plugin
+			type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin" />
 		<plugin type="com.itfsw.mybatis.generator.plugins.LimitPlugin" />
-		<plugin type="com.itfsw.mybatis.generator.plugins.ModelBuilderPlugin" />
-		<plugin type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin" />
-    <!-- 注释 -->
-    <commentGenerator >
-        <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
-        <property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
-    </commentGenerator>
+		<plugin
+			type="com.itfsw.mybatis.generator.plugins.ModelBuilderPlugin" />
+		<plugin
+			type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin" />
+		<!-- 注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
+		</commentGenerator>
 
-    <!--jdbc-->
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                    connectionURL="jdbc:mysql://127.0.0.1/zhuque?useUnicode=true&amp;characterEncoding=utf8"
-                    userId="zhuque" password="ZhuQue%1234"/>
-    <!--实体类model-->
-    <javaModelGenerator targetPackage="ai.houyi.zhuque.dao.model" targetProject="src/main/java"></javaModelGenerator>
+		<!--jdbc -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://182.92.173.117/zhuque?useUnicode=true&amp;characterEncoding=utf8"
+			userId="test" password="test@fftime" />
+		<!--实体类model -->
+		<javaModelGenerator
+			targetPackage="ai.houyi.zhuque.dao.model"
+			targetProject="src/main/java"></javaModelGenerator>
 
-    <!--生成mapper.xml配置文件-->
-    <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources"></sqlMapGenerator>
+		<!--生成mapper.xml配置文件 -->
+		<sqlMapGenerator targetPackage="mapper"
+			targetProject="src/main/resources"></sqlMapGenerator>
 
-    <!--生成dao接口-->
-    <javaClientGenerator type="XMLMAPPER" targetPackage="ai.houyi.zhuque.dao" targetProject="src/main/java"></javaClientGenerator>
-        <!--对应数据库表-->
-       <!--  <table tableName="advertiser" schema="zhuque" domainObjectName="Advertiser">
-        <generatedKey column="id" sqlStatement="JDBC"/>
-        </table> -->
-       <!--    <table tableName="advertiser_audit" schema="zhuque" domainObjectName="AuditAdvertiser">
-        <generatedKey column="id" sqlStatement="JDBC"/>
-        </table> -->
-       <!--   <table tableName="agent" schema="zhuque" domainObjectName="Agent">
-        <generatedKey column="id" sqlStatement="JDBC"/>
-        </table> -->
-          <table tableName="agent_bill" schema="zhuque">
-        <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
-            <table tableName="advertiser_bill" schema="zhuque">
-        <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
-    </context>
+		<!--生成dao接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="ai.houyi.zhuque.dao" targetProject="src/main/java"></javaClientGenerator>
+		<!--对应数据库表 -->
+		<!-- <table tableName="advertiser" schema="zhuque" domainObjectName="Advertiser"> 
+			<generatedKey column="id" sqlStatement="JDBC"/> </table> -->
+		<!-- <table tableName="advertiser_audit" schema="zhuque" domainObjectName="AuditAdvertiser"> 
+			<generatedKey column="id" sqlStatement="JDBC"/> </table> -->
+		<!-- <table tableName="agent" schema="zhuque" domainObjectName="Agent"> 
+			<generatedKey column="id" sqlStatement="JDBC"/> </table> -->
+		<!-- <table tableName="agent_bill" schema="zhuque">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table> -->
+		<table tableName="dsp" schema="zhuque">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table>
+	</context>
 </generatorConfiguration>

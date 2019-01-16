@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
@@ -72,5 +73,31 @@ public class DspServiceImpl implements DspService {
 		List<Dsp> dataList = dspMapper.selectByExample(example);
 
 		return Page.create(total, queryReq.getPageSize(), dataList);
+	}
+
+	@Override
+	public void updateStatus(int dspId, int status) {
+		Dsp dsp = new Dsp();
+		dsp.setId(dspId);
+		dsp.setStatus(status);
+
+		dspMapper.updateByPrimaryKeySelective(dsp);
+	}
+
+	@Override
+	public void softDeleteById(Integer pk) {
+		Dsp dsp = new Dsp();
+		dsp.setId(pk);
+		dsp.setDeleted(true);
+
+		dspMapper.updateByPrimaryKeySelective(dsp);
+	}
+
+	@Override
+	public List<Dsp> selectByName(String name) {
+		if (name == null)
+			ExceptionUtils.throwZhuqueException("名称不能为空");
+		DspExample example = new DspExample().createCriteria().andNameLike(String.format("%%s%", name)).example();
+		return dspMapper.selectByExample(example);
 	}
 }
