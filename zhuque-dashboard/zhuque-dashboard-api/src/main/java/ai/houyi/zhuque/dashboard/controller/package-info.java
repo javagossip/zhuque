@@ -13,22 +13,8 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.dashboard.api;
-
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-
-import ai.houyi.dorado.springboot.DoradoSpringBootApplication;
-
 /**
- * @author weiping wang
  *
+ * @author weiping wang
  */
-@DoradoSpringBootApplication
-@MapperScan("ai.houyi.zhuque.dao")
-public class Application {
-
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-}
+package ai.houyi.zhuque.dashboard.controller;
