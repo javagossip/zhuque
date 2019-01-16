@@ -13,14 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.auth.controller;
+package ai.houyi.zhuque.auth.service;
 
-import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.zhuque.auth.model.ChangePwdReq;
+import ai.houyi.zhuque.auth.model.ResetPasswdReq;
+import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.dao.model.User;
+import ai.houyi.zhuque.dao.model.UserExample;
 
 /**
- *
  * @author weiping wang
+ *
  */
-@Controller
-public class AuthController {
+public interface UserService extends BaseService<User, UserExample, Integer> {
+
+	void resetPasswd(ResetPasswdReq req);
+
+	void updatePasswd(ChangePwdReq req);
 }

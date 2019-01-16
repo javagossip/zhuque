@@ -13,14 +13,37 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.auth.controller;
-
-import ai.houyi.dorado.rest.annotation.Controller;
+package ai.houyi.zhuque.auth.model;
 
 /**
- *
  * @author weiping wang
  */
-@Controller
-public class AuthController {
+public class ChangePwdReq {
+	private Integer userId;
+	private String oldPasswd;
+	private String passwd;
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getOldPasswd() {
+		return oldPasswd;
+	}
+
+	public void setOldPasswd(String oldPasswd) {
+		this.oldPasswd = oldPasswd;
+	}
+
+	public String getPasswd() {
+		return passwd;
+	}
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 }

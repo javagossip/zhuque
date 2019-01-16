@@ -18,9 +18,9 @@ package ai.houyi.zhuque.auth.controller;
 import ai.houyi.dorado.rest.annotation.Controller;
 
 /**
- *
  * @author weiping wang
  */
 @Controller
-public class AuthController {
+public class RoleController {
+
 }

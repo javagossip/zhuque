@@ -13,14 +13,33 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.auth.controller;
+package ai.houyi.zhuque.core.model.query;
 
-import ai.houyi.dorado.rest.annotation.Controller;
+import org.apache.commons.lang3.StringUtils;
+
+import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.dao.model.UserExample;
 
 /**
- *
  * @author weiping wang
+ *
  */
-@Controller
-public class AuthController {
+public class UserQueryReq extends PageQueryReq<UserExample> {
+	private String name;
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public UserExample toExample() {
+		UserExample example = new UserExample();
+		example.setOffset(getOffset());
+		example.setRows(pageSize);
+
+		if (StringUtils.isNotBlank(name))
+			example.createCriteria().andNameLike(String.format("%%s%", name));
+		
+		return example;
+	}
 }

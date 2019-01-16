@@ -13,12 +13,11 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.auth.controller;
+package ai.houyi.zhuque.dashboard.controller;
 
 import ai.houyi.dorado.rest.annotation.Controller;
 
 /**
- *
  * @author weiping wang
  */
 @Controller

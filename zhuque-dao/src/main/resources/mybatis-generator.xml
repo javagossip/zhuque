@@ -50,7 +50,13 @@
 		<!-- <table tableName="agent_bill" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table> -->
-		<table tableName="creative" schema="zhuque">
+		<!-- <table tableName="user" schema="zhuque">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table>
+			<table tableName="role" schema="zhuque">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table> -->
+		 <table tableName="user_role" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table>
 	</context>
