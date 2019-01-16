@@ -21,6 +21,7 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.dorado.rest.annotation.PathVariable;
 import ai.houyi.zhuque.core.service.TemplateService;
 import ai.houyi.zhuque.dao.model.Template;
 
@@ -29,7 +30,7 @@ import ai.houyi.zhuque.dao.model.Template;
  * @author weiping wang
  */
 @Controller
-@Path("/Template")
+@Path("/template")
 public class TemplateController {
 	@Autowired
 	private TemplateService templateService;
@@ -45,21 +46,22 @@ public class TemplateController {
 	}
 	
 	@POST
-	@Path("/delete/{templateid}")
-	public void deleteById(int templateid) {
-		templateService.softDeleteById(templateid);
+	@Path("/delete/{templateId}")
+	public void deleteById(int templateId) {
+		templateService.softDeleteById(templateId);
 	}
 	
 	@POST
-	@Path("/selectAll")
+	@Path("/list")
 	public void selectAll() {
 		templateService.selectAll();	
 	}
 	
 	@GET
-	@Path("/{loadById}")
-	public Template loadById(Integer pk) {
-		return templateService.loadById(pk);
+	@Path("/{id}")
+	///template/123
+	public Template loadById(@PathVariable("id") Integer templateId) {
+		return templateService.loadById(templateId);
 		
 	}
 	
