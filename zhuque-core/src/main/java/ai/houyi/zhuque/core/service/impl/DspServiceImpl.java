@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
@@ -97,7 +98,7 @@ public class DspServiceImpl implements DspService {
 	public List<Dsp> selectByName(String name) {
 		if (name == null)
 			ExceptionUtils.throwZhuqueException("名称不能为空");
-		DspExample example = new DspExample().createCriteria().andNameLike(String.format("%%s%", name)).example();
+		DspExample example = new DspExample().createCriteria().andNameLike(SQLUtils.toLikeString(name)).example();
 		return dspMapper.selectByExample(example);
 	}
 }

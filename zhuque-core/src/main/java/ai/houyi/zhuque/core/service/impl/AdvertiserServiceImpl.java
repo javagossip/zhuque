@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
@@ -89,7 +90,7 @@ public class AdvertiserServiceImpl implements AdvertiserService {
 
 	@Override
 	public List<Advertiser> selectByName(String name) {
-		AdvertiserExample example = new AdvertiserExample().createCriteria().andNameLike(String.format("%%s%", name))
+		AdvertiserExample example = new AdvertiserExample().createCriteria().andNameLike(SQLUtils.toLikeString(name))
 				.example();
 		return advertiserMapper.selectByExample(example);
 	}

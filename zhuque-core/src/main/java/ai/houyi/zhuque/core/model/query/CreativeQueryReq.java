@@ -17,6 +17,7 @@ package ai.houyi.zhuque.core.model.query;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.dao.model.CreativeExample;
 
@@ -38,7 +39,7 @@ public class CreativeQueryReq extends PageQueryReq<CreativeExample> {
 
 		CreativeExample.Criteria criteria = example.createCriteria();
 		if (StringUtils.isNotBlank(name))
-			criteria.andNameLike(String.format("%%s%", name));
+			criteria.andNameLike(SQLUtils.toLikeString(name));
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 		if (auditStatus != null)

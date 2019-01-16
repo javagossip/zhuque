@@ -15,6 +15,7 @@
  */
 package ai.houyi.zhuque.core.model.query;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.dao.model.DspExample;
 
@@ -37,7 +38,7 @@ public class DspQueryReq extends PageQueryReq<DspExample> {
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 		if (name != null)
-			criteria.andNameLike(String.format("%%s%", name));
+			criteria.andNameLike(SQLUtils.toLikeString(name));
 		
 		example.setOffset(getOffset());
 		example.setRows(getPageSize());

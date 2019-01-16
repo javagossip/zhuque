@@ -17,6 +17,7 @@ package ai.houyi.zhuque.core.model.query;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.dao.model.AgentExample;
 
@@ -33,9 +34,8 @@ public class AgentQueryReq extends PageQueryReq<AgentExample> {
 		AgentExample.Criteria criteria = example.createCriteria();
 
 		if (StringUtils.isNotBlank(name)) {
-			criteria.andNameLike(String.format("%%s%", name));
+			criteria.andNameLike(SQLUtils.toLikeString(name));
 		}
-
 		example.setOffset(getOffset());
 		example.setRows(pageSize);
 
@@ -49,4 +49,7 @@ public class AgentQueryReq extends PageQueryReq<AgentExample> {
 		this.name = name;
 	}
 
+	public static void main(String[] args) throws Exception{
+		System.out.println(String.format("%%s%", "hello"));
+	}
 }

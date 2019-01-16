@@ -25,12 +25,15 @@ public class ResetPasswdReq {
 	public Integer getUserId() {
 		return userId;
 	}
+	
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+	
 	public String getPasswd() {
 		return passwd;
 	}
+	
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}

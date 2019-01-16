@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.dao.model.CampaignExample;
 
@@ -38,7 +39,7 @@ public class CampaignQueryReq extends PageQueryReq<CampaignExample> {
 		CampaignExample.Criteria criteria = example.createCriteria();
 
 		if (StringUtils.isNotBlank(name))
-			criteria.andNameLike(String.format("%%s%", name));
+			criteria.andNameLike(SQLUtils.toLikeString(name));
 		if (!CollectionUtils.isEmpty(advertiserIds))
 			criteria.andAdvertiserIdIn(advertiserIds);
 		if (status != null)

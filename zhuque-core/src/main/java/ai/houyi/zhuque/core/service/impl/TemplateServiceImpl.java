@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
@@ -88,7 +89,7 @@ public class TemplateServiceImpl implements TemplateService{
 			ExceptionUtils.throwZhuqueException("名称不可为空");
 		}
 		TemplateExample example = new TemplateExample();
-		example.createCriteria().andNameLike(String.format("%%s%", name)).example();
+		example.createCriteria().andNameLike(SQLUtils.toLikeString(name)).example();
 		return templateMapper.selectByExample(example);
 		
 	}

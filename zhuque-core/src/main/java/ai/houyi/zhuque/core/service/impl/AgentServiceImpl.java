@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
@@ -101,7 +102,7 @@ public class AgentServiceImpl implements AgentService {
 		if (name == null)
 			ExceptionUtils.throwZhuqueException("名称不能为空");
 
-		AgentExample example = new AgentExample().createCriteria().andNameLike(String.format("%%s%", name)).example();
+		AgentExample example = new AgentExample().createCriteria().andNameLike(SQLUtils.toLikeString(name)).example();
 		return agentMapper.selectByExample(example);
 	}
 }

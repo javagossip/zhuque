@@ -106,11 +106,11 @@ public class UserServiceImpl implements UserService {
 		boolean exists = userMapper.countByExample(example) > 0;
 		if (!exists)
 			throw new ZhuqueException("用户不存在或者密码不正确");
-		
+
 		User user = new User();
 		user.setId(req.getUserId());
 		user.setPasswd(DigestUtils.md5Hex(req.getPasswd()));
-		
+
 		userMapper.updateByPrimaryKeySelective(user);
 	}
 }
