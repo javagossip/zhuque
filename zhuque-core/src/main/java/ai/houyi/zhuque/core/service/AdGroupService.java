@@ -16,7 +16,7 @@
 package ai.houyi.zhuque.core.service;
 
 import ai.houyi.zhuque.commons.page.Page;
-import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.dao.model.AdGroup;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
 
@@ -24,7 +24,7 @@ import ai.houyi.zhuque.dao.model.AdGroupExample;
  *
  * @author weiping wang
  */
-public interface AdGroupService extends BaseService<AdGroup, AdGroupExample, Integer> {
+public interface AdGroupService extends IService<AdGroup, AdGroupExample, Integer> {
 
 	Page<AdGroup> selectPageListByAdvertiserId(Integer advertiserId, Integer pageNo);
 }

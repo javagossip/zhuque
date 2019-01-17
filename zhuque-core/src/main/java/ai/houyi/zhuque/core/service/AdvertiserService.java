@@ -17,7 +17,7 @@ package ai.houyi.zhuque.core.service;
 
 import java.util.List;
 
-import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.dao.model.Advertiser;
 import ai.houyi.zhuque.dao.model.AdvertiserExample;
 
@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.AdvertiserExample;
  *
  * @author weiping wang
  */
-public interface AdvertiserService extends BaseService<Advertiser, AdvertiserExample, Integer> {
+public interface AdvertiserService extends IService<Advertiser, AdvertiserExample, Integer> {
 
 	List<Advertiser> selectByName(String name);
 

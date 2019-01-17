@@ -13,16 +13,32 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
+package ai.houyi.zhuque.core;
 
-import ai.houyi.zhuque.core.IService;
-import ai.houyi.zhuque.dao.model.Creative;
-import ai.houyi.zhuque.dao.model.CreativeExample;
+import java.io.Serializable;
+import java.util.List;
+
+import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
+import ai.houyi.zhuque.commons.page.Page;
 
 /**
- *
  * @author weiping wang
  */
-public interface CreativeService extends IService<Creative, CreativeExample, Integer> {
+public interface IService<T, E, PK extends Serializable> {
+	void save(T t);
 
+	void update(T t);
+
+	void deleteById(PK pk);
+	
+	void softDeleteById(PK pk);
+
+	T loadById(PK pk);
+
+	List<T> selectAll();
+
+	List<T> selectByQueryReq(QueryReq<E> queryReq);
+
+	Page<T> selectPageList(PageQueryReq<E> queryReq);
 }

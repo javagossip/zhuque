@@ -15,7 +15,7 @@
  */
 package ai.houyi.zhuque.core.service;
 
-import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.dao.model.Material;
 import ai.houyi.zhuque.dao.model.MaterialExample;
 
@@ -23,6 +23,6 @@ import ai.houyi.zhuque.dao.model.MaterialExample;
  *
  * @author weiping wang
  */
-public interface MaterialService extends BaseService<Material, MaterialExample, Integer> {
+public interface MaterialService extends IService<Material, MaterialExample, Integer> {
 
 }

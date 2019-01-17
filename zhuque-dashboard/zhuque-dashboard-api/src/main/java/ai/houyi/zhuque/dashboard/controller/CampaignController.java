@@ -15,6 +15,8 @@
  */
 package ai.houyi.zhuque.dashboard.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
@@ -22,42 +24,48 @@ import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
-import ai.houyi.zhuque.core.service.MaterialService;
-import ai.houyi.zhuque.dao.model.Material;
-import ai.houyi.zhuque.dao.model.MaterialExample;
+import ai.houyi.zhuque.core.model.AuthContext;
+import ai.houyi.zhuque.core.model.query.CampaignQueryReq;
+import ai.houyi.zhuque.core.service.CampaignService;
+import ai.houyi.zhuque.dao.model.Campaign;
+import ai.houyi.zhuque.dao.model.CampaignExample;
 
 /**
  *
  * @author weiping wang
  */
 @Controller
-@Path("/material")
-public class MaterialController implements IController<Material, MaterialExample, Integer> {
+@Path("/campaign")
+public class CampaignController implements IController<Campaign, CampaignExample, Integer> {
 	@Autowired
-	private MaterialService materialService;
-	
+	private CampaignService campaignService;
+
 	@Override
-	public void saveOrUpdate(Material t) {
-		if(t.getId()==null) {
-			materialService.save(t);
-		}else {
-			materialService.update(t);
+	public void saveOrUpdate(Campaign t) {
+		t.setAdvertiserId(AuthContext.currentUser().getId());
+		if (t.getId() == null) {
+			campaignService.save(t);
+		} else {
+			campaignService.update(t);
 		}
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		materialService.deleteById(id);
+		campaignService.softDeleteById(id);
 	}
 
 	@Override
-	public Material loadById(Integer id) {
-		return materialService.loadById(id);
+	public Campaign loadById(Integer id) {
+		return campaignService.loadById(id);
 	}
 
 	@Override
-	public Page<Material> selectPage(PageQueryReq<MaterialExample> queryReq) {
-		return materialService.selectPageList(queryReq);
+	public Page<Campaign> selectPage(PageQueryReq<CampaignExample> queryReq) {
+		CampaignQueryReq _queryReq = (CampaignQueryReq) queryReq;
+		_queryReq.setAdvertiserIds(Arrays.asList(AuthContext.currentUser().getId()));
+
+		return campaignService.selectPageList(_queryReq);
 	}
 
 }

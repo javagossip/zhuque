@@ -13,16 +13,52 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
+package ai.houyi.zhuque.core.model;
 
-import ai.houyi.zhuque.core.IService;
-import ai.houyi.zhuque.dao.model.Creative;
-import ai.houyi.zhuque.dao.model.CreativeExample;
+import ai.houyi.zhuque.dao.model.User;
 
 /**
  *
  * @author weiping wang
  */
-public interface CreativeService extends IService<Creative, CreativeExample, Integer> {
+public class AuthInfo {
+	private String token;
+	private User user;
+
+	public AuthInfo() {
+	}
+
+	public AuthInfo(String token, User user) {
+		this.token = token;
+		this.user = user;
+	}
+
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * @param token the token to set
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }

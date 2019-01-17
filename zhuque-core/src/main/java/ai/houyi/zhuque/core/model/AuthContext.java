@@ -13,22 +13,29 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.commons.web;
+package ai.houyi.zhuque.core.model;
 
-import java.io.Serializable;
-
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.dao.model.User;
 
 /**
+ *
  * @author weiping wang
  */
-public interface BaseController<T, E, PK extends Serializable> {
-	void saveOrUpdate(T t);
+public class AuthContext {
+	private static ThreadLocal<AuthInfo> AUTH_INFO_HOLDER = new ThreadLocal<AuthInfo>();
 
-	void deleteById(PK id);
+	public static void set(AuthInfo authInfo) {
+		AUTH_INFO_HOLDER.set(authInfo);
+	}
 
-	T loadById(PK id);
+	public static AuthInfo get() {
+		return AUTH_INFO_HOLDER.get();
+	}
 
-	Page<T> selectPage(PageQueryReq<E> queryReq);
+	public static User currentUser() {
+		AuthInfo authInfo = AUTH_INFO_HOLDER.get();
+		if (authInfo == null)
+			return null;
+		return authInfo.getUser();
+	}
 }

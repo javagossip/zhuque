@@ -15,19 +15,31 @@
  */
 package ai.houyi.zhuque.dashboard.filter;
 
+import ai.houyi.dorado.rest.annotation.FilterPath;
 import ai.houyi.dorado.rest.http.Filter;
 import ai.houyi.dorado.rest.http.HttpRequest;
 import ai.houyi.dorado.rest.http.HttpResponse;
+import ai.houyi.zhuque.core.model.AuthContext;
+import ai.houyi.zhuque.core.model.AuthInfo;
+import ai.houyi.zhuque.dao.model.User;
 
 /**
  *
  * @author weiping wang
  */
+@FilterPath(exclude="/auth/*")
 public class AuthFilter implements Filter {
 
 	@Override
 	public boolean preFilter(HttpRequest request, HttpResponse response) {
-		return Filter.super.preFilter(request, response);
+		AuthInfo authInfo=new AuthInfo();
+		User user = new User();
+		user.setId(1);
+		
+		authInfo.setUser(user);
+		
+		AuthContext.set(authInfo);
+		return true;
 	}
 
 }

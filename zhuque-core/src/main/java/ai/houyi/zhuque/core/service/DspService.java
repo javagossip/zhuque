@@ -17,7 +17,7 @@ package ai.houyi.zhuque.core.service;
 
 import java.util.List;
 
-import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.dao.model.Dsp;
 import ai.houyi.zhuque.dao.model.DspExample;
 
@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.DspExample;
  * @author weiping wang
  *
  */
-public interface DspService extends BaseService<Dsp, DspExample, Integer>{
+public interface DspService extends IService<Dsp, DspExample, Integer>{
 
 	void updateStatus(int dspId, int status);
 

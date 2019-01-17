@@ -15,13 +15,13 @@
  */
 package ai.houyi.zhuque.auth.service;
 
-import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.dao.model.Role;
 import ai.houyi.zhuque.dao.model.RoleExample;
 
 /**
  * @author weiping wang
  */
-public interface RoleService extends BaseService<Role, RoleExample, Integer> {
+public interface RoleService extends IService<Role, RoleExample, Integer> {
 
 }

@@ -18,46 +18,56 @@ package ai.houyi.zhuque.dashboard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
-import ai.houyi.zhuque.core.service.MaterialService;
-import ai.houyi.zhuque.dao.model.Material;
-import ai.houyi.zhuque.dao.model.MaterialExample;
+import ai.houyi.zhuque.core.model.AuthContext;
+import ai.houyi.zhuque.core.model.query.AdGroupQueryReq;
+import ai.houyi.zhuque.core.service.AdGroupService;
+import ai.houyi.zhuque.dao.model.AdGroup;
+import ai.houyi.zhuque.dao.model.AdGroupExample;
 
 /**
  *
  * @author weiping wang
  */
 @Controller
-@Path("/material")
-public class MaterialController implements IController<Material, MaterialExample, Integer> {
+public class AdGroupController implements IController<AdGroup, AdGroupExample, Integer> {
 	@Autowired
-	private MaterialService materialService;
-	
-	@Override
-	public void saveOrUpdate(Material t) {
-		if(t.getId()==null) {
-			materialService.save(t);
-		}else {
-			materialService.update(t);
+	private AdGroupService adGroupService;
+
+	@POST
+	@Path
+	public void saveOrUpdate(AdGroup t) {
+		if (t.getId() == null) {
+			adGroupService.save(t);
+		} else {
+			adGroupService.update(t);
 		}
 	}
 
-	@Override
+	@POST
+	@Path("/delete/{id}")
 	public void deleteById(Integer id) {
-		materialService.deleteById(id);
+		adGroupService.softDeleteById(id);
 	}
 
-	@Override
-	public Material loadById(Integer id) {
-		return materialService.loadById(id);
+	@GET
+	@Path("/{id}")
+	public AdGroup loadById(Integer id) {
+		return adGroupService.loadById(id);
 	}
 
-	@Override
-	public Page<Material> selectPage(PageQueryReq<MaterialExample> queryReq) {
-		return materialService.selectPageList(queryReq);
+	@POST
+	@Path("/list")
+	public Page<AdGroup> selectPage(PageQueryReq<AdGroupExample> queryReq) {
+		AdGroupQueryReq _queryReq = (AdGroupQueryReq) queryReq;
+		_queryReq.setAdvertiserId(AuthContext.currentUser().getId());
+		
+		
+		return adGroupService.selectPageList(_queryReq);
 	}
-
 }

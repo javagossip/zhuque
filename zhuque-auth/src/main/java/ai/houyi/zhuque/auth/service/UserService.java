@@ -17,7 +17,7 @@ package ai.houyi.zhuque.auth.service;
 
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
-import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.dao.model.User;
 import ai.houyi.zhuque.dao.model.UserExample;
 
@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.UserExample;
  * @author weiping wang
  *
  */
-public interface UserService extends BaseService<User, UserExample, Integer> {
+public interface UserService extends IService<User, UserExample, Integer> {
 
 	void resetPasswd(ResetPasswdReq req);
 

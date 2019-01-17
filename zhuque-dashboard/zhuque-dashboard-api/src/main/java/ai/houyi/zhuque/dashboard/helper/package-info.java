@@ -13,16 +13,8 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
-
-import ai.houyi.zhuque.core.IService;
-import ai.houyi.zhuque.dao.model.Creative;
-import ai.houyi.zhuque.dao.model.CreativeExample;
-
 /**
  *
  * @author weiping wang
  */
-public interface CreativeService extends IService<Creative, CreativeExample, Integer> {
-
-}
+package ai.houyi.zhuque.dashboard.helper;
