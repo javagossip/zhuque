@@ -25,7 +25,6 @@ import ai.houyi.zhuque.dao.model.AdGroupExample;
  * @author weiping wang
  */
 public interface AdGroupService extends BaseService<AdGroup, AdGroupExample, Integer> {
-	Page<AdGroup> selectPageListByCampaignId(Integer campaignId);
-	
-	Page<AdGroup> selectPageListByAdvertiserId(Integer advertiserId);
+
+	Page<AdGroup> selectPageListByAdvertiserId(Integer advertiserId, Integer pageNo);
 }

@@ -16,12 +16,15 @@
 package ai.houyi.zhuque.core.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import ai.houyi.zhuque.commons.Constants;
+import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
@@ -32,6 +35,7 @@ import ai.houyi.zhuque.dao.AdGroupMapper;
 import ai.houyi.zhuque.dao.CampaignMapper;
 import ai.houyi.zhuque.dao.model.AdGroup;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
+import ai.houyi.zhuque.dao.model.CampaignExample;
 
 /**
  *
@@ -89,14 +93,22 @@ public class AdGroupServiceImpl implements AdGroupService {
 		AdGroupQueryReq adGroupQueryReq = (AdGroupQueryReq) queryReq;
 		String campaignName = adGroupQueryReq.getCamppaignName();
 		Integer campaignId = adGroupQueryReq.getCampaignId();
+		Integer advertiserId = adGroupQueryReq.getAdvertiserId();
 
 		if (StringUtils.isNotBlank(campaignName) && campaignId != null) {
 			ExceptionUtils.throwZhuqueException("活动名称和活动id不能同时不为空");
 		}
 
 		AdGroupExample example = queryReq.toExample();
-		if (StringUtils.isNotBlank(campaignName)) {
-			List<Integer> campaignIds = campaignMapper.selectAllCampaignIdsByName(campaignName);
+		if (StringUtils.isNotBlank(campaignName) || advertiserId != null) {
+			CampaignExample _example = new CampaignExample();
+			CampaignExample.Criteria criteria = _example.createCriteria();
+			criteria.andNameLike(SQLUtils.toLikeString(campaignName));
+			if (advertiserId != null)
+				criteria.andAdvertiserIdEqualTo(advertiserId);
+
+			List<Integer> campaignIds = campaignMapper.selectByExample(_example).stream().map(a -> a.getId())
+					.collect(Collectors.toList());
 			if (campaignIds != null && !campaignIds.isEmpty()) {
 				example.getOredCriteria().get(0).andCampaignIdIn(campaignIds);
 			}
@@ -109,18 +121,22 @@ public class AdGroupServiceImpl implements AdGroupService {
 	}
 
 	@Override
-	public Page<AdGroup> selectPageListByCampaignId(Integer campaignId) {
-		AdGroupExample example = new AdGroupExample().createCriteria().andCampaignIdEqualTo(campaignId).example();
+	public Page<AdGroup> selectPageListByAdvertiserId(Integer advertiserId, Integer pageNo) {
+		CampaignExample campaignExample = new CampaignExample().createCriteria().andAdvertiserIdEqualTo(advertiserId)
+				.example();
+		List<Integer> campaignIdList = campaignMapper.selectByExample(campaignExample).stream().map(a -> a.getId())
+				.collect(Collectors.toList());
 
+		AdGroupExample.Criteria criteria = new AdGroupExample().createCriteria();
+		if (!CollectionUtils.isEmpty(campaignIdList)) {
+			criteria.andCampaignIdIn(campaignIdList);
+		}
+
+		AdGroupExample example = criteria.example().page(pageNo, Constants.DEFAULT_PAGE_SIZE);
 		int total = (int) adGroupMapper.countByExample(example);
 		List<AdGroup> result = adGroupMapper.selectByExample(example);
 
 		return Page.create(total, Constants.DEFAULT_PAGE_SIZE, result);
-	}
-
-	@Override
-	public Page<AdGroup> selectPageListByAdvertiserId(Integer advertiserId) {
-		return null;
 	}
 
 }
