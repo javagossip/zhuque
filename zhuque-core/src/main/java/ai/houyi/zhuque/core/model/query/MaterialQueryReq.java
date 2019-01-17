@@ -13,30 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core;
+package ai.houyi.zhuque.core.model.query;
 
-import java.io.Serializable;
-import java.util.List;
-
-import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.model.QueryReq;
+import ai.houyi.zhuque.dao.model.MaterialExample;
 
 /**
  * @author weiping wang
+ *
  */
-public interface IService<T, Q, PK extends Serializable> {
-	void save(T t);
+public class MaterialQueryReq extends QueryReq<MaterialExample> {
 
-	void update(T t);
+	@Override
+	public MaterialExample toExample() {
+		//TODO
+		return null;
+	}
 
-	void deleteById(PK pk);
-	
-	void softDeleteById(PK pk);
-
-	T loadById(PK pk);
-
-	List<T> selectAll();
-
-	List<T> selectByQueryReq(Q query);
-
-	Page<T> selectPageList(Q query);
 }

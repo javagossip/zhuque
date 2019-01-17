@@ -18,16 +18,12 @@ package ai.houyi.zhuque.core.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import ai.houyi.zhuque.commons.Constants;
-import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.AdGroupQueryReq;
 import ai.houyi.zhuque.core.service.AdGroupService;
@@ -36,9 +32,11 @@ import ai.houyi.zhuque.dao.CampaignMapper;
 import ai.houyi.zhuque.dao.model.AdGroup;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
 import ai.houyi.zhuque.dao.model.CampaignExample;
+import ai.houyi.zhuque.dao.model.ext.ExtAdGroupExample;
 
 /**
- *
+ * 广告组管理
+ * 
  * @author weiping wang
  */
 @Service
@@ -84,38 +82,15 @@ public class AdGroupServiceImpl implements AdGroupService {
 	}
 
 	@Override
-	public List<AdGroup> selectByQueryReq(QueryReq<AdGroupExample> queryReq) {
-		return adGroupMapper.selectByExample(queryReq.toExample());
+	public List<AdGroup> selectByQueryReq(AdGroupQueryReq queryReq) {
+		return adGroupMapper.selectByExtExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<AdGroup> selectPageList(PageQueryReq<AdGroupExample> queryReq) {
-		AdGroupQueryReq adGroupQueryReq = (AdGroupQueryReq) queryReq;
-		String campaignName = adGroupQueryReq.getCamppaignName();
-		Integer campaignId = adGroupQueryReq.getCampaignId();
-		Integer advertiserId = adGroupQueryReq.getAdvertiserId();
-
-		if (StringUtils.isNotBlank(campaignName) && campaignId != null) {
-			ExceptionUtils.throwZhuqueException("活动名称和活动id不能同时不为空");
-		}
-
-		AdGroupExample example = queryReq.toExample();
-		if (StringUtils.isNotBlank(campaignName) || advertiserId != null) {
-			CampaignExample _example = new CampaignExample();
-			CampaignExample.Criteria criteria = _example.createCriteria();
-			criteria.andNameLike(SQLUtils.toLikeString(campaignName));
-			if (advertiserId != null)
-				criteria.andAdvertiserIdEqualTo(advertiserId);
-
-			List<Integer> campaignIds = campaignMapper.selectByExample(_example).stream().map(a -> a.getId())
-					.collect(Collectors.toList());
-			if (campaignIds != null && !campaignIds.isEmpty()) {
-				example.getOredCriteria().get(0).andCampaignIdIn(campaignIds);
-			}
-		}
-
-		int total = (int) adGroupMapper.countByExample(example);
-		List<AdGroup> result = adGroupMapper.selectByExample(example);
+	public Page<AdGroup> selectPageList(AdGroupQueryReq queryReq) {
+		ExtAdGroupExample example = queryReq.toExample();
+		int total = adGroupMapper.countByExtExample(example);
+		List<AdGroup> result = adGroupMapper.selectByExtExample(example);
 
 		return Page.create(total, queryReq.getPageSize(), result);
 	}

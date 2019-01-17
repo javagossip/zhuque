@@ -21,14 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.CampaignQueryReq;
 import ai.houyi.zhuque.core.service.CampaignService;
 import ai.houyi.zhuque.dao.model.Campaign;
-import ai.houyi.zhuque.dao.model.CampaignExample;
 
 /**
  *
@@ -36,7 +34,7 @@ import ai.houyi.zhuque.dao.model.CampaignExample;
  */
 @Controller
 @Path("/campaign")
-public class CampaignController implements IController<Campaign, CampaignExample, Integer> {
+public class CampaignController implements IController<Campaign, CampaignQueryReq, Integer> {
 	@Autowired
 	private CampaignService campaignService;
 
@@ -61,11 +59,8 @@ public class CampaignController implements IController<Campaign, CampaignExample
 	}
 
 	@Override
-	public Page<Campaign> selectPage(PageQueryReq<CampaignExample> queryReq) {
-		CampaignQueryReq _queryReq = (CampaignQueryReq) queryReq;
-		_queryReq.setAdvertiserIds(Arrays.asList(AuthContext.currentUser().getId()));
-
-		return campaignService.selectPageList(_queryReq);
+	public Page<Campaign> selectPage(CampaignQueryReq queryReq) {
+		queryReq.setAdvertiserIds(Arrays.asList(AuthContext.currentUser().getId()));
+		return campaignService.selectPageList(queryReq);
 	}
-
 }

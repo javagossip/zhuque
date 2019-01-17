@@ -2,6 +2,8 @@ package ai.houyi.zhuque.dao;
 
 import ai.houyi.zhuque.dao.model.AdGroup;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
+import ai.houyi.zhuque.dao.model.ext.ExtAdGroupExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -54,4 +56,8 @@ public interface AdGroupMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int batchInsertSelective(@Param("list") List<AdGroup> list, @Param("selective") AdGroup.Column ... selective);
+
+	List<AdGroup> selectByExtExample(ExtAdGroupExample example);
+
+	int countByExtExample(ExtAdGroupExample example);
 }

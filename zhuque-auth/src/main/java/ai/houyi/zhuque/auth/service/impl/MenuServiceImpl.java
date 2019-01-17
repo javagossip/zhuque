@@ -22,9 +22,8 @@ import org.springframework.stereotype.Service;
 
 import ai.houyi.zhuque.auth.service.MenuService;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.MenuMapper;
 import ai.houyi.zhuque.dao.model.Menu;
 import ai.houyi.zhuque.dao.model.MenuExample;
@@ -68,12 +67,12 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<Menu> selectByQueryReq(QueryReq<MenuExample> queryReq) {
+	public List<Menu> selectByQueryReq(MenuQueryReq queryReq) {
 		return menuMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Menu> selectPageList(PageQueryReq<MenuExample> queryReq) {
+	public Page<Menu> selectPageList(MenuQueryReq queryReq) {
 		MenuExample example = queryReq.toExample();
 		int total = (int) menuMapper.countByExample(example);
 		List<Menu> result = menuMapper.selectByExample(example);

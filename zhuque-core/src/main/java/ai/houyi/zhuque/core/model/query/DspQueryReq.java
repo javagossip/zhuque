@@ -16,14 +16,14 @@
 package ai.houyi.zhuque.core.model.query;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.DspExample;
 
 /**
  *
  * @author weiping wang
  */
-public class DspQueryReq extends PageQueryReq<DspExample> {
+public class DspQueryReq extends QueryReq<DspExample> {
 	private Integer id;
 	private Integer status;
 	private String name;
@@ -40,9 +40,9 @@ public class DspQueryReq extends PageQueryReq<DspExample> {
 		if (name != null)
 			criteria.andNameLike(SQLUtils.toLikeString(name));
 		
-		example.setOffset(getOffset());
-		example.setRows(getPageSize());
-		
+		if(pageNo!=null&&pageSize!=null) {
+			example.page(pageNo, pageSize);
+		}
 		return example;
 	}
 

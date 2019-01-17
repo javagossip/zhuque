@@ -24,23 +24,25 @@ import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.web.IController;
+import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.AdvertiserQueryReq;
 import ai.houyi.zhuque.core.service.AdvertiserService;
 import ai.houyi.zhuque.dao.model.Advertiser;
 
 /**
- *
+ * 广告主管理
  * @author weiping wang
  */
 @Controller
 @Path("/advertiser")
-public class AdvertiserController {
+public class AdvertiserController implements IController<Advertiser, AdvertiserQueryReq, Integer> {
 	@Autowired
 	private AdvertiserService advertiserService;
 
 	@POST
 	@Path
-	public void saveOrUpdateAdvertiser(Advertiser advertiser) {
+	public void saveOrUpdate(Advertiser advertiser) {
 		if (advertiser.getId() == null) {
 			advertiserService.save(advertiser);
 		} else {
@@ -81,6 +83,7 @@ public class AdvertiserController {
 	@POST
 	@Path("/list")
 	public Page<Advertiser> selectPage(AdvertiserQueryReq queryReq) {
+		queryReq.setAgentId(AuthContext.currentUser().getId());
 		return advertiserService.selectPageList(queryReq);
 	}
 }

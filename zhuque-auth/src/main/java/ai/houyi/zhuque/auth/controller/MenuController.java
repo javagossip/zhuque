@@ -22,18 +22,17 @@ import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.auth.service.MenuService;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
+import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.model.Menu;
-import ai.houyi.zhuque.dao.model.MenuExample;
 
 /**
  * @author weiping wang
  */
 @Controller
 @Path("/menu")
-public class MenuController implements IController<Menu, MenuExample, Integer> {
+public class MenuController implements IController<Menu, MenuQueryReq, Integer> {
 	@Autowired
 	private MenuService menuService;
 
@@ -61,7 +60,7 @@ public class MenuController implements IController<Menu, MenuExample, Integer> {
 
 	@POST
 	@Path("/list")
-	public Page<Menu> selectPage(PageQueryReq<MenuExample> queryReq) {
+	public Page<Menu> selectPage(MenuQueryReq queryReq) {
 		return menuService.selectPageList(queryReq);
 	}
 }

@@ -22,9 +22,8 @@ import org.springframework.stereotype.Service;
 
 import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.AgentQueryReq;
 import ai.houyi.zhuque.core.service.AgentService;
 import ai.houyi.zhuque.dao.AgentMapper;
 import ai.houyi.zhuque.dao.model.Agent;
@@ -74,12 +73,12 @@ public class AgentServiceImpl implements AgentService {
 	}
 
 	@Override
-	public List<Agent> selectByQueryReq(QueryReq<AgentExample> queryReq) {
+	public List<Agent> selectByQueryReq(AgentQueryReq queryReq) {
 		return agentMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Agent> selectPageList(PageQueryReq<AgentExample> queryReq) {
+	public Page<Agent> selectPageList(AgentQueryReq queryReq) {
 		AgentExample example = queryReq.toExample();
 
 		int total = (int) agentMapper.countByExample(example);

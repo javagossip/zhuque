@@ -20,9 +20,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.CreativeQueryReq;
 import ai.houyi.zhuque.core.service.CreativeService;
 import ai.houyi.zhuque.dao.CreativeMapper;
 import ai.houyi.zhuque.dao.model.Creative;
@@ -75,12 +74,12 @@ public class CreativeServiceImpl implements CreativeService {
 	}
 
 	@Override
-	public List<Creative> selectByQueryReq(QueryReq<CreativeExample> queryReq) {
+	public List<Creative> selectByQueryReq(CreativeQueryReq queryReq) {
 		return creativeMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Creative> selectPageList(PageQueryReq<CreativeExample> queryReq) {
+	public Page<Creative> selectPageList(CreativeQueryReq queryReq) {
 		int total = (int) creativeMapper.countByExample(queryReq.toExample());
 		List<Creative> result=creativeMapper.selectByExample(queryReq.toExample());
 		

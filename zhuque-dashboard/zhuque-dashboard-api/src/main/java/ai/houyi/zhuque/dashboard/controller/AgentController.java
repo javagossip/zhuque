@@ -24,6 +24,7 @@ import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.AgentQueryReq;
 import ai.houyi.zhuque.core.service.AgentService;
 import ai.houyi.zhuque.dao.model.Agent;
@@ -34,13 +35,13 @@ import ai.houyi.zhuque.dao.model.Agent;
  */
 @Controller
 @Path("/agent")
-public class AgentController {
+public class AgentController implements IController<Agent, AgentQueryReq, Integer> {
 	@Autowired
 	private AgentService agentService;
 
 	@POST
 	@Path
-	public void saveOrUpdateAgent(Agent agent) {
+	public void saveOrUpdate(Agent agent) {
 		if (agent.getId() != null) {
 			agentService.save(agent);
 		} else {
@@ -50,37 +51,37 @@ public class AgentController {
 
 	@POST
 	@Path("/delete/{agentId}")
-	public void deleteById(int agentId) {
+	public void deleteById(Integer agentId) {
 		agentService.softDeleteById(agentId);
 	}
-	
+
 	@POST
 	@Path("/on/{agentId}")
 	public void agentOn(int agentId) {
-		agentService.updateStatus(agentId,1);
+		agentService.updateStatus(agentId, 1);
 	}
-	
+
 	@POST
 	@Path("/off/{agentId}")
 	public void agentOff(int agentId) {
-		agentService.updateStatus(agentId,0);
+		agentService.updateStatus(agentId, 0);
 	}
-	
+
 	@GET
 	@Path("/{agentId}")
-	public Agent loadAgentById(int agentId) {
+	public Agent loadById(Integer agentId) {
 		return agentService.loadById(agentId);
 	}
-	
+
 	@GET
 	@Path("/listByName")
-	public List<Agent> selectByName(String name){
+	public List<Agent> selectByName(String name) {
 		return agentService.selectByName(name);
 	}
-	
+
 	@POST
 	@Path("/list")
-	public Page<Agent> selectPage(AgentQueryReq queryReq){
+	public Page<Agent> selectPage(AgentQueryReq queryReq) {
 		return agentService.selectPageList(queryReq);
 	}
 }

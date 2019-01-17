@@ -17,18 +17,17 @@ package ai.houyi.zhuque.commons.web;
 
 import java.io.Serializable;
 
-import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 
 /**
  * @author weiping wang
  */
-public interface IController<T, E, PK extends Serializable> {
+public interface IController<T, Query, PK extends Serializable> {
 	void saveOrUpdate(T t);
 
 	void deleteById(PK id);
 
 	T loadById(PK id);
 
-	Page<T> selectPage(PageQueryReq<E> queryReq);
+	Page<T> selectPage(Query queryReq);
 }

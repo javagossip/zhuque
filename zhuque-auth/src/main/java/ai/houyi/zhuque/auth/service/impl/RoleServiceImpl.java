@@ -22,9 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ai.houyi.zhuque.auth.service.RoleService;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.RoleQueryReq;
 import ai.houyi.zhuque.dao.RoleMapper;
 import ai.houyi.zhuque.dao.UserRoleMapper;
 import ai.houyi.zhuque.dao.model.Role;
@@ -76,12 +75,12 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<Role> selectByQueryReq(QueryReq<RoleExample> queryReq) {
+	public List<Role> selectByQueryReq(RoleQueryReq queryReq) {
 		return roleMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Role> selectPageList(PageQueryReq<RoleExample> queryReq) {
+	public Page<Role> selectPageList(RoleQueryReq queryReq) {
 		RoleExample example = queryReq.toExample();
 
 		int total = (int) roleMapper.countByExample(example);

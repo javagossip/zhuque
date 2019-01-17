@@ -20,5 +20,24 @@ package ai.houyi.zhuque.commons.model;
  * @author weiping wang
  */
 public abstract class QueryReq<E> {
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	protected Integer pageNo;
+	protected Integer pageSize;
+	
 	public abstract E toExample();
 }

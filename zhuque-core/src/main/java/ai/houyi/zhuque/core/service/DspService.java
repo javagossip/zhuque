@@ -18,14 +18,14 @@ package ai.houyi.zhuque.core.service;
 import java.util.List;
 
 import ai.houyi.zhuque.core.IService;
+import ai.houyi.zhuque.core.model.query.DspQueryReq;
 import ai.houyi.zhuque.dao.model.Dsp;
-import ai.houyi.zhuque.dao.model.DspExample;
 
 /**
  * @author weiping wang
  *
  */
-public interface DspService extends IService<Dsp, DspExample, Integer>{
+public interface DspService extends IService<Dsp, DspQueryReq, Integer>{
 
 	void updateStatus(int dspId, int status);
 

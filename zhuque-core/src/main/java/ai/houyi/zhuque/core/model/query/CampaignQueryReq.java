@@ -21,14 +21,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.CampaignExample;
 
 /**
  *
  * @author weiping wang
  */
-public class CampaignQueryReq extends PageQueryReq<CampaignExample> {
+public class CampaignQueryReq extends QueryReq<CampaignExample> {
 	private String name;
 	private List<Integer> advertiserIds;
 	private Integer status;
@@ -45,9 +45,9 @@ public class CampaignQueryReq extends PageQueryReq<CampaignExample> {
 		if (status != null)
 			criteria.andStatusEqualTo(status);
 
-		example.setOffset(getOffset());
-		example.setRows(pageSize);
-
+		if (pageNo != null && pageSize != null) {
+			example.page(pageNo, pageSize);
+		}
 		return example;
 	}
 

@@ -15,28 +15,30 @@
  */
 package ai.houyi.zhuque.core.model.query;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang3.StringUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
+import ai.houyi.zhuque.dao.model.ext.ExtAdGroupExample;
 
 /**
  *
  * @author weiping wang
  */
-public class AdGroupQueryReq extends PageQueryReq<AdGroupExample> {
+public class AdGroupQueryReq extends QueryReq<ExtAdGroupExample> {
+	private Integer id;
+	private String name;
 	private Integer advertiserId;
 	private Integer campaignId;
-	private Integer id;
-
-	private String camppaignName;
-	private String name;
 
 	@Override
-	public AdGroupExample toExample() {
-		AdGroupExample example = new AdGroupExample();
-		example.limit(getOffset(), pageSize);
+	public ExtAdGroupExample toExample() {
+		ExtAdGroupExample example = new ExtAdGroupExample();
+		example.setAdvertiserIds(Arrays.asList(advertiserId));
+		example.page(pageNo, pageSize);
 
 		AdGroupExample.Criteria criteria = example.createCriteria();
 		if (campaignId != null)
@@ -45,7 +47,7 @@ public class AdGroupQueryReq extends PageQueryReq<AdGroupExample> {
 			criteria.andIdEqualTo(id);
 		if (StringUtils.isNotBlank(name))
 			criteria.andNameLike(SQLUtils.toLikeString(name));
-		
+
 		return example;
 	}
 
@@ -75,22 +77,6 @@ public class AdGroupQueryReq extends PageQueryReq<AdGroupExample> {
 	 */
 	public void setCampaignId(Integer campaignId) {
 		this.campaignId = campaignId;
-	}
-
-	
-
-	/**
-	 * @return the camppaignName
-	 */
-	public String getCamppaignName() {
-		return camppaignName;
-	}
-
-	/**
-	 * @param camppaignName the camppaignName to set
-	 */
-	public void setCamppaignName(String camppaignName) {
-		this.camppaignName = camppaignName;
 	}
 
 	/**

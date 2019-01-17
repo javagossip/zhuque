@@ -25,9 +25,8 @@ import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
 import ai.houyi.zhuque.auth.service.UserService;
 import ai.houyi.zhuque.commons.exception.ZhuqueException;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.UserQueryReq;
 import ai.houyi.zhuque.dao.UserMapper;
 import ai.houyi.zhuque.dao.UserRoleMapper;
 import ai.houyi.zhuque.dao.model.User;
@@ -76,12 +75,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> selectByQueryReq(QueryReq<UserExample> queryReq) {
+	public List<User> selectByQueryReq(UserQueryReq queryReq) {
 		return userMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<User> selectPageList(PageQueryReq<UserExample> queryReq) {
+	public Page<User> selectPageList(UserQueryReq queryReq) {
 		UserExample example = queryReq.toExample();
 		int total = (int) userMapper.countByExample(example);
 		List<User> result = userMapper.selectByExample(example);

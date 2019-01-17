@@ -21,21 +21,20 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.AdGroupQueryReq;
 import ai.houyi.zhuque.core.service.AdGroupService;
 import ai.houyi.zhuque.dao.model.AdGroup;
-import ai.houyi.zhuque.dao.model.AdGroupExample;
 
 /**
- *
+ * 广告组管理
  * @author weiping wang
  */
 @Controller
-public class AdGroupController implements IController<AdGroup, AdGroupExample, Integer> {
+@Path("/adgroup")
+public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, Integer> {
 	@Autowired
 	private AdGroupService adGroupService;
 
@@ -63,11 +62,9 @@ public class AdGroupController implements IController<AdGroup, AdGroupExample, I
 
 	@POST
 	@Path("/list")
-	public Page<AdGroup> selectPage(PageQueryReq<AdGroupExample> queryReq) {
-		AdGroupQueryReq _queryReq = (AdGroupQueryReq) queryReq;
-		_queryReq.setAdvertiserId(AuthContext.currentUser().getId());
+	public Page<AdGroup> selectPage(AdGroupQueryReq queryReq) {
+		queryReq.setAdvertiserId(AuthContext.currentUser().getId());
 		
-		
-		return adGroupService.selectPageList(_queryReq);
+		return adGroupService.selectPageList(queryReq);
 	}
 }

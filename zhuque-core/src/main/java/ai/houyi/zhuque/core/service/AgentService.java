@@ -18,14 +18,14 @@ package ai.houyi.zhuque.core.service;
 import java.util.List;
 
 import ai.houyi.zhuque.core.IService;
+import ai.houyi.zhuque.core.model.query.AgentQueryReq;
 import ai.houyi.zhuque.dao.model.Agent;
-import ai.houyi.zhuque.dao.model.AgentExample;
 
 /**
  *
  * @author weiping wang
  */
-public interface AgentService extends IService<Agent, AgentExample, Integer> {
+public interface AgentService extends IService<Agent, AgentQueryReq, Integer> {
 
 	void updateStatus(int agentId, int i);
 

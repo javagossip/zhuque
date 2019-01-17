@@ -18,14 +18,14 @@ package ai.houyi.zhuque.core.service;
 import java.util.List;
 
 import ai.houyi.zhuque.core.IService;
+import ai.houyi.zhuque.core.model.query.AdvertiserQueryReq;
 import ai.houyi.zhuque.dao.model.Advertiser;
-import ai.houyi.zhuque.dao.model.AdvertiserExample;
 
 /**
  *
  * @author weiping wang
  */
-public interface AdvertiserService extends IService<Advertiser, AdvertiserExample, Integer> {
+public interface AdvertiserService extends IService<Advertiser, AdvertiserQueryReq, Integer> {
 
 	List<Advertiser> selectByName(String name);
 

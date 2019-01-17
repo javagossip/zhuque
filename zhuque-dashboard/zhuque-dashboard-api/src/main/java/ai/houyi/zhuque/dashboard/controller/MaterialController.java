@@ -19,12 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
+import ai.houyi.zhuque.core.model.query.MaterialQueryReq;
 import ai.houyi.zhuque.core.service.MaterialService;
 import ai.houyi.zhuque.dao.model.Material;
-import ai.houyi.zhuque.dao.model.MaterialExample;
 
 /**
  *
@@ -32,7 +31,7 @@ import ai.houyi.zhuque.dao.model.MaterialExample;
  */
 @Controller
 @Path("/material")
-public class MaterialController implements IController<Material, MaterialExample, Integer> {
+public class MaterialController implements IController<Material, MaterialQueryReq, Integer> {
 	@Autowired
 	private MaterialService materialService;
 	
@@ -56,7 +55,7 @@ public class MaterialController implements IController<Material, MaterialExample
 	}
 
 	@Override
-	public Page<Material> selectPage(PageQueryReq<MaterialExample> queryReq) {
+	public Page<Material> selectPage(MaterialQueryReq queryReq) {
 		return materialService.selectPageList(queryReq);
 	}
 

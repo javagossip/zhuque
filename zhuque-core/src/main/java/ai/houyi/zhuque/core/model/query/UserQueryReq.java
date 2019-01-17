@@ -18,14 +18,14 @@ package ai.houyi.zhuque.core.model.query;
 import org.apache.commons.lang3.StringUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.UserExample;
 
 /**
  * @author weiping wang
  *
  */
-public class UserQueryReq extends PageQueryReq<UserExample> {
+public class UserQueryReq extends QueryReq<UserExample> {
 	private String name;
 
 	public void setName(String name) {
@@ -35,12 +35,13 @@ public class UserQueryReq extends PageQueryReq<UserExample> {
 	@Override
 	public UserExample toExample() {
 		UserExample example = new UserExample();
-		example.setOffset(getOffset());
-		example.setRows(pageSize);
 
 		if (StringUtils.isNotBlank(name))
 			example.createCriteria().andNameLike(SQLUtils.toLikeString(name));
-		
+
+		if (pageNo != null && pageSize != null) {
+			example.page(pageNo, pageSize);
+		}
 		return example;
 	}
 }

@@ -20,9 +20,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.MaterialQueryReq;
 import ai.houyi.zhuque.core.service.MaterialService;
 import ai.houyi.zhuque.dao.MaterialMapper;
 import ai.houyi.zhuque.dao.model.Material;
@@ -68,12 +67,12 @@ public class MaterialServiceImpl implements MaterialService {
 	}
 
 	@Override
-	public List<Material> selectByQueryReq(QueryReq<MaterialExample> queryReq) {
+	public List<Material> selectByQueryReq(MaterialQueryReq queryReq) {
 		return materialMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Material> selectPageList(PageQueryReq<MaterialExample> queryReq) {
+	public Page<Material> selectPageList(MaterialQueryReq queryReq) {
 		MaterialExample example = queryReq.toExample();
 		
 		int total=(int) materialMapper.countByExample(example);

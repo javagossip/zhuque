@@ -21,9 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.AdvertiserQueryReq;
 import ai.houyi.zhuque.core.service.AdvertiserService;
 import ai.houyi.zhuque.dao.AdvertiserMapper;
 import ai.houyi.zhuque.dao.model.Advertiser;
@@ -76,12 +75,12 @@ public class AdvertiserServiceImpl implements AdvertiserService {
 	}
 
 	@Override
-	public List<Advertiser> selectByQueryReq(QueryReq<AdvertiserExample> queryReq) {
+	public List<Advertiser> selectByQueryReq(AdvertiserQueryReq queryReq) {
 		return advertiserMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Advertiser> selectPageList(PageQueryReq<AdvertiserExample> queryReq) {
+	public Page<Advertiser> selectPageList(AdvertiserQueryReq queryReq) {
 		int total = (int) advertiserMapper.countByExample(queryReq.toExample());
 		List<Advertiser> result = advertiserMapper.selectByExample(queryReq.toExample());
 

@@ -21,9 +21,8 @@ import org.springframework.stereotype.Service;
 
 import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.DspQueryReq;
 import ai.houyi.zhuque.core.service.DspService;
 import ai.houyi.zhuque.dao.DspMapper;
 import ai.houyi.zhuque.dao.model.Dsp;
@@ -62,13 +61,13 @@ public class DspServiceImpl implements DspService {
 	}
 
 	@Override
-	public List<Dsp> selectByQueryReq(QueryReq<DspExample> queryReq) {
+	public List<Dsp> selectByQueryReq(DspQueryReq queryReq) {
 		DspExample example = queryReq.toExample();
 		return dspMapper.selectByExample(example);
 	}
 
 	@Override
-	public Page<Dsp> selectPageList(PageQueryReq<DspExample> queryReq) {
+	public Page<Dsp> selectPageList(DspQueryReq queryReq) {
 		DspExample example = queryReq.toExample();
 		int total = (int) dspMapper.countByExample(example);
 		List<Dsp> dataList = dspMapper.selectByExample(example);

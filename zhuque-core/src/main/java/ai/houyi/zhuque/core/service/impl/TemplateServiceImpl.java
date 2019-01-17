@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 
 import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.TemplateQueryReq;
 import ai.houyi.zhuque.core.service.TemplateService;
 import ai.houyi.zhuque.dao.TemplateMapper;
 import ai.houyi.zhuque.dao.model.Template;
@@ -66,7 +65,7 @@ public class TemplateServiceImpl implements TemplateService{
 	}
 
 	@Override
-	public List<Template> selectByQueryReq(QueryReq<TemplateExample> queryReq) {
+	public List<Template> selectByQueryReq(TemplateQueryReq queryReq) {
 		// TODO 自动生成的方法存根
 		TemplateExample tem = queryReq.toExample();
 		return templateMapper.selectByExample(tem);
@@ -75,7 +74,7 @@ public class TemplateServiceImpl implements TemplateService{
 	}
 
 	@Override
-	public Page<Template> selectPageList(PageQueryReq<TemplateExample> queryReq) {
+	public Page<Template> selectPageList(TemplateQueryReq queryReq) {
 		// TODO 自动生成的方法存根
 		TemplateExample te = queryReq.toExample();
 		int in = (int) templateMapper.countByExample(te);

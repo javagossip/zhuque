@@ -18,14 +18,14 @@ package ai.houyi.zhuque.core.model.query;
 import org.apache.commons.lang3.StringUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.CreativeExample;
 
 /**
  *
  * @author weiping wang
  */
-public class CreativeQueryReq extends PageQueryReq<CreativeExample> {
+public class CreativeQueryReq extends QueryReq<CreativeExample> {
 	private Integer auditStatus;
 	private String name;
 	private Integer status;
@@ -34,8 +34,6 @@ public class CreativeQueryReq extends PageQueryReq<CreativeExample> {
 	@Override
 	public CreativeExample toExample() {
 		CreativeExample example = new CreativeExample();
-		example.setOffset(getOffset());
-		example.setRows(pageSize);
 
 		CreativeExample.Criteria criteria = example.createCriteria();
 		if (StringUtils.isNotBlank(name))
@@ -46,6 +44,10 @@ public class CreativeQueryReq extends PageQueryReq<CreativeExample> {
 			criteria.andAuditStatusEqualTo(auditStatus);
 		if (adGroupId != null)
 			criteria.andAdGroupIdEqualTo(adGroupId);
+
+		if (pageNo != null && pageSize != null) {
+			example.page(pageNo, pageSize);
+		}
 		return example;
 	}
 

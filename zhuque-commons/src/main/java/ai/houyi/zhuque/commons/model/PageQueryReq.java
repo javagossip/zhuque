@@ -15,13 +15,15 @@
  */
 package ai.houyi.zhuque.commons.model;
 
+import ai.houyi.zhuque.commons.Constants;
+
 /**
  *
  * @author weiping wang
  */
 public abstract class PageQueryReq<E> extends QueryReq<E> {
-	protected Integer pageNo;
-	protected Integer pageSize;
+	protected Integer pageNo=1;
+	protected Integer pageSize=Constants.DEFAULT_PAGE_SIZE;
 
 	/**
 	 * @return the pageNo

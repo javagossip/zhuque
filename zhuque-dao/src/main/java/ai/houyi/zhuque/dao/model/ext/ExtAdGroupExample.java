@@ -13,30 +13,24 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core;
+package ai.houyi.zhuque.dao.model.ext;
 
-import java.io.Serializable;
 import java.util.List;
 
-import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.dao.model.AdGroupExample;
 
 /**
  * @author weiping wang
+ *
  */
-public interface IService<T, Q, PK extends Serializable> {
-	void save(T t);
+public class ExtAdGroupExample extends AdGroupExample {
+	private List<Integer> advertiserIds;
 
-	void update(T t);
+	public List<Integer> getAdvertiserIds() {
+		return advertiserIds;
+	}
 
-	void deleteById(PK pk);
-	
-	void softDeleteById(PK pk);
-
-	T loadById(PK pk);
-
-	List<T> selectAll();
-
-	List<T> selectByQueryReq(Q query);
-
-	Page<T> selectPageList(Q query);
+	public void setAdvertiserIds(List<Integer> advertiserIds) {
+		this.advertiserIds = advertiserIds;
+	}
 }

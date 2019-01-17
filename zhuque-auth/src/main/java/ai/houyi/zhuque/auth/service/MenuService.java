@@ -16,13 +16,13 @@
 package ai.houyi.zhuque.auth.service;
 
 import ai.houyi.zhuque.core.IService;
+import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.model.Menu;
-import ai.houyi.zhuque.dao.model.MenuExample;
 
 /**
  * @author weiping wang
  *
  */
-public interface MenuService extends IService<Menu, MenuExample, Integer> {
+public interface MenuService extends IService<Menu, MenuQueryReq, Integer> {
 
 }

@@ -18,14 +18,14 @@ package ai.houyi.zhuque.core.model.query;
 import org.apache.commons.lang3.StringUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
-import ai.houyi.zhuque.commons.model.PageQueryReq;
+import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.AdvertiserExample;
 
 /**
  *
  * @author weiping wang
  */
-public class AdvertiserQueryReq extends PageQueryReq<AdvertiserExample> {
+public class AdvertiserQueryReq extends QueryReq<AdvertiserExample> {
 	private String name;
 	private Integer id;
 	private Integer status;
@@ -45,10 +45,28 @@ public class AdvertiserQueryReq extends PageQueryReq<AdvertiserExample> {
 		if (agentId != null)
 			criteria.andAgentIdEqualTo(agentId);
 		
-		example.setOffset(getOffset());
-		example.setRows(pageSize);
-		
+		example.page(pageNo, pageSize);
 		return example;
+	}
+
+	public Integer getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(Integer agentId) {
+		this.agentId = agentId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Integer getStatus() {
+		return status;
 	}
 
 	/**

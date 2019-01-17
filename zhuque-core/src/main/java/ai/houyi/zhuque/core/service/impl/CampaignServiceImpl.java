@@ -20,9 +20,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.model.query.CampaignQueryReq;
 import ai.houyi.zhuque.core.service.CampaignService;
 import ai.houyi.zhuque.dao.CampaignMapper;
 import ai.houyi.zhuque.dao.model.Campaign;
@@ -72,12 +71,12 @@ public class CampaignServiceImpl implements CampaignService {
 	}
 
 	@Override
-	public List<Campaign> selectByQueryReq(QueryReq<CampaignExample> queryReq) {
+	public List<Campaign> selectByQueryReq(CampaignQueryReq queryReq) {
 		return campaignMapper.selectByExample(queryReq.toExample());
 	}
 
 	@Override
-	public Page<Campaign> selectPageList(PageQueryReq<CampaignExample> queryReq) {
+	public Page<Campaign> selectPageList(CampaignQueryReq queryReq) {
 		CampaignExample example = queryReq.toExample();
 
 		int total = (int) campaignMapper.countByExample(example);

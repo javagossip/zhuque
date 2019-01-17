@@ -16,12 +16,12 @@
 package ai.houyi.zhuque.core.service;
 
 import ai.houyi.zhuque.core.IService;
+import ai.houyi.zhuque.core.model.query.CampaignQueryReq;
 import ai.houyi.zhuque.dao.model.Campaign;
-import ai.houyi.zhuque.dao.model.CampaignExample;
 
 /**
  *
  * @author weiping wang
  */
-public interface CampaignService extends IService<Campaign, CampaignExample, Integer> {
+public interface CampaignService extends IService<Campaign, CampaignQueryReq, Integer> {
 }

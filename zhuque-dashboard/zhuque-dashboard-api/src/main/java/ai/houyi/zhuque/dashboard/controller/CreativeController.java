@@ -22,6 +22,7 @@ import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.CreativeQueryReq;
 import ai.houyi.zhuque.core.service.CreativeService;
 import ai.houyi.zhuque.dao.model.Creative;
@@ -32,7 +33,7 @@ import ai.houyi.zhuque.dao.model.Creative;
  */
 @Controller
 @Path("/creative")
-public class CreativeController {
+public class CreativeController implements IController<Creative,CreativeQueryReq,Integer>{
 	@Autowired
 	private CreativeService creativeService;
 
@@ -47,13 +48,13 @@ public class CreativeController {
 
 	@POST
 	@Path("/delete/{creativeId}")
-	public void deleteById(int creativeId) {
+	public void deleteById(Integer creativeId) {
 		creativeService.deleteById(creativeId);
 	}
 
 	@GET
 	@Path("/{creativeId}")
-	public Creative loadById(int creativeId) {
+	public Creative loadById(Integer creativeId) {
 		return creativeService.loadById(creativeId);
 	}
 	
