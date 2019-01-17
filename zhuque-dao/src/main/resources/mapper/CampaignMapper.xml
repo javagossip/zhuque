@@ -329,4 +329,9 @@
       )
     </foreach>
   </insert>
+  
+  <!-- 自定义sql -->
+  <select id="selectAllCampaignIdsByName" resultType="java.lang.Integer">
+  select id from campaign where name like '%${name}%'
+  </select>
 </mapper>

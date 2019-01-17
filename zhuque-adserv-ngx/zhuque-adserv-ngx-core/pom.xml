@@ -8,4 +8,15 @@
   <artifactId>zhuque-adserv-ngx-core</artifactId>
   <name>zhuque-adserv-ngx-core</name>
   <description>zhuque-adserv-ngx-core</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>ai.houyi</groupId>
+  		<artifactId>zhuque-adserv-ngx-proto</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.f2time.albatross</groupId>
+  		<artifactId>albatross-rpc</artifactId>
+  	</dependency>
+  </dependencies>
 </project>

@@ -102,3 +102,7 @@ message BiddingRsp {
     optional string id=1;
     repeated Ad ad = 2;
 }
+
+service BiddingService {
+    rpc Search( BiddingReq ) returns ( BiddingRsp );
+}

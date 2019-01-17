@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ai.houyi.zhuque.auth.service.MenuService;
+import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.PageQueryReq;
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
@@ -53,6 +54,7 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public void softDeleteById(Integer pk) {
+		ExceptionUtils.throwZhuqueException("unsupport soft delete op for Menu");
 	}
 
 	@Override

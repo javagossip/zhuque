@@ -54,4 +54,6 @@ public interface CampaignMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int batchInsertSelective(@Param("list") List<Campaign> list, @Param("selective") Campaign.Column ... selective);
+
+	List<Integer> selectAllCampaignIdsByName(String campaignName);
 }

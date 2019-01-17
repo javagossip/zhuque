@@ -11479,6 +11479,238 @@ public final class BiddingProto {
 
   }
 
+  /**
+   * Protobuf service {@code ai.houyi.adserv.ngx.proto.BiddingService}
+   */
+  public static abstract class BiddingService
+      implements com.google.protobuf.Service {
+    protected BiddingService() {}
+
+    public interface Interface {
+      /**
+       * <code>rpc Search(.ai.houyi.adserv.ngx.proto.BiddingReq) returns (.ai.houyi.adserv.ngx.proto.BiddingRsp);</code>
+       */
+      public abstract void search(
+          com.google.protobuf.RpcController controller,
+          ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq request,
+          com.google.protobuf.RpcCallback<ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp> done);
+
+    }
+
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new BiddingService() {
+        @java.lang.Override
+        public  void search(
+            com.google.protobuf.RpcController controller,
+            ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq request,
+            com.google.protobuf.RpcCallback<ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp> done) {
+          impl.search(controller, request, done);
+        }
+
+      };
+    }
+
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.search(controller, (ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+
+      };
+    }
+
+    /**
+     * <code>rpc Search(.ai.houyi.adserv.ngx.proto.BiddingReq) returns (.ai.houyi.adserv.ngx.proto.BiddingRsp);</code>
+     */
+    public abstract void search(
+        com.google.protobuf.RpcController controller,
+        ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq request,
+        com.google.protobuf.RpcCallback<ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp> done);
+
+    public static final
+        com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptor() {
+      return ai.houyi.adserv.ngx.proto.BiddingProto.getDescriptor().getServices().get(0);
+    }
+    public final com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+
+    public final void callMethod(
+        com.google.protobuf.Descriptors.MethodDescriptor method,
+        com.google.protobuf.RpcController controller,
+        com.google.protobuf.Message request,
+        com.google.protobuf.RpcCallback<
+          com.google.protobuf.Message> done) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.callMethod() given method descriptor for wrong " +
+          "service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          this.search(controller, (ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq)request,
+            com.google.protobuf.RpcUtil.<ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp>specializeCallback(
+              done));
+          return;
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+
+    public final com.google.protobuf.Message
+        getRequestPrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getRequestPrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+
+    public final com.google.protobuf.Message
+        getResponsePrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getResponsePrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+
+    public static Stub newStub(
+        com.google.protobuf.RpcChannel channel) {
+      return new Stub(channel);
+    }
+
+    public static final class Stub extends ai.houyi.adserv.ngx.proto.BiddingProto.BiddingService implements Interface {
+      private Stub(com.google.protobuf.RpcChannel channel) {
+        this.channel = channel;
+      }
+
+      private final com.google.protobuf.RpcChannel channel;
+
+      public com.google.protobuf.RpcChannel getChannel() {
+        return channel;
+      }
+
+      public  void search(
+          com.google.protobuf.RpcController controller,
+          ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq request,
+          com.google.protobuf.RpcCallback<ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp.class,
+            ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp.getDefaultInstance()));
+      }
+    }
+
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+
+    public interface BlockingInterface {
+      public ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp search(
+          com.google.protobuf.RpcController controller,
+          ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq request)
+          throws com.google.protobuf.ServiceException;
+    }
+
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+
+      private final com.google.protobuf.BlockingRpcChannel channel;
+
+      public ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp search(
+          com.google.protobuf.RpcController controller,
+          ai.houyi.adserv.ngx.proto.BiddingProto.BiddingReq request)
+          throws com.google.protobuf.ServiceException {
+        return (ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          ai.houyi.adserv.ngx.proto.BiddingProto.BiddingRsp.getDefaultInstance());
+      }
+
+    }
+
+    // @@protoc_insertion_point(class_scope:ai.houyi.adserv.ngx.proto.BiddingService)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ai_houyi_adserv_ngx_proto_PosInfo_descriptor;
   private static final 
@@ -11562,7 +11794,10 @@ public final class BiddingProto {
       "x.proto.PosInfo\0225\n\010userInfo\030\003 \001(\0132#.ai.h" +
       "ouyi.adserv.ngx.proto.UserInfo\"C\n\nBiddin" +
       "gRsp\022\n\n\002id\030\001 \001(\t\022)\n\002ad\030\002 \003(\0132\035.ai.houyi." +
-      "adserv.ngx.proto.AdB\023B\014BiddingProtoH\001\210\001\001"
+      "adserv.ngx.proto.Ad2h\n\016BiddingService\022V\n" +
+      "\006Search\022%.ai.houyi.adserv.ngx.proto.Bidd" +
+      "ingReq\032%.ai.houyi.adserv.ngx.proto.Biddi" +
+      "ngRspB\023B\014BiddingProtoH\001\210\001\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

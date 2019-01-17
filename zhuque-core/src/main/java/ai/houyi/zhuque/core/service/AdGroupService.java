@@ -13,32 +13,19 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core;
+package ai.houyi.zhuque.core.service;
 
-import java.io.Serializable;
-import java.util.List;
-
-import ai.houyi.zhuque.commons.model.PageQueryReq;
-import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.core.BaseService;
+import ai.houyi.zhuque.dao.model.AdGroup;
+import ai.houyi.zhuque.dao.model.AdGroupExample;
 
 /**
+ *
  * @author weiping wang
  */
-public interface BaseService<T, E, PK extends Serializable> {
-	void save(T t);
-
-	void update(T t);
-
-	void deleteById(PK pk);
+public interface AdGroupService extends BaseService<AdGroup, AdGroupExample, Integer> {
+	Page<AdGroup> selectPageListByCampaignId(Integer campaignId);
 	
-	void softDeleteById(PK pk);
-
-	T loadById(PK pk);
-
-	List<T> selectAll();
-
-	List<T> selectByQueryReq(QueryReq<E> queryReq);
-
-	Page<T> selectPageList(PageQueryReq<E> queryReq);
+	Page<AdGroup> selectPageListByAdvertiserId(Integer advertiserId);
 }
