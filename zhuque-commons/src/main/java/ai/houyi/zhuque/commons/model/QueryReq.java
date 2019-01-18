@@ -15,11 +15,14 @@
  */
 package ai.houyi.zhuque.commons.model;
 
+import ai.houyi.zhuque.commons.Constants;
+
 /**
  *
  * @author weiping wang
  */
 public abstract class QueryReq<E> {
+
 	public Integer getPageNo() {
 		return pageNo;
 	}
@@ -38,6 +41,14 @@ public abstract class QueryReq<E> {
 
 	protected Integer pageNo;
 	protected Integer pageSize;
-	
+
+	public void initPageInfoIfNeed() {
+		if (pageNo == null)
+			pageNo = Constants.INIT_PAGE_NO;
+		if (pageSize == null)
+			pageSize = Constants.DEFAULT_PAGE_SIZE;
+
+	}
+
 	public abstract E toExample();
 }

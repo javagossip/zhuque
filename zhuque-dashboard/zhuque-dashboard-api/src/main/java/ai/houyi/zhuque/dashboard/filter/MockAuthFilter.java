@@ -29,7 +29,7 @@ import ai.houyi.zhuque.dao.model.User;
 /**
  * @author weiping wang
  */
-@FilterPath(exclude="/auth/*",include="/**")
+@FilterPath(exclude="/auth/*")
 public class MockAuthFilter implements Filter {
 	private static final Logger LOG = LoggerFactory.getLogger(MockAuthFilter.class);
 	@Override

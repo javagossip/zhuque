@@ -30,6 +30,7 @@ import ai.houyi.zhuque.dao.model.AdGroup;
 
 /**
  * 广告组管理
+ * 
  * @author weiping wang
  */
 @Controller
@@ -63,8 +64,9 @@ public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, 
 	@POST
 	@Path("/list")
 	public Page<AdGroup> selectPage(AdGroupQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
 		queryReq.setAdvertiserId(AuthContext.currentUser().getId());
-		
+
 		return adGroupService.selectPageList(queryReq);
 	}
 }
