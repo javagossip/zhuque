@@ -43,6 +43,10 @@ public class AgentQueryReq extends QueryReq<AgentExample> {
 		return example;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	/**
 	 * @param name the name to set
 	 */

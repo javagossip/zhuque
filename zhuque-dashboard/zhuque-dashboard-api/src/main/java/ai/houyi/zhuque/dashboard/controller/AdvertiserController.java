@@ -76,7 +76,7 @@ public class AdvertiserController implements IController<Advertiser, AdvertiserQ
 	}
 
 	@GET
-	@Path("/listByName")
+	@Path("/list/name/{name}")
 	public List<Advertiser> selectByName(String name) {
 		return advertiserService.selectByName(name);
 	}
