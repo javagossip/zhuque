@@ -23,14 +23,12 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.dorado.rest.annotation.RequestParam;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.AgentQueryReq;
 import ai.houyi.zhuque.core.service.AgentService;
 import ai.houyi.zhuque.dao.model.Agent;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 /**
  *
@@ -45,7 +43,6 @@ public class AgentController implements IController<Agent, AgentQueryReq, Intege
 
 	@POST
 	@Path
-	@ApiOperation("新建/更新代理商")
 	public void saveOrUpdate(Agent agent) {
 		if (agent.getId() == null) {
 			agentService.save(agent);
@@ -56,7 +53,6 @@ public class AgentController implements IController<Agent, AgentQueryReq, Intege
 
 	@POST
 	@Path("/{agentId}")
-	@ApiOperation("删除代理商")
 	public void deleteById(Integer agentId) {
 		agentService.softDeleteById(agentId);
 	}
@@ -81,7 +77,7 @@ public class AgentController implements IController<Agent, AgentQueryReq, Intege
 
 	@GET
 	@Path("/list/{name}")
-	public List<Agent> selectByName(@RequestParam String name) {
+	public List<Agent> selectByName(String name) {
 		return agentService.selectByName(name);
 	}
 

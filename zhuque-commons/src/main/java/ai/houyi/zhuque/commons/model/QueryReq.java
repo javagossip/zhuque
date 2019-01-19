@@ -44,7 +44,7 @@ public abstract class QueryReq<E> {
 
 	public void initPageInfoIfNeed() {
 		if (pageNo == null)
-			pageNo = Constants.INIT_PAGE_NO;
+			pageNo = Constants.INIT_PAGE_NO-1;
 		if (pageSize == null)
 			pageSize = Constants.DEFAULT_PAGE_SIZE;
 
