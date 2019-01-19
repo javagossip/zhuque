@@ -20,6 +20,8 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
@@ -27,18 +29,21 @@ import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.CampaignQueryReq;
 import ai.houyi.zhuque.core.service.CampaignService;
 import ai.houyi.zhuque.dao.model.Campaign;
+import io.swagger.annotations.Api;
 
 /**
  *
  * @author weiping wang
  */
 @Controller
-@Path("/campaign")
+@Path("/campaigns")
+@Api(tags="推广活动/计划管理")
 public class CampaignController implements IController<Campaign, CampaignQueryReq, Integer> {
 	@Autowired
 	private CampaignService campaignService;
 
-	@Override
+	@POST
+	@Path
 	public void saveOrUpdate(Campaign t) {
 		t.setAdvertiserId(AuthContext.currentUser().getId());
 		if (t.getId() == null) {
@@ -48,17 +53,20 @@ public class CampaignController implements IController<Campaign, CampaignQueryRe
 		}
 	}
 
-	@Override
+	@POST
+	@Path("/{id:[0-9]+}")
 	public void deleteById(Integer id) {
 		campaignService.softDeleteById(id);
 	}
 
-	@Override
+	@GET
+	@Path("/{id:[0-9]+}")
 	public Campaign loadById(Integer id) {
 		return campaignService.loadById(id);
 	}
 
-	@Override
+	@POST
+	@Path("/list")
 	public Page<Campaign> selectPage(CampaignQueryReq queryReq) {
 		queryReq.initPageInfoIfNeed();
 		queryReq.setAdvertiserIds(Arrays.asList(AuthContext.currentUser().getId()));

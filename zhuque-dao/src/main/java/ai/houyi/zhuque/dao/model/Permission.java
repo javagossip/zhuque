@@ -3,6 +3,7 @@ package ai.houyi.zhuque.dao.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Permission {
     private Integer id;
@@ -22,12 +23,22 @@ public class Permission {
     private Date createTime;
 
     private Date updateTime;
+    
+    private List<Permission> children;
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public List<Permission> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Permission> children) {
+		this.children = children;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

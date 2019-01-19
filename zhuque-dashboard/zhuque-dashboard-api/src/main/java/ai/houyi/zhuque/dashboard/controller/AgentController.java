@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
  * @author weiping wang
  */
 @Controller
-@Path("/agent")
+@Path("/agents")
 @Api(tags= {"代理商管理api"})
 public class AgentController implements IController<Agent, AgentQueryReq, Integer> {
 	@Autowired
@@ -62,13 +62,13 @@ public class AgentController implements IController<Agent, AgentQueryReq, Intege
 	}
 
 	@POST
-	@Path("/on/{agentId}")
+	@Path("/{agentId}/on")
 	public void agentOn(int agentId) {
 		agentService.updateStatus(agentId, 1);
 	}
 
 	@POST
-	@Path("/off/{agentId}")
+	@Path("/{agentId}/off")
 	public void agentOff(int agentId) {
 		agentService.updateStatus(agentId, 0);
 	}
@@ -80,7 +80,7 @@ public class AgentController implements IController<Agent, AgentQueryReq, Intege
 	}
 
 	@GET
-	@Path("/name")
+	@Path("/list/{name}")
 	public List<Agent> selectByName(@RequestParam String name) {
 		return agentService.selectByName(name);
 	}

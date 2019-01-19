@@ -32,7 +32,7 @@ import ai.houyi.zhuque.dao.model.Creative;
  * @author weiping wang
  */
 @Controller
-@Path("/creative")
+@Path("/creatives")
 public class CreativeController implements IController<Creative,CreativeQueryReq,Integer>{
 	@Autowired
 	private CreativeService creativeService;
@@ -47,7 +47,7 @@ public class CreativeController implements IController<Creative,CreativeQueryReq
 	}
 
 	@POST
-	@Path("/delete/{creativeId}")
+	@Path("/{creativeId}")
 	public void deleteById(Integer creativeId) {
 		creativeService.deleteById(creativeId);
 	}

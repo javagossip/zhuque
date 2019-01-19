@@ -34,7 +34,7 @@ import ai.houyi.zhuque.dao.model.AdGroup;
  * @author weiping wang
  */
 @Controller
-@Path("/adgroup")
+@Path("/adgroups")
 public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, Integer> {
 	@Autowired
 	private AdGroupService adGroupService;
@@ -50,7 +50,7 @@ public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, 
 	}
 
 	@POST
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	public void deleteById(Integer id) {
 		adGroupService.softDeleteById(id);
 	}

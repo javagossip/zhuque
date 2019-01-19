@@ -29,6 +29,7 @@ import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.AdvertiserQueryReq;
 import ai.houyi.zhuque.core.service.AdvertiserService;
 import ai.houyi.zhuque.dao.model.Advertiser;
+import io.swagger.annotations.Api;
 
 /**
  * 广告主管理
@@ -36,7 +37,8 @@ import ai.houyi.zhuque.dao.model.Advertiser;
  * @author weiping wang
  */
 @Controller
-@Path("/advertiser")
+@Path("/advertisers")
+@Api(tags="广告主管理")
 public class AdvertiserController implements IController<Advertiser, AdvertiserQueryReq, Integer> {
 	@Autowired
 	private AdvertiserService advertiserService;
@@ -52,19 +54,19 @@ public class AdvertiserController implements IController<Advertiser, AdvertiserQ
 	}
 
 	@POST
-	@Path("/delete/{advertiserId}")
+	@Path("/{advertiserId}")
 	public void deleteById(Integer advertiserId) {
 		advertiserService.softDeleteById(advertiserId);
 	}
 
 	@POST
-	@Path("/on/{advertiserId}")
+	@Path("/{advertiserId}/on")
 	public void on(Integer advertiserId) {
 		advertiserService.updateStatus(advertiserId, 1);
 	}
 
 	@POST
-	@Path("/off/{advertiserId}")
+	@Path("/{advertiserId}/off")
 	public void off(Integer advertiserId) {
 		advertiserService.updateStatus(advertiserId, 0);
 	}
@@ -76,7 +78,7 @@ public class AdvertiserController implements IController<Advertiser, AdvertiserQ
 	}
 
 	@GET
-	@Path("/list/name/{name}")
+	@Path("/list/{name}")
 	public List<Advertiser> selectByName(String name) {
 		return advertiserService.selectByName(name);
 	}

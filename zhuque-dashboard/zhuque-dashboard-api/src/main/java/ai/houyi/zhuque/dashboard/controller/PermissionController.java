@@ -25,64 +25,52 @@ import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
-import ai.houyi.zhuque.core.model.query.DspQueryReq;
-import ai.houyi.zhuque.core.service.DspService;
-import ai.houyi.zhuque.dao.model.Dsp;
+import ai.houyi.zhuque.core.model.query.PermissionQueryReq;
+import ai.houyi.zhuque.core.service.PermissionService;
+import ai.houyi.zhuque.dao.model.Permission;
+import io.swagger.annotations.Api;
 
 /**
  * @author weiping wang
  */
 @Controller
-@Path("/dsps")
-public class DspController implements IController<Dsp, DspQueryReq, Integer>{
-
+@Path("/permissions")
+@Api(tags="权限管理")
+public class PermissionController implements IController<Permission, PermissionQueryReq, Integer> {
 	@Autowired
-	private DspService dspService;
-
+	private PermissionService permissionService;
+	
 	@POST
 	@Path
-	public void saveOrUpdate(Dsp dsp) {
-		if (dsp.getId() == null) {
-			dspService.save(dsp);
-		} else {
-			dspService.update(dsp);
+	public void saveOrUpdate(Permission t) {
+		if(t.getId()==null) {
+			permissionService.save(t);
+		}else {
+			permissionService.update(t);
 		}
 	}
 
 	@POST
-	@Path("/{dspId:[0-9]+}")
-	public void deleteById(Integer dspId) {
-		dspService.softDeleteById(dspId);
-	}
-
-	@POST
-	@Path("/{dspId}/on")
-	public void dspOn(int dspId) {
-		dspService.updateStatus(dspId, 1);
-	}
-
-	@POST
-	@Path("/{dspId}/off")
-	public void dspOff(int dspId) {
-		dspService.updateStatus(dspId, 0);
+	@Path("/{id}")
+	public void deleteById(Integer id) {
+		permissionService.deleteById(id);
 	}
 
 	@GET
-	@Path("/{dspId:[0-9]+}")
-	public Dsp loadById(Integer dspId) {
-		return dspService.loadById(dspId);
+	@Path("/{id}")
+	public Permission loadById(Integer id) {
+		return permissionService.loadById(id);
 	}
 
 	@GET
-	@Path("/{name}")
-	public List<Dsp> selectByName(String name) {
-		return dspService.selectByName(name);
+	@Path
+	public List<Permission> permissionTree(){
+		return permissionService.selectPermissionsAsTree();
 	}
-
-	@POST
-	@Path("/list")
-	public Page<Dsp> selectPage(DspQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
-		return dspService.selectPageList(queryReq);
+	
+	@Override
+	public Page<Permission> selectPage(PermissionQueryReq queryReq) {
+		//DO NOTHING
+		return null;
 	}
 }
