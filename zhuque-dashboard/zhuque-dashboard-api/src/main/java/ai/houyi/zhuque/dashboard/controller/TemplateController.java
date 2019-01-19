@@ -23,7 +23,9 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.dorado.rest.annotation.PathVariable;
+import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.web.IController;
+import ai.houyi.zhuque.core.model.query.TemplateQueryReq;
 import ai.houyi.zhuque.core.service.TemplateService;
 import ai.houyi.zhuque.dao.model.Template;
 
@@ -33,45 +35,49 @@ import ai.houyi.zhuque.dao.model.Template;
  */
 @Controller
 @Path("/template")
-public class TemplateController {
+public class TemplateController implements IController<Template, TemplateQueryReq, Integer> {
 	@Autowired
 	private TemplateService templateService;
-	
+
 	@POST
 	@Path
-	public void saveOrupdateTemplate(Template template) {
-		if(template.getId() != null) {
+	public void saveOrUpdate(Template template) {
+		if (template.getId() != null) {
 			templateService.save(template);
+		} else {
+			templateService.update(template);
 		}
-		else {templateService.update(template);
-		}	
 	}
-	
+
 	@POST
 	@Path("/delete/{templateId}")
-	public void deleteById(int templateId) {
+	public void deleteById(Integer templateId) {
 		templateService.softDeleteById(templateId);
 	}
-	
+
 	@POST
 	@Path("/list")
 	public void selectAll() {
-		templateService.selectAll();	
+		templateService.selectAll();
 	}
-	
+
 	@GET
-	@Path("/{id}")
-	///template/123
-	public Template loadById(@PathVariable("id") Integer templateId) {
-		return templateService.loadById(templateId);	
+	@Path("/{templateId}")
+	public Template loadById(Integer templateId) {
+		return templateService.loadById(templateId);
 	}
-	
+
 	@GET
 	@Path("/listByName")
-	public List<Template> selectByName(String name){
+	public List<Template> selectByName(String name) {
 		return templateService.selectByName(name);
-		
 	}
-	
-	
+
+	@POST
+	@Path("/list")
+	public Page<Template> selectPage(TemplateQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
+		return templateService.selectPageList(queryReq);
+	}
+
 }

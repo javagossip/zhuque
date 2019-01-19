@@ -61,6 +61,7 @@ public class CreativeController implements IController<Creative,CreativeQueryReq
 	@POST
 	@Path("/list")
 	public Page<Creative> selectPage(CreativeQueryReq queryReq){
+		queryReq.initPageInfoIfNeed();
 		return creativeService.selectPageList(queryReq);
 	}
 }

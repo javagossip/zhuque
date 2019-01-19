@@ -60,6 +60,7 @@ public class CampaignController implements IController<Campaign, CampaignQueryRe
 
 	@Override
 	public Page<Campaign> selectPage(CampaignQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
 		queryReq.setAdvertiserIds(Arrays.asList(AuthContext.currentUser().getId()));
 		return campaignService.selectPageList(queryReq);
 	}

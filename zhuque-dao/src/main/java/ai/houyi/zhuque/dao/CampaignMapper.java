@@ -56,4 +56,6 @@ public interface CampaignMapper {
     int batchInsertSelective(@Param("list") List<Campaign> list, @Param("selective") Campaign.Column ... selective);
 
 	List<Integer> selectAllCampaignIdsByName(String campaignName);
+
+	List<Integer> selectAllCampaignIdByAdvertiserId(Integer advertiserId);
 }

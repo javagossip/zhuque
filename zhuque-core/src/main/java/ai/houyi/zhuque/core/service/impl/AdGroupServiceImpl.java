@@ -90,8 +90,15 @@ public class AdGroupServiceImpl implements AdGroupService {
 	public Page<AdGroup> selectPageList(AdGroupQueryReq queryReq) {
 		ExtAdGroupExample example = queryReq.toExample();
 		int total = adGroupMapper.countByExtExample(example);
-		List<AdGroup> result = adGroupMapper.selectByExtExample(example);
 
+		Integer advertiserId = queryReq.getAdvertiserId();
+		if (advertiserId != null && !example.getOredCriteria().isEmpty()) {
+			List<Integer> campaignIdList = campaignMapper.selectAllCampaignIdByAdvertiserId(advertiserId);
+			if (!CollectionUtils.isEmpty(campaignIdList))
+				example.getOredCriteria().get(0).andCampaignIdIn(campaignIdList);
+		}
+
+		List<AdGroup> result = adGroupMapper.selectByExtExample(example);
 		return Page.create(total, queryReq.getPageSize(), result);
 	}
 

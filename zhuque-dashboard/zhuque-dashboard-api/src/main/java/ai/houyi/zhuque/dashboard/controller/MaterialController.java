@@ -34,12 +34,12 @@ import ai.houyi.zhuque.dao.model.Material;
 public class MaterialController implements IController<Material, MaterialQueryReq, Integer> {
 	@Autowired
 	private MaterialService materialService;
-	
+
 	@Override
 	public void saveOrUpdate(Material t) {
-		if(t.getId()==null) {
+		if (t.getId() == null) {
 			materialService.save(t);
-		}else {
+		} else {
 			materialService.update(t);
 		}
 	}
@@ -56,6 +56,7 @@ public class MaterialController implements IController<Material, MaterialQueryRe
 
 	@Override
 	public Page<Material> selectPage(MaterialQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
 		return materialService.selectPageList(queryReq);
 	}
 

@@ -32,6 +32,7 @@ import ai.houyi.zhuque.dao.model.Advertiser;
 
 /**
  * 广告主管理
+ * 
  * @author weiping wang
  */
 @Controller
@@ -83,6 +84,7 @@ public class AdvertiserController implements IController<Advertiser, AdvertiserQ
 	@POST
 	@Path("/list")
 	public Page<Advertiser> selectPage(AdvertiserQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
 		queryReq.setAgentId(AuthContext.currentUser().getId());
 		return advertiserService.selectPageList(queryReq);
 	}

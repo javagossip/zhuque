@@ -23,7 +23,6 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
-import ai.houyi.dorado.rest.annotation.RequestBody;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.DspQueryReq;
 import ai.houyi.zhuque.core.service.DspService;
@@ -72,16 +71,17 @@ public class DspController {
 	public Dsp loadById(int dspId) {
 		return dspService.loadById(dspId);
 	}
-	
+
 	@GET
 	@Path("/listByName")
-	public List<Dsp> selectByName(String name){
+	public List<Dsp> selectByName(String name) {
 		return dspService.selectByName(name);
 	}
-	
+
 	@POST
 	@Path("/list")
-	public Page<Dsp> selectPage(@RequestBody DspQueryReq queryReq){
+	public Page<Dsp> selectPage(DspQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
 		return dspService.selectPageList(queryReq);
 	}
 }
