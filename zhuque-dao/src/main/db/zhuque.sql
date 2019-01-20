@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2019-01-17 00:57:19
+Date: 2019-01-20 21:43:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,6 +60,7 @@ CREATE TABLE `ad_group` (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT NULL,
   `ad_position_id` int(11) DEFAULT NULL COMMENT '广告位id',
+  `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告组(系列),广告投放定向设定';
 
@@ -204,15 +205,16 @@ CREATE TABLE `agent` (
   `bid_weight` double DEFAULT NULL COMMENT '出价系数',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT NULL,
-  `status` int(4) DEFAULT NULL COMMENT '代理商状态,0-无效、1-有效、2-余额不足',
+  `status` int(4) unsigned DEFAULT '1' COMMENT '代理商状态,0-无效、1-有效、2-余额不足',
   `deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除,0-正常,1-删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='代理商';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='代理商';
 
 -- ----------------------------
 -- Records of agent
 -- ----------------------------
 INSERT INTO `agent` VALUES ('1', 'wwp_测试代理商', 'http://icon.com/logo.jpg', 'wangweiping', '北京市朝阳区', '13621088515', '100', '0.2', '2', null, '2019-01-16 22:38:41', null, '1', '0');
+INSERT INTO `agent` VALUES ('2', '代理商测试02-test', 'http://www.agent.logo', '李毅', '北京市昌平区', '13621088515', '68', '0.5', '1', '0.7', '2019-01-19 13:20:30', null, null, '0');
 
 -- ----------------------------
 -- Table structure for agent_bill
@@ -338,7 +340,7 @@ CREATE TABLE `material` (
   `type` int(11) DEFAULT NULL COMMENT '素材类型, 1-图片，2-视频，3-音频',
   `url` varchar(255) DEFAULT NULL COMMENT '素材url',
   `tags` varchar(255) DEFAULT NULL COMMENT '素材标签',
-  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `status` int(11) DEFAULT NULL COMMENT '素材状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告素材';
@@ -380,6 +382,30 @@ CREATE TABLE `menu` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for permission
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(11) unsigned DEFAULT NULL,
+  `name` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `code` varchar(32) COLLATE utf8_bin DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `type` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '权限类型：1-url, 2-按钮',
+  `status` int(11) DEFAULT '1',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES ('1', null, '计划管理', null, 'campaignManagement', '计划管理', '1', '1', '2019-01-20 00:29:23', null);
+INSERT INTO `permission` VALUES ('2', '1', '计划报表', null, 'campaign-report', '计划报表', '1', '1', '2019-01-20 00:31:02', null);
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -393,6 +419,21 @@ CREATE TABLE `role` (
 
 -- ----------------------------
 -- Records of role
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for role_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `role_permission`;
+CREATE TABLE `role_permission` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) unsigned NOT NULL,
+  `permission_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of role_permission
 -- ----------------------------
 
 -- ----------------------------
@@ -439,11 +480,27 @@ CREATE TABLE `user` (
   `deleted` tinyint(1) DEFAULT '0',
   `real_name` varchar(128) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `type` int(11) unsigned DEFAULT NULL COMMENT '用户类型',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户';
 
 -- ----------------------------
 -- Records of user
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user_group
+-- ----------------------------
+DROP TABLE IF EXISTS `user_group`;
+CREATE TABLE `user_group` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '用户组名称',
+  `description` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户组';
+
+-- ----------------------------
+-- Records of user_group
 -- ----------------------------
 
 -- ----------------------------
