@@ -15,6 +15,7 @@
  */
 package ai.houyi.zhuque.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,7 @@ public class AdGroupServiceImpl implements AdGroupService {
 
 	@Override
 	public void update(AdGroup t) {
+		t.setUpdateTime(new Date());
 		adGroupMapper.updateByPrimaryKeySelective(t);
 	}
 

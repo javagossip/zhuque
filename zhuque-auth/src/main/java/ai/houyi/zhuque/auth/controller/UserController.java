@@ -15,66 +15,86 @@
  */
 package ai.houyi.zhuque.auth.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.dorado.rest.annotation.RequestBody;
+import ai.houyi.dorado.rest.annotation.RequestParam;
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
 import ai.houyi.zhuque.auth.service.UserService;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.UserQueryReq;
+import ai.houyi.zhuque.dao.model.Role;
 import ai.houyi.zhuque.dao.model.User;
+import io.swagger.annotations.Api;
 
 /**
  * @author weiping wang
  */
 @Controller
-@Path("/user")
-public class UserController {
+@Path("/users")
+@Api(tags = "用户管理")
+public class UserController implements IController<User, UserQueryReq, Integer> {
+
 	@Autowired
 	private UserService userService;
-	
+
 	@POST
-	@Path
 	public void saveOrUpdate(User user) {
-		if(user.getId()==null) {
+		if (user.getId() == null) {
 			userService.save(user);
-		}else {
+		} else {
 			userService.update(user);
 		}
 	}
-	
+
 	@POST
-	@Path("/{userId}")
-	public void deleteById(int userId) {
-		userService.deleteById(userId);
+	@Path("/{id}")
+	public void deleteById(Integer id) {
+		userService.deleteById(id);
 	}
-	
+
 	@GET
-	@Path("/{userId}")
-	public User loadById(int userId) {
-		return userService.loadById(userId);
+	@Path("/{id}")
+	public User loadById(Integer id) {
+		return userService.loadById(id);
 	}
-	
+
 	@POST
 	@Path("/list")
-	public Page<User> selectPage(UserQueryReq queryReq){
+	public Page<User> selectPage(UserQueryReq queryReq) {
 		return userService.selectPageList(queryReq);
 	}
-	
-	//管理员强制更新用户密码
+
+	// 管理员强制更新用户密码
 	@POST
 	@Path("/passwd/reset")
 	public void resetPasswd(ResetPasswdReq req) {
 		userService.resetPasswd(req);
 	}
-	
+
 	@POST
 	@Path("/passwd/update")
 	public void changePasswd(ChangePwdReq req) {
 		userService.updatePasswd(req);
+	}
+
+	@POST
+	@Path("/roles/{userId}")
+	public void setRoles(@RequestParam("userId") Integer userId, @RequestBody List<Integer> roleIds) {
+		userService.updateUserRoles(userId,roleIds);
+	}
+	
+	@GET
+	@Path("/roles/{userId}")
+	public List<Role> getUserRoles(Integer userId){
+		return userService.getUserRoles(userId);
 	}
 }

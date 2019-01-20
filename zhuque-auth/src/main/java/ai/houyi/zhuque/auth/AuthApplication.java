@@ -15,7 +15,9 @@
  */
 package ai.houyi.zhuque.auth;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import ai.houyi.dorado.springboot.DoradoSpringBootApplication;
 
@@ -24,9 +26,11 @@ import ai.houyi.dorado.springboot.DoradoSpringBootApplication;
  * @author weiping wang
  */
 @DoradoSpringBootApplication
-public class Application {
+@MapperScan("ai.houyi.zhuque.dao")
+@ComponentScan(basePackages= {"ai.houyi.zhuque"})
+public class AuthApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(AuthApplication.class, args);
 	}
 }

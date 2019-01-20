@@ -15,11 +15,13 @@
  */
 package ai.houyi.zhuque.auth.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
@@ -27,10 +29,14 @@ import ai.houyi.zhuque.auth.service.UserService;
 import ai.houyi.zhuque.commons.exception.ZhuqueException;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.UserQueryReq;
+import ai.houyi.zhuque.dao.RoleMapper;
 import ai.houyi.zhuque.dao.UserMapper;
 import ai.houyi.zhuque.dao.UserRoleMapper;
+import ai.houyi.zhuque.dao.model.Role;
+import ai.houyi.zhuque.dao.model.RoleExample;
 import ai.houyi.zhuque.dao.model.User;
 import ai.houyi.zhuque.dao.model.UserExample;
+import ai.houyi.zhuque.dao.model.UserRole;
 import ai.houyi.zhuque.dao.model.UserRoleExample;
 
 /**
@@ -42,6 +48,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private UserRoleMapper userRoleMapper;
+	@Autowired
+	private RoleMapper roleMapper;
 
 	@Override
 	public void save(User t) {
@@ -111,5 +119,36 @@ public class UserServiceImpl implements UserService {
 		user.setPasswd(DigestUtils.md5Hex(req.getPasswd()));
 
 		userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	@Override
+	@Transactional
+	public void updateUserRoles(Integer userId, List<Integer> roleIds) {
+		UserRoleExample example = new UserRoleExample().createCriteria().andUserIdEqualTo(userId).example();
+		userRoleMapper.deleteByExample(example);
+
+		if (roleIds == null)
+			return;
+		List<UserRole> userRoles = new ArrayList<UserRole>();
+		for (Integer roleId : roleIds) {
+			userRoles.add(new UserRole.Builder().roleId(roleId).userId(userId).build());
+		}
+		userRoleMapper.batchInsert(userRoles);
+	}
+
+	@Override
+	public List<Role> getUserRoles(Integer userId) {
+		UserRoleExample example = new UserRoleExample().createCriteria().andUserIdEqualTo(userId).example();
+		List<UserRole> userRoles = userRoleMapper.selectByExample(example);
+
+		if (userRoles == null || userRoles.isEmpty())
+			return null;
+
+		List<Integer> roleIds = new ArrayList<Integer>();
+		userRoles.forEach(ur -> roleIds.add(ur.getRoleId()));
+		if (roleIds.isEmpty())
+			return null;
+
+		return roleMapper.selectByExample(new RoleExample().createCriteria().andIdIn(roleIds).example());
 	}
 }

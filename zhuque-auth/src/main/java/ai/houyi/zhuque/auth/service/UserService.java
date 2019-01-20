@@ -15,10 +15,13 @@
  */
 package ai.houyi.zhuque.auth.service;
 
+import java.util.List;
+
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
 import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.core.model.query.UserQueryReq;
+import ai.houyi.zhuque.dao.model.Role;
 import ai.houyi.zhuque.dao.model.User;
 
 /**
@@ -30,4 +33,8 @@ public interface UserService extends IService<User, UserQueryReq, Integer> {
 	void resetPasswd(ResetPasswdReq req);
 
 	void updatePasswd(ChangePwdReq req);
+
+	void updateUserRoles(Integer userId, List<Integer> roleIds);
+
+	List<Role> getUserRoles(Integer userId);
 }

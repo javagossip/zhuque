@@ -15,6 +15,7 @@
  */
 package ai.houyi.zhuque.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class AgentServiceImpl implements AgentService {
 
 	@Override
 	public void update(Agent t) {
+		t.setUpdateTime(new Date());
 		agentMapper.updateByPrimaryKeySelective(t);
 	}
 

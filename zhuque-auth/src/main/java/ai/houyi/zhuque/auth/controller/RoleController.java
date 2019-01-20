@@ -25,20 +25,22 @@ import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.auth.service.RoleService;
 import ai.houyi.zhuque.commons.page.Page;
+import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.RoleQueryReq;
 import ai.houyi.zhuque.dao.model.Role;
+import io.swagger.annotations.Api;
 
 /**
  * @author weiping wang
  */
 @Controller
-@Path("/role")
-public class RoleController {
+@Path("/roles")
+@Api(tags= {"角色管理"})
+public class RoleController implements IController<Role, RoleQueryReq, Integer>{
 	@Autowired
 	private RoleService roleService;
 	
 	@POST
-	@Path
 	public void saveOrUpdate(Role role) {
 		if(role.getId()==null) {
 			roleService.save(role);
@@ -48,15 +50,15 @@ public class RoleController {
 	}
 	
 	@GET
-	@Path("/{roleId}")
-	public Role loadById(int roleId) {
-		return roleService.loadById(roleId);
+	@Path("/{id}")
+	public Role loadById(Integer id) {
+		return roleService.loadById(id);
 	}
 	
 	@POST
-	@Path("/delete/{roleId}")
-	public void deleteById(int roleId) {
-		roleService.deleteById(roleId);
+	@Path("/{id}")
+	public void deleteById(Integer id) {
+		roleService.deleteById(id);
 	}
 	
 	@GET

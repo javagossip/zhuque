@@ -15,6 +15,7 @@
  */
 package ai.houyi.zhuque.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class AdvertiserServiceImpl implements AdvertiserService {
 
 	@Override
 	public void update(Advertiser t) {
+		t.setUpdateTime(new Date());
 		advertiserMapper.updateByPrimaryKeySelective(t);
 	}
 

@@ -15,6 +15,7 @@
  */
 package ai.houyi.zhuque.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class CreativeServiceImpl implements CreativeService {
 
 	@Override
 	public void update(Creative t) {
+		t.setUpdateTime(new Date());
 		creativeMapper.updateByPrimaryKeySelective(t);
 	}
 

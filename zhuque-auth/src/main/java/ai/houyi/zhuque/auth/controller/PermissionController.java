@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.dashboard.controller;
+package ai.houyi.zhuque.auth.controller;
 
 import java.util.List;
 
@@ -41,7 +41,6 @@ public class PermissionController implements IController<Permission, PermissionQ
 	private PermissionService permissionService;
 	
 	@POST
-	@Path
 	public void saveOrUpdate(Permission t) {
 		if(t.getId()==null) {
 			permissionService.save(t);
@@ -63,7 +62,6 @@ public class PermissionController implements IController<Permission, PermissionQ
 	}
 
 	@GET
-	@Path
 	public List<Permission> permissionTree(){
 		return permissionService.selectPermissionsAsTree();
 	}
