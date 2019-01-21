@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2019-01-20 21:43:08
+Date: 2019-01-22 00:40:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -389,10 +389,9 @@ CREATE TABLE `permission` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `pid` int(11) unsigned DEFAULT NULL,
   `name` varchar(64) COLLATE utf8_bin DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `code` varchar(32) COLLATE utf8_bin DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `type` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '权限类型：1-url, 2-按钮',
+  `menu_id` int(11) unsigned DEFAULT NULL,
+  `code` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `status` int(11) DEFAULT '1',
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT NULL,
@@ -402,8 +401,8 @@ CREATE TABLE `permission` (
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES ('1', null, '计划管理', null, 'campaignManagement', '计划管理', '1', '1', '2019-01-20 00:29:23', null);
-INSERT INTO `permission` VALUES ('2', '1', '计划报表', null, 'campaign-report', '计划报表', '1', '1', '2019-01-20 00:31:02', null);
+INSERT INTO `permission` VALUES ('1', null, '计划管理', '1', null, 'campaignManagement', '1', '2019-01-20 00:29:23', null);
+INSERT INTO `permission` VALUES ('2', '1', '计划报表', '1', null, 'campaign-report', '1', '2019-01-20 00:31:02', null);
 
 -- ----------------------------
 -- Table structure for role
