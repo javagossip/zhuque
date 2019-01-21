@@ -62,6 +62,13 @@
 				<artifactId>albatross-rpc</artifactId>
 				<version>${albatross.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>ai.houyi</groupId>
+				<artifactId>
+					dorado-swagger-spring-boot-starter
+				</artifactId>
+				<version>${dorado.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

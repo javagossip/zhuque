@@ -27,6 +27,7 @@ import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.AdGroupQueryReq;
 import ai.houyi.zhuque.core.service.AdGroupService;
 import ai.houyi.zhuque.dao.model.AdGroup;
+import io.swagger.annotations.Api;
 
 /**
  * 广告组管理
@@ -35,6 +36,7 @@ import ai.houyi.zhuque.dao.model.AdGroup;
  */
 @Controller
 @Path("/adgroups")
+@Api(tags="广告组管理")
 public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, Integer> {
 	@Autowired
 	private AdGroupService adGroupService;

@@ -26,6 +26,7 @@ import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.CreativeQueryReq;
 import ai.houyi.zhuque.core.service.CreativeService;
 import ai.houyi.zhuque.dao.model.Creative;
+import io.swagger.annotations.Api;
 
 /**
  *
@@ -33,6 +34,7 @@ import ai.houyi.zhuque.dao.model.Creative;
  */
 @Controller
 @Path("/creatives")
+@Api(tags="推广创意管理")
 public class CreativeController implements IController<Creative,CreativeQueryReq,Integer>{
 	@Autowired
 	private CreativeService creativeService;

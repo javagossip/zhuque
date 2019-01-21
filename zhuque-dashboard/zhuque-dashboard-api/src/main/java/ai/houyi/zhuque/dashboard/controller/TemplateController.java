@@ -28,13 +28,15 @@ import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.TemplateQueryReq;
 import ai.houyi.zhuque.core.service.TemplateService;
 import ai.houyi.zhuque.dao.model.Template;
+import io.swagger.annotations.Api;
 
 /**
  *
  * @author weiping wang
  */
 @Controller
-@Path("/template")
+@Path("/templates")
+@Api(tags= {"广告位模板管理"})
 public class TemplateController implements IController<Template, TemplateQueryReq, Integer> {
 	@Autowired
 	private TemplateService templateService;

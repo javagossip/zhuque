@@ -24,6 +24,7 @@ import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.MaterialQueryReq;
 import ai.houyi.zhuque.core.service.MaterialService;
 import ai.houyi.zhuque.dao.model.Material;
+import io.swagger.annotations.Api;
 
 /**
  *
@@ -31,6 +32,7 @@ import ai.houyi.zhuque.dao.model.Material;
  */
 @Controller
 @Path("/material")
+@Api(tags= {"广告素材管理"})
 public class MaterialController implements IController<Material, MaterialQueryReq, Integer> {
 	@Autowired
 	private MaterialService materialService;

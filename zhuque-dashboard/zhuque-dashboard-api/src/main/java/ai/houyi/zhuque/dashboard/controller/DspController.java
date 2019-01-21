@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
@@ -28,12 +29,14 @@ import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.DspQueryReq;
 import ai.houyi.zhuque.core.service.DspService;
 import ai.houyi.zhuque.dao.model.Dsp;
+import io.swagger.annotations.Api;
 
 /**
  * @author weiping wang
  */
 @Controller
 @Path("/dsps")
+@Api(tags= {"dsp平台管理"})
 public class DspController implements IController<Dsp, DspQueryReq, Integer>{
 
 	@Autowired
@@ -49,7 +52,7 @@ public class DspController implements IController<Dsp, DspQueryReq, Integer>{
 		}
 	}
 
-	@POST
+	@DELETE
 	@Path("/{dspId:[0-9]+}")
 	public void deleteById(Integer dspId) {
 		dspService.softDeleteById(dspId);
