@@ -23,8 +23,8 @@ import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.dorado.rest.annotation.PathVariable;
 import ai.houyi.dorado.rest.annotation.RequestBody;
-import ai.houyi.dorado.rest.annotation.RequestParam;
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
 import ai.houyi.zhuque.auth.service.UserService;
@@ -88,13 +88,13 @@ public class UserController implements IController<User, UserQueryReq, Integer> 
 
 	@POST
 	@Path("/roles/{userId}")
-	public void setRoles(@RequestParam("userId") Integer userId, @RequestBody List<Integer> roleIds) {
-		userService.updateUserRoles(userId,roleIds);
+	public void setRoles(@PathVariable Integer userId, @RequestBody List<Integer> roleIds) {
+		userService.updateUserRoles(userId, roleIds);
 	}
-	
+
 	@GET
 	@Path("/roles/{userId}")
-	public List<Role> getUserRoles(Integer userId){
+	public List<Role> getUserRoles(Integer userId) {
 		return userService.getUserRoles(userId);
 	}
 }

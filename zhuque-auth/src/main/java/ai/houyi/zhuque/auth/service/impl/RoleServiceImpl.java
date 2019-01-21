@@ -16,6 +16,7 @@
 package ai.houyi.zhuque.auth.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,16 @@ import org.springframework.transaction.annotation.Transactional;
 import ai.houyi.zhuque.auth.service.RoleService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.RoleQueryReq;
+import ai.houyi.zhuque.dao.PermissionMapper;
 import ai.houyi.zhuque.dao.RoleMapper;
+import ai.houyi.zhuque.dao.RolePermissionMapper;
 import ai.houyi.zhuque.dao.UserRoleMapper;
+import ai.houyi.zhuque.dao.model.Permission;
+import ai.houyi.zhuque.dao.model.PermissionExample;
 import ai.houyi.zhuque.dao.model.Role;
 import ai.houyi.zhuque.dao.model.RoleExample;
+import ai.houyi.zhuque.dao.model.RolePermission;
+import ai.houyi.zhuque.dao.model.RolePermissionExample;
 import ai.houyi.zhuque.dao.model.UserRoleExample;
 
 /**
@@ -39,6 +46,10 @@ public class RoleServiceImpl implements RoleService {
 	private RoleMapper roleMapper;
 	@Autowired
 	private UserRoleMapper userRoleMapper;
+	@Autowired
+	private RolePermissionMapper rolePermissionMapper;
+	@Autowired
+	private PermissionMapper permissionMapper;
 
 	@Override
 	public void save(Role t) {
@@ -89,4 +100,32 @@ public class RoleServiceImpl implements RoleService {
 		return Page.create(total, queryReq.getPageSize(), result);
 	}
 
+	@Override
+	@Transactional
+	public void updateRolePermissions(Integer roleId, List<Permission> permissions) {
+		RolePermissionExample example = new RolePermissionExample().createCriteria().andRoleIdEqualTo(roleId).example();
+		rolePermissionMapper.deleteByExample(example);
+
+		List<RolePermission> rolePermissions = permissions.stream()
+				.map(p -> new RolePermission.Builder().roleId(roleId).permissionId(p.getId()).build())
+				.collect(Collectors.toList());
+		if (rolePermissions == null || rolePermissions.isEmpty()) {
+			return;
+		}
+		rolePermissionMapper.batchInsert(rolePermissions);
+	}
+
+	@Override
+	public List<Permission> getRolePermissions(Integer roleId) {
+		RolePermissionExample example = new RolePermissionExample().createCriteria().andRoleIdEqualTo(roleId).example();
+		List<RolePermission> rolePermissions = rolePermissionMapper.selectByExample(example);
+
+		List<Integer> permissionIds = rolePermissions.stream().map(rp -> rp.getPermissionId())
+				.collect(Collectors.toList());
+		if (permissionIds == null || permissionIds.isEmpty())
+			return null;
+
+		PermissionExample permissionExample = new PermissionExample().createCriteria().andIdIn(permissionIds).example();
+		return permissionMapper.selectByExample(permissionExample);
+	}
 }

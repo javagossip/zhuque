@@ -20,13 +20,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.dorado.rest.annotation.PathVariable;
 import ai.houyi.zhuque.auth.service.RoleService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.RoleQueryReq;
+import ai.houyi.zhuque.dao.model.Permission;
 import ai.houyi.zhuque.dao.model.Role;
 import io.swagger.annotations.Api;
 
@@ -35,41 +38,47 @@ import io.swagger.annotations.Api;
  */
 @Controller
 @Path("/roles")
-@Api(tags= {"角色管理"})
-public class RoleController implements IController<Role, RoleQueryReq, Integer>{
+@Api(tags = { "角色管理" })
+public class RoleController implements IController<Role, RoleQueryReq, Integer> {
 	@Autowired
 	private RoleService roleService;
-	
+
 	@POST
 	public void saveOrUpdate(Role role) {
-		if(role.getId()==null) {
+		if (role.getId() == null) {
 			roleService.save(role);
-		}else {
+		} else {
 			roleService.update(role);
 		}
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	public Role loadById(Integer id) {
 		return roleService.loadById(id);
 	}
-	
-	@POST
+
+	@DELETE
 	@Path("/{id}")
 	public void deleteById(Integer id) {
 		roleService.deleteById(id);
 	}
-	
+
 	@GET
 	@Path
-	public List<Role> selectAll(){
+	public List<Role> selectAll() {
 		return roleService.selectAll();
 	}
-	
+
 	@POST
 	@Path("/list")
-	public Page<Role> selectPage(RoleQueryReq queryReq){
+	public Page<Role> selectPage(RoleQueryReq queryReq) {
 		return roleService.selectPageList(queryReq);
+	}
+
+	@POST
+	@Path("/permissions/{roleId}")
+	public void setRolePermissions(@PathVariable Integer roleId, List<Permission> permissions) {
+		roleService.updateRolePermissions(roleId,permissions);
 	}
 }

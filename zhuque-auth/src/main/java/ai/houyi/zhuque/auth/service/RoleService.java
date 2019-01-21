@@ -15,13 +15,20 @@
  */
 package ai.houyi.zhuque.auth.service;
 
+import java.util.List;
+
 import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.core.model.query.RoleQueryReq;
+import ai.houyi.zhuque.dao.model.Permission;
 import ai.houyi.zhuque.dao.model.Role;
 
 /**
  * @author weiping wang
  */
 public interface RoleService extends IService<Role, RoleQueryReq, Integer> {
+
+	void updateRolePermissions(Integer roleId, List<Permission> permissions);
+
+	List<Permission> getRolePermissions(Integer roleId);
 
 }
