@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
@@ -51,14 +52,14 @@ public class TemplateController implements IController<Template, TemplateQueryRe
 		}
 	}
 
-	@POST
-	@Path("/delete/{templateId}")
+	@DELETE
+	@Path("/{templateId}")
 	public void deleteById(Integer templateId) {
 		templateService.softDeleteById(templateId);
 	}
 
-	@POST
-	@Path("/list")
+	@GET
+	@Path
 	public void selectAll() {
 		templateService.selectAll();
 	}
@@ -70,7 +71,7 @@ public class TemplateController implements IController<Template, TemplateQueryRe
 	}
 
 	@GET
-	@Path("/listByName")
+	@Path("/{name}")
 	public List<Template> selectByName(String name) {
 		return templateService.selectByName(name);
 	}

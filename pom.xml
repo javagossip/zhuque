@@ -116,7 +116,6 @@
 		<module>zhuque-crontab</module>
 		<module>zhuque-auth</module>
 		<module>zhuque-commons-web</module>
-		<module>zhuque-dmp</module>
 	</modules>
 
 	<build>

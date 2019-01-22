@@ -18,6 +18,7 @@ package ai.houyi.zhuque.dashboard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
@@ -51,7 +52,7 @@ public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, 
 		}
 	}
 
-	@POST
+	@DELETE
 	@Path("/{id}")
 	public void deleteById(Integer id) {
 		adGroupService.softDeleteById(id);

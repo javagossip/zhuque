@@ -18,6 +18,7 @@ package ai.houyi.zhuque.dashboard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
@@ -48,7 +49,7 @@ public class CreativeController implements IController<Creative,CreativeQueryReq
 			creativeService.update(creative);
 	}
 
-	@POST
+	@DELETE
 	@Path("/{creativeId}")
 	public void deleteById(Integer creativeId) {
 		creativeService.deleteById(creativeId);

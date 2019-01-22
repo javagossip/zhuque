@@ -18,6 +18,9 @@ package ai.houyi.zhuque.dashboard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
+import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
@@ -31,13 +34,14 @@ import io.swagger.annotations.Api;
  * @author weiping wang
  */
 @Controller
-@Path("/material")
+@Path("/materials")
 @Api(tags= {"广告素材管理"})
 public class MaterialController implements IController<Material, MaterialQueryReq, Integer> {
 	@Autowired
 	private MaterialService materialService;
 
-	@Override
+	@POST
+	@Path
 	public void saveOrUpdate(Material t) {
 		if (t.getId() == null) {
 			materialService.save(t);
@@ -46,20 +50,22 @@ public class MaterialController implements IController<Material, MaterialQueryRe
 		}
 	}
 
-	@Override
+	@DELETE
+	@Path("/{id}")
 	public void deleteById(Integer id) {
 		materialService.deleteById(id);
 	}
 
-	@Override
+	@GET
+	@Path("/{id}")
 	public Material loadById(Integer id) {
 		return materialService.loadById(id);
 	}
 
-	@Override
+	@POST
+	@Path("/list")
 	public Page<Material> selectPage(MaterialQueryReq queryReq) {
 		queryReq.initPageInfoIfNeed();
 		return materialService.selectPageList(queryReq);
 	}
-
 }

@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
@@ -53,7 +54,7 @@ public class AdvertiserController implements IController<Advertiser, AdvertiserQ
 		}
 	}
 
-	@POST
+	@DELETE
 	@Path("/{advertiserId}")
 	public void deleteById(Integer advertiserId) {
 		advertiserService.softDeleteById(advertiserId);

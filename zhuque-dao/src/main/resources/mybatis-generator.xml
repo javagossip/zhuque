@@ -56,7 +56,10 @@
 			<table tableName="role" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table> -->
-		 <table tableName="permission" schema="zhuque">
+		<!--  <table tableName="advertiser_audit" schema="zhuque" domainObjectName="AuditAdvertiser">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table> -->
+		 <table tableName="advertiser_qualification" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table>
 	</context>
