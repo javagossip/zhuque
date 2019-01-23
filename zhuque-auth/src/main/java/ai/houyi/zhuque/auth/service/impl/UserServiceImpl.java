@@ -17,7 +17,6 @@ package ai.houyi.zhuque.auth.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +31,10 @@ import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.UserQueryReq;
 import ai.houyi.zhuque.dao.PermissionMapper;
 import ai.houyi.zhuque.dao.RoleMapper;
-import ai.houyi.zhuque.dao.RolePermissionMapper;
 import ai.houyi.zhuque.dao.UserMapper;
 import ai.houyi.zhuque.dao.UserRoleMapper;
 import ai.houyi.zhuque.dao.model.Permission;
-import ai.houyi.zhuque.dao.model.PermissionExample;
 import ai.houyi.zhuque.dao.model.Role;
-import ai.houyi.zhuque.dao.model.RoleExample;
-import ai.houyi.zhuque.dao.model.RolePermissionExample;
 import ai.houyi.zhuque.dao.model.User;
 import ai.houyi.zhuque.dao.model.UserExample;
 import ai.houyi.zhuque.dao.model.UserRole;
@@ -58,8 +53,6 @@ public class UserServiceImpl implements UserService {
 	private RoleMapper roleMapper;
 	@Autowired
 	private PermissionMapper permissionMapper;
-	@Autowired
-	private RolePermissionMapper rolePermissionMapper;
 
 	@Override
 	public void save(User t) {
@@ -148,36 +141,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Role> getUserRoles(Integer userId) {
-		UserRoleExample example = new UserRoleExample().createCriteria().andUserIdEqualTo(userId).example();
-		List<UserRole> userRoles = userRoleMapper.selectByExample(example);
-
-		if (userRoles == null || userRoles.isEmpty())
-			return null;
-
-		List<Integer> roleIds = new ArrayList<Integer>();
-		userRoles.forEach(ur -> roleIds.add(ur.getRoleId()));
-		if (roleIds.isEmpty())
-			return null;
-
-		return roleMapper.selectByExample(new RoleExample().createCriteria().andIdIn(roleIds).example());
+		return roleMapper.getUserRoles(userId);
 	}
 
 	@Override
 	public List<Permission> getUserPermissions(Integer userId) {
-		UserRoleExample example = new UserRoleExample().createCriteria().andUserIdEqualTo(userId).example();
-		List<UserRole> userRoles = userRoleMapper.selectByExample(example);
-
-		List<Integer> roleIds = userRoles.stream().map(ur -> ur.getRoleId()).collect(Collectors.toList());
-		if (roleIds == null || roleIds.isEmpty())
-			return null;
-
-		RolePermissionExample _example = new RolePermissionExample().createCriteria().andRoleIdIn(roleIds).example();
-		List<Integer> permissionIds = rolePermissionMapper.selectByExample(_example).stream()
-				.map(rp -> rp.getPermissionId()).collect(Collectors.toList());
-
-		if (permissionIds == null || permissionIds.isEmpty())
-			return null;
-		return permissionMapper
-				.selectByExample(PermissionExample.newAndCreateCriteria().andIdIn(permissionIds).example());
+		return permissionMapper.getUserPermissions(userId);
 	}
 }

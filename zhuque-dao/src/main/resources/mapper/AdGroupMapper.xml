@@ -10,7 +10,7 @@
     <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="deliver_times" jdbcType="INTEGER" property="deliverTimes" />
-    <result column="limit" jdbcType="INTEGER" property="limit" />
+    <result column="budget" jdbcType="INTEGER" property="budget" />
     <result column="promotion_type" jdbcType="INTEGER" property="promotionType" />
     <result column="landing_page" jdbcType="VARCHAR" property="landingPage" />
     <result column="cost_type" jdbcType="INTEGER" property="costType" />
@@ -104,12 +104,12 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, campaign_id, scheduling, deliver_method, begin_time, end_time, deliver_times, 
-    limit, promotion_type, landing_page, cost_type, app_id, pkg_name, bid_strategy, freq_capping_enabled, 
-    frequency, freq_capping_type, status, target_area, target_lbs, target_os, target_behavior, 
-    target_media, target_terminal, target_device_type, target_model, target_carrier, 
-    target_connection_type, target_device, target_interests, target_audience, target_ext, 
-    deal_id, imp_trackers, clk_trackers, bid_price, create_time, update_time, ad_position_id, 
-    deleted
+    budget, promotion_type, landing_page, cost_type, app_id, pkg_name, bid_strategy, 
+    freq_capping_enabled, frequency, freq_capping_type, status, target_area, target_lbs, 
+    target_os, target_behavior, target_media, target_terminal, target_device_type, target_model, 
+    target_carrier, target_connection_type, target_device, target_interests, target_audience, 
+    target_ext, deal_id, imp_trackers, clk_trackers, bid_price, create_time, update_time, 
+    ad_position_id, deleted
   </sql>
   <select id="selectByExample" parameterType="ai.houyi.zhuque.dao.model.AdGroupExample" resultMap="BaseResultMap">
     select
@@ -152,7 +152,7 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.AdGroup" useGeneratedKeys="true">
     insert into ad_group (name, campaign_id, scheduling, 
       deliver_method, begin_time, end_time, 
-      deliver_times, limit, promotion_type, 
+      deliver_times, budget, promotion_type, 
       landing_page, cost_type, app_id, 
       pkg_name, bid_strategy, freq_capping_enabled, 
       frequency, freq_capping_type, status, 
@@ -166,7 +166,7 @@
       deleted)
     values (#{name,jdbcType=VARCHAR}, #{campaignId,jdbcType=INTEGER}, #{scheduling,jdbcType=VARCHAR}, 
       #{deliverMethod,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{deliverTimes,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}, #{promotionType,jdbcType=INTEGER}, 
+      #{deliverTimes,jdbcType=INTEGER}, #{budget,jdbcType=INTEGER}, #{promotionType,jdbcType=INTEGER}, 
       #{landingPage,jdbcType=VARCHAR}, #{costType,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR}, 
       #{pkgName,jdbcType=VARCHAR}, #{bidStrategy,jdbcType=INTEGER}, #{freqCappingEnabled,jdbcType=BIT}, 
       #{frequency,jdbcType=VARCHAR}, #{freqCappingType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
@@ -203,8 +203,8 @@
       <if test="deliverTimes != null">
         deliver_times,
       </if>
-      <if test="limit != null">
-        limit,
+      <if test="budget != null">
+        budget,
       </if>
       <if test="promotionType != null">
         promotion_type,
@@ -325,8 +325,8 @@
       <if test="deliverTimes != null">
         #{deliverTimes,jdbcType=INTEGER},
       </if>
-      <if test="limit != null">
-        #{limit,jdbcType=INTEGER},
+      <if test="budget != null">
+        #{budget,jdbcType=INTEGER},
       </if>
       <if test="promotionType != null">
         #{promotionType,jdbcType=INTEGER},
@@ -459,8 +459,8 @@
       <if test="record.deliverTimes != null">
         deliver_times = #{record.deliverTimes,jdbcType=INTEGER},
       </if>
-      <if test="record.limit != null">
-        limit = #{record.limit,jdbcType=INTEGER},
+      <if test="record.budget != null">
+        budget = #{record.budget,jdbcType=INTEGER},
       </if>
       <if test="record.promotionType != null">
         promotion_type = #{record.promotionType,jdbcType=INTEGER},
@@ -573,7 +573,7 @@
       begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
       deliver_times = #{record.deliverTimes,jdbcType=INTEGER},
-      limit = #{record.limit,jdbcType=INTEGER},
+      budget = #{record.budget,jdbcType=INTEGER},
       promotion_type = #{record.promotionType,jdbcType=INTEGER},
       landing_page = #{record.landingPage,jdbcType=VARCHAR},
       cost_type = #{record.costType,jdbcType=INTEGER},
@@ -634,8 +634,8 @@
       <if test="deliverTimes != null">
         deliver_times = #{deliverTimes,jdbcType=INTEGER},
       </if>
-      <if test="limit != null">
-        limit = #{limit,jdbcType=INTEGER},
+      <if test="budget != null">
+        budget = #{budget,jdbcType=INTEGER},
       </if>
       <if test="promotionType != null">
         promotion_type = #{promotionType,jdbcType=INTEGER},
@@ -745,7 +745,7 @@
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
       deliver_times = #{deliverTimes,jdbcType=INTEGER},
-      limit = #{limit,jdbcType=INTEGER},
+      budget = #{budget,jdbcType=INTEGER},
       promotion_type = #{promotionType,jdbcType=INTEGER},
       landing_page = #{landingPage,jdbcType=VARCHAR},
       cost_type = #{costType,jdbcType=INTEGER},
@@ -805,7 +805,7 @@
     -->
     insert into ad_group
     (name, campaign_id, scheduling, deliver_method, begin_time, end_time, deliver_times, 
-      limit, promotion_type, landing_page, cost_type, app_id, pkg_name, bid_strategy, 
+      budget, promotion_type, landing_page, cost_type, app_id, pkg_name, bid_strategy, 
       freq_capping_enabled, frequency, freq_capping_type, status, target_area, target_lbs, 
       target_os, target_behavior, target_media, target_terminal, target_device_type, 
       target_model, target_carrier, target_connection_type, target_device, target_interests, 
@@ -815,7 +815,7 @@
     <foreach collection="list" item="item" separator=",">
       (#{item.name,jdbcType=VARCHAR}, #{item.campaignId,jdbcType=INTEGER}, #{item.scheduling,jdbcType=VARCHAR}, 
         #{item.deliverMethod,jdbcType=INTEGER}, #{item.beginTime,jdbcType=TIMESTAMP}, #{item.endTime,jdbcType=TIMESTAMP}, 
-        #{item.deliverTimes,jdbcType=INTEGER}, #{item.limit,jdbcType=INTEGER}, #{item.promotionType,jdbcType=INTEGER}, 
+        #{item.deliverTimes,jdbcType=INTEGER}, #{item.budget,jdbcType=INTEGER}, #{item.promotionType,jdbcType=INTEGER}, 
         #{item.landingPage,jdbcType=VARCHAR}, #{item.costType,jdbcType=INTEGER}, #{item.appId,jdbcType=VARCHAR}, 
         #{item.pkgName,jdbcType=VARCHAR}, #{item.bidStrategy,jdbcType=INTEGER}, #{item.freqCappingEnabled,jdbcType=BIT}, 
         #{item.frequency,jdbcType=VARCHAR}, #{item.freqCappingType,jdbcType=INTEGER}, #{item.status,jdbcType=INTEGER}, 
@@ -866,8 +866,8 @@
         <if test="'deliver_times'.toString() == column.value">
           #{item.deliverTimes,jdbcType=INTEGER}
         </if>
-        <if test="'limit'.toString() == column.value">
-          #{item.limit,jdbcType=INTEGER}
+        <if test="'budget'.toString() == column.value">
+          #{item.budget,jdbcType=INTEGER}
         </if>
         <if test="'promotion_type'.toString() == column.value">
           #{item.promotionType,jdbcType=INTEGER}

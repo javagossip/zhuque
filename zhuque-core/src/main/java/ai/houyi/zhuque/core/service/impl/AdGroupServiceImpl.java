@@ -89,21 +89,13 @@ public class AdGroupServiceImpl implements AdGroupService {
 
 	@Override
 	public Page<AdGroup> selectPageList(AdGroupQueryReq queryReq) {
-		AdGroupExample example = queryReq.toExample();
-
 		Integer advertiserId = queryReq.getAdvertiserId();
-		if(advertiserId!=null) {
+		if (advertiserId != null) {
 			List<Integer> campaignIdList = campaignMapper.selectAllCampaignIdByAdvertiserId(advertiserId);
-			if(!CollectionUtils.isEmpty(campaignIdList)) {
-			}
-		}
-		
-		if (advertiserId != null && !example.getOredCriteria().isEmpty()) {
-			List<Integer> campaignIdList = campaignMapper.selectAllCampaignIdByAdvertiserId(advertiserId);
-			if (!CollectionUtils.isEmpty(campaignIdList))
-				example.getOredCriteria().get(0).andCampaignIdIn(campaignIdList);
+			queryReq.setCampaignIds(campaignIdList);
 		}
 
+		AdGroupExample example = queryReq.toExample();
 		int total = (int) adGroupMapper.countByExample(example);
 		List<AdGroup> result = adGroupMapper.selectByExample(example);
 		return Page.create(total, queryReq.getPageSize(), result);
@@ -121,7 +113,7 @@ public class AdGroupServiceImpl implements AdGroupService {
 			criteria.andCampaignIdIn(campaignIdList);
 		}
 
-		AdGroupExample example = criteria.example().page(pageNo, Constants.DEFAULT_PAGE_SIZE);
+		AdGroupExample example = criteria.example().page(pageNo-1, Constants.DEFAULT_PAGE_SIZE);
 		int total = (int) adGroupMapper.countByExample(example);
 		List<AdGroup> result = adGroupMapper.selectByExample(example);
 

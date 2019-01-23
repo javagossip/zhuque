@@ -15,7 +15,10 @@
  */
 package ai.houyi.zhuque.core.model.query;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.QueryReq;
@@ -30,6 +33,7 @@ public class AdGroupQueryReq extends QueryReq<AdGroupExample> {
 	private String name;
 	private Integer advertiserId;
 	private Integer campaignId;
+	private List<Integer> campaignIds;
 
 	@Override
 	public AdGroupExample toExample() {
@@ -43,8 +47,18 @@ public class AdGroupQueryReq extends QueryReq<AdGroupExample> {
 			criteria.andIdEqualTo(id);
 		if (StringUtils.isNotBlank(name))
 			criteria.andNameLike(SQLUtils.toLikeString(name));
-
+		if (!CollectionUtils.isEmpty(campaignIds))
+			criteria.andCampaignIdIn(campaignIds);
+		
 		return example;
+	}
+
+	public List<Integer> getCampaignIds() {
+		return campaignIds;
+	}
+
+	public void setCampaignIds(List<Integer> campaignIds) {
+		this.campaignIds = campaignIds;
 	}
 
 	/**

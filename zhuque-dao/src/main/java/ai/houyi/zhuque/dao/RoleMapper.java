@@ -54,4 +54,6 @@ public interface RoleMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int batchInsertSelective(@Param("list") List<Role> list, @Param("selective") Role.Column ... selective);
+    
+    List<Role> getUserRoles(Integer userId);
 }

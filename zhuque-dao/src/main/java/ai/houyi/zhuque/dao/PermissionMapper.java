@@ -54,4 +54,6 @@ public interface PermissionMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int batchInsertSelective(@Param("list") List<Permission> list, @Param("selective") Permission.Column ... selective);
+    
+    List<Permission> getUserPermissions(Integer userId);
 }
