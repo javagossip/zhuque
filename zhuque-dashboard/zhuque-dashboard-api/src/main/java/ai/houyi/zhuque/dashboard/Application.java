@@ -28,9 +28,9 @@ import ai.houyi.dorado.springboot.DoradoSpringBootApplication;
 @DoradoSpringBootApplication
 @MapperScan("ai.houyi.zhuque.dao")
 @ComponentScan(basePackages= {"ai.houyi.zhuque"})
-public class DashboardApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DashboardApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
