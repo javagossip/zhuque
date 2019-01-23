@@ -15,29 +15,25 @@
  */
 package ai.houyi.zhuque.core.model.query;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang3.StringUtils;
 
 import ai.houyi.zhuque.commons.SQLUtils;
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
-import ai.houyi.zhuque.dao.model.ext.ExtAdGroupExample;
 
 /**
  *
  * @author weiping wang
  */
-public class AdGroupQueryReq extends QueryReq<ExtAdGroupExample> {
+public class AdGroupQueryReq extends QueryReq<AdGroupExample> {
 	private Integer id;
 	private String name;
 	private Integer advertiserId;
 	private Integer campaignId;
 
 	@Override
-	public ExtAdGroupExample toExample() {
-		ExtAdGroupExample example = new ExtAdGroupExample();
-		example.setAdvertiserIds(Arrays.asList(advertiserId));
+	public AdGroupExample toExample() {
+		AdGroupExample example = new AdGroupExample();
 		example.page(pageNo, pageSize);
 
 		AdGroupExample.Criteria criteria = example.createCriteria();

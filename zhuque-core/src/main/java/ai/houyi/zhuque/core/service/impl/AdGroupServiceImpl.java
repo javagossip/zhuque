@@ -33,7 +33,6 @@ import ai.houyi.zhuque.dao.CampaignMapper;
 import ai.houyi.zhuque.dao.model.AdGroup;
 import ai.houyi.zhuque.dao.model.AdGroupExample;
 import ai.houyi.zhuque.dao.model.CampaignExample;
-import ai.houyi.zhuque.dao.model.ext.ExtAdGroupExample;
 
 /**
  * 广告组管理
@@ -85,22 +84,28 @@ public class AdGroupServiceImpl implements AdGroupService {
 
 	@Override
 	public List<AdGroup> selectByQueryReq(AdGroupQueryReq queryReq) {
-		return adGroupMapper.selectByExtExample(queryReq.toExample());
+		return null;
 	}
 
 	@Override
 	public Page<AdGroup> selectPageList(AdGroupQueryReq queryReq) {
-		ExtAdGroupExample example = queryReq.toExample();
-		int total = adGroupMapper.countByExtExample(example);
+		AdGroupExample example = queryReq.toExample();
 
 		Integer advertiserId = queryReq.getAdvertiserId();
+		if(advertiserId!=null) {
+			List<Integer> campaignIdList = campaignMapper.selectAllCampaignIdByAdvertiserId(advertiserId);
+			if(!CollectionUtils.isEmpty(campaignIdList)) {
+			}
+		}
+		
 		if (advertiserId != null && !example.getOredCriteria().isEmpty()) {
 			List<Integer> campaignIdList = campaignMapper.selectAllCampaignIdByAdvertiserId(advertiserId);
 			if (!CollectionUtils.isEmpty(campaignIdList))
 				example.getOredCriteria().get(0).andCampaignIdIn(campaignIdList);
 		}
 
-		List<AdGroup> result = adGroupMapper.selectByExtExample(example);
+		int total = (int) adGroupMapper.countByExample(example);
+		List<AdGroup> result = adGroupMapper.selectByExample(example);
 		return Page.create(total, queryReq.getPageSize(), result);
 	}
 
