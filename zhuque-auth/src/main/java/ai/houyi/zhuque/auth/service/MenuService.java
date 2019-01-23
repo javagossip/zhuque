@@ -28,5 +28,4 @@ import ai.houyi.zhuque.dao.model.Menu;
 public interface MenuService extends IService<Menu, MenuQueryReq, Integer> {
 
 	List<Menu> selectByUserId(Integer id);
-
 }

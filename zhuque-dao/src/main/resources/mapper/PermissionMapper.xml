@@ -369,7 +369,7 @@
 	<!-- 自定义sql -->
 	<select id="getUserPermissions" parameterType="int"
 		resultMap="BaseResultMap">
-		select
+		select distinct 
 		<include refid="Base_Column_List" />
 		from permission t1,user_role t2,role_permission t3 where
 		t1.id=t3.permission_id and t2.role_id=t3.role_id and

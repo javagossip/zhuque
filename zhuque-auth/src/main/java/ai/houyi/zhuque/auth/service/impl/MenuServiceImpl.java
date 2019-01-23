@@ -77,7 +77,17 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public List<Menu> selectAll() {
-		return menuMapper.selectByExample(new MenuExample());
+		return selectMenus(null);
+	}
+
+	private List<Menu> selectMenus(Integer pid) {
+		MenuExample example = new MenuExample().createCriteria().andIf(pid == null, add -> add.andPidIsNull())
+				.andIf(pid != null, add -> add.andPidEqualTo(pid)).example();
+		List<Menu> menuList = menuMapper.selectByExample(example);
+		menuList.forEach(menu -> {
+			menu.setChildren(selectMenus(menu.getId()));
+		});
+		return menuList;
 	}
 
 	@Override
@@ -87,37 +97,12 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public Page<Menu> selectPageList(MenuQueryReq queryReq) {
-		MenuExample example = queryReq.toExample();
-		int total = (int) menuMapper.countByExample(example);
-		List<Menu> result = menuMapper.selectByExample(example);
-
-		return Page.create(total, queryReq.getPageSize(), result);
+		return null;
 	}
 
 	@Override
 	public List<Menu> selectByUserId(Integer userId) {
-		UserRoleExample ure = UserRoleExample.newAndCreateCriteria().andUserIdEqualTo(userId).example();
-		List<Integer> roleIdList = userRoleMapper.selectByExample(ure).stream().map(ur -> ur.getRoleId())
-				.collect(Collectors.toList());
-
-		if (roleIdList == null || roleIdList.isEmpty())
-			return Collections.emptyList();
-
-		RolePermissionExample rpe = RolePermissionExample.newAndCreateCriteria().andRoleIdIn(roleIdList).example();
-		List<Integer> permissionIdList = rolePermissionMapper.selectByExample(rpe).stream()
-				.map(rp -> rp.getPermissionId()).distinct().collect(Collectors.toList());
-
-		if (permissionIdList == null || permissionIdList.isEmpty())
-			return Collections.emptyList();
-
-		// 获得拥有权限的所有menu_id
-		List<Integer> menuIdList = permissionMapper
-				.selectByExample(PermissionExample.newAndCreateCriteria().andIdIn(permissionIdList).example()).stream()
-				.filter(p -> p.getMenuId() != null).map(p -> p.getId()).collect(Collectors.toList());
-		if (menuIdList == null || menuIdList.isEmpty())
-			return Collections.emptyList();
-
-		return menuMapper.selectByExample(MenuExample.newAndCreateCriteria().andIdIn(menuIdList).example());
+		return menuMapper.selectUserMenus(userId);
 	}
 
 }
