@@ -23,4 +23,5 @@ import ai.houyi.dorado.rest.annotation.Controller;
  */
 @Controller
 public class AuthController {
+	
 }

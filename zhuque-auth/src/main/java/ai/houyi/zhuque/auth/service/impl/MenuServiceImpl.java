@@ -116,7 +116,7 @@ public class MenuServiceImpl implements MenuService {
 				.filter(p -> p.getMenuId() != null).map(p -> p.getId()).collect(Collectors.toList());
 		if (menuIdList == null || menuIdList.isEmpty())
 			return Collections.emptyList();
-		
+
 		return menuMapper.selectByExample(MenuExample.newAndCreateCriteria().andIdIn(menuIdList).example());
 	}
 
