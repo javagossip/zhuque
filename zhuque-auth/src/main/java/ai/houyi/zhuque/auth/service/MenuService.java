@@ -15,6 +15,8 @@
  */
 package ai.houyi.zhuque.auth.service;
 
+import java.util.List;
+
 import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.model.Menu;
@@ -24,5 +26,7 @@ import ai.houyi.zhuque.dao.model.Menu;
  *
  */
 public interface MenuService extends IService<Menu, MenuQueryReq, Integer> {
+
+	List<Menu> selectByUserId(Integer id);
 
 }

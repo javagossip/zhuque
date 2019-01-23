@@ -6,9 +6,8 @@
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -71,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, pid, name, type, menu_id, code, status, create_time, update_time
+    id, pid, name, type, code, menu_id, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="ai.houyi.zhuque.dao.model.PermissionExample" resultMap="BaseResultMap">
     select
@@ -113,11 +112,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Permission" useGeneratedKeys="true">
     insert into permission (pid, name, type, 
-      menu_id, code, status, 
-      create_time, update_time)
+      code, menu_id, create_time, 
+      update_time)
     values (#{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{menuId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{code,jdbcType=VARCHAR}, #{menuId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.Permission" useGeneratedKeys="true">
     insert into permission
@@ -131,14 +130,11 @@
       <if test="type != null">
         type,
       </if>
-      <if test="menuId != null">
-        menu_id,
-      </if>
       <if test="code != null">
         code,
       </if>
-      <if test="status != null">
-        status,
+      <if test="menuId != null">
+        menu_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -157,14 +153,11 @@
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="menuId != null">
-        #{menuId,jdbcType=INTEGER},
-      </if>
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
+      <if test="menuId != null">
+        #{menuId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -195,14 +188,11 @@
       <if test="record.type != null">
         type = #{record.type,jdbcType=INTEGER},
       </if>
-      <if test="record.menuId != null">
-        menu_id = #{record.menuId,jdbcType=INTEGER},
-      </if>
       <if test="record.code != null">
         code = #{record.code,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.menuId != null">
+        menu_id = #{record.menuId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -221,9 +211,8 @@
       pid = #{record.pid,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=INTEGER},
-      menu_id = #{record.menuId,jdbcType=INTEGER},
       code = #{record.code,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
+      menu_id = #{record.menuId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -242,14 +231,11 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="menuId != null">
-        menu_id = #{menuId,jdbcType=INTEGER},
-      </if>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -265,9 +251,8 @@
     set pid = #{pid,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
-      menu_id = #{menuId,jdbcType=INTEGER},
       code = #{code,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
+      menu_id = #{menuId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
@@ -296,12 +281,12 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into permission
-    (pid, name, type, menu_id, code, status, create_time, update_time)
+    (pid, name, type, code, menu_id, create_time, update_time)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.pid,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
-        #{item.menuId,jdbcType=INTEGER}, #{item.code,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, 
-        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+        #{item.code,jdbcType=VARCHAR}, #{item.menuId,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
   <insert id="batchInsertSelective" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
@@ -328,14 +313,11 @@
         <if test="'type'.toString() == column.value">
           #{item.type,jdbcType=INTEGER}
         </if>
-        <if test="'menu_id'.toString() == column.value">
-          #{item.menuId,jdbcType=INTEGER}
-        </if>
         <if test="'code'.toString() == column.value">
           #{item.code,jdbcType=VARCHAR}
         </if>
-        <if test="'status'.toString() == column.value">
-          #{item.status,jdbcType=INTEGER}
+        <if test="'menu_id'.toString() == column.value">
+          #{item.menuId,jdbcType=INTEGER}
         </if>
         <if test="'create_time'.toString() == column.value">
           #{item.createTime,jdbcType=TIMESTAMP}

@@ -15,15 +15,19 @@
  */
 package ai.houyi.zhuque.auth.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.auth.service.MenuService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
+import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.model.Menu;
 
@@ -31,7 +35,7 @@ import ai.houyi.zhuque.dao.model.Menu;
  * @author weiping wang
  */
 @Controller
-@Path("/menu")
+@Path("/menus")
 public class MenuController implements IController<Menu, MenuQueryReq, Integer> {
 	@Autowired
 	private MenuService menuService;
@@ -46,8 +50,8 @@ public class MenuController implements IController<Menu, MenuQueryReq, Integer> 
 		}
 	}
 
-	@POST
-	@Path("/delete/{id}")
+	@DELETE
+	@Path("/{id}")
 	public void deleteById(Integer id) {
 		menuService.deleteById(id);
 	}
@@ -62,5 +66,11 @@ public class MenuController implements IController<Menu, MenuQueryReq, Integer> 
 	@Path("/list")
 	public Page<Menu> selectPage(MenuQueryReq queryReq) {
 		return menuService.selectPageList(queryReq);
+	}
+
+	@GET
+	@Path
+	public List<Menu> menuTree() {
+		return menuService.selectByUserId(AuthContext.currentUser().getId());
 	}
 }
