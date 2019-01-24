@@ -62,5 +62,8 @@
 		<table tableName="ad_group" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table>
+		<table tableName="role" schema="zhuque">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table>
 	</context>
 </generatorConfiguration>
