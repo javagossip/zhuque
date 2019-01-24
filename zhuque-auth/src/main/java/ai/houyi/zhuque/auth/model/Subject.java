@@ -17,6 +17,7 @@ package ai.houyi.zhuque.auth.model;
 
 import java.util.List;
 
+import ai.houyi.zhuque.dao.model.Menu;
 import ai.houyi.zhuque.dao.model.User;
 
 /**
@@ -27,6 +28,8 @@ public class Subject {
 	private User user;
 	private List<String> roles;
 	private List<String> permissions;
+	private List<Menu> menus;
+	private String token;
 
 	public Subject(User user, List<String> roles, List<String> permissions) {
 		this.user = user;
@@ -51,6 +54,35 @@ public class Subject {
 			return roles.contains(role);
 		}
 		return false;
+	}
+
+	
+	/**
+	 * @return the menus
+	 */
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	/**
+	 * @param menus the menus to set
+	 */
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * @param token the token to set
+	 */
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public User getUser() {
