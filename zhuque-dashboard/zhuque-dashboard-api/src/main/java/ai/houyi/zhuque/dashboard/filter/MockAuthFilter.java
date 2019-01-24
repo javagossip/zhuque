@@ -32,6 +32,7 @@ import ai.houyi.zhuque.dao.model.User;
 @FilterPath(exclude="/auth/*")
 public class MockAuthFilter implements Filter {
 	private static final Logger LOG = LoggerFactory.getLogger(MockAuthFilter.class);
+	
 	@Override
 	public boolean preFilter(HttpRequest request, HttpResponse response) {
 		AuthInfo authInfo=new AuthInfo();
