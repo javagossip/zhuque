@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
@@ -56,7 +57,7 @@ public class UserController implements IController<User, UserQueryReq, Integer> 
 		}
 	}
 
-	@POST
+	@DELETE
 	@Path("/{id}")
 	public void deleteById(Integer id) {
 		userService.deleteById(id);

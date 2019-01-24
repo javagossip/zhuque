@@ -27,21 +27,21 @@ import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.auth.service.MenuService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
-import ai.houyi.zhuque.core.model.AuthContext;
 import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.model.Menu;
+import io.swagger.annotations.Api;
 
 /**
  * @author weiping wang
  */
 @Controller
 @Path("/menus")
+@Api(tags="菜单管理")
 public class MenuController implements IController<Menu, MenuQueryReq, Integer> {
 	@Autowired
 	private MenuService menuService;
 
 	@POST
-	@Path
 	public void saveOrUpdate(Menu t) {
 		if (t.getId() == null) {
 			menuService.save(t);
@@ -62,15 +62,12 @@ public class MenuController implements IController<Menu, MenuQueryReq, Integer> 
 		return menuService.loadById(id);
 	}
 
-	@POST
-	@Path("/list")
-	public Page<Menu> selectPage(MenuQueryReq queryReq) {
-		return menuService.selectPageList(queryReq);
-	}
-
 	@GET
-	@Path
-	public List<Menu> menuTree() {
-		return menuService.selectByUserId(AuthContext.currentUser().getId());
+	public List<Menu> selectAll(){
+		return menuService.selectAll();
+	}
+	
+	public Page<Menu> selectPage(MenuQueryReq queryReq) {
+		throw new UnsupportedOperationException("unsupported selectPage operation");
 	}
 }

@@ -35,6 +35,7 @@ public class ZhuqueExceptionAdvisor {
 
 	@ExceptionType(value = Exception.class)
 	public Response handleException(Exception exception) {
+		exception.printStackTrace();
 		return new Response(1, exception.getMessage(), null);
 	}
 

@@ -16,6 +16,7 @@
 package ai.houyi.zhuque.auth.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void update(User t) {
+		t.setUpdateTime(new Date());
 		userMapper.updateByPrimaryKeySelective(t);
 	}
 

@@ -5,9 +5,11 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="passwd" jdbcType="VARCHAR" property="passwd" />
-    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, passwd, deleted, real_name, create_time
+    id, name, passwd, type, real_name, create_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="ai.houyi.zhuque.dao.model.UserExample" resultMap="BaseResultMap">
     select
@@ -109,10 +111,12 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.User" useGeneratedKeys="true">
-    insert into user (name, passwd, deleted, 
-      real_name, create_time)
-    values (#{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
-      #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    insert into user (name, passwd, type, 
+      real_name, create_time, update_time, 
+      deleted)
+    values (#{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="ai.houyi.zhuque.dao.model.User" useGeneratedKeys="true">
     insert into user
@@ -123,14 +127,20 @@
       <if test="passwd != null">
         passwd,
       </if>
-      <if test="deleted != null">
-        deleted,
+      <if test="type != null">
+        type,
       </if>
       <if test="realName != null">
         real_name,
       </if>
       <if test="createTime != null">
         create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -140,14 +150,20 @@
       <if test="passwd != null">
         #{passwd,jdbcType=VARCHAR},
       </if>
-      <if test="deleted != null">
-        #{deleted,jdbcType=BIT},
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="realName != null">
         #{realName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -169,14 +185,20 @@
       <if test="record.passwd != null">
         passwd = #{record.passwd,jdbcType=VARCHAR},
       </if>
-      <if test="record.deleted != null">
-        deleted = #{record.deleted,jdbcType=BIT},
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.realName != null">
         real_name = #{record.realName,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -188,9 +210,11 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       passwd = #{record.passwd,jdbcType=VARCHAR},
-      deleted = #{record.deleted,jdbcType=BIT},
+      type = #{record.type,jdbcType=INTEGER},
       real_name = #{record.realName,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -204,14 +228,20 @@
       <if test="passwd != null">
         passwd = #{passwd,jdbcType=VARCHAR},
       </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=BIT},
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="realName != null">
         real_name = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -220,9 +250,11 @@
     update user
     set name = #{name,jdbcType=VARCHAR},
       passwd = #{passwd,jdbcType=VARCHAR},
-      deleted = #{deleted,jdbcType=BIT},
+      type = #{type,jdbcType=INTEGER},
       real_name = #{realName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectOneByExample" parameterType="ai.houyi.zhuque.dao.model.UserExample" resultMap="BaseResultMap">
@@ -249,11 +281,12 @@
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
     insert into user
-    (name, passwd, deleted, real_name, create_time)
+    (name, passwd, type, real_name, create_time, update_time, deleted)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.name,jdbcType=VARCHAR}, #{item.passwd,jdbcType=VARCHAR}, #{item.deleted,jdbcType=BIT}, 
-        #{item.realName,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+      (#{item.name,jdbcType=VARCHAR}, #{item.passwd,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
+        #{item.realName,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+        #{item.deleted,jdbcType=BIT})
     </foreach>
   </insert>
   <insert id="batchInsertSelective" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
@@ -277,14 +310,20 @@
         <if test="'passwd'.toString() == column.value">
           #{item.passwd,jdbcType=VARCHAR}
         </if>
-        <if test="'deleted'.toString() == column.value">
-          #{item.deleted,jdbcType=BIT}
+        <if test="'type'.toString() == column.value">
+          #{item.type,jdbcType=INTEGER}
         </if>
         <if test="'real_name'.toString() == column.value">
           #{item.realName,jdbcType=VARCHAR}
         </if>
         <if test="'create_time'.toString() == column.value">
           #{item.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_time'.toString() == column.value">
+          #{item.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'deleted'.toString() == column.value">
+          #{item.deleted,jdbcType=BIT}
         </if>
       </foreach>
       )
