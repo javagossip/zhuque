@@ -31,6 +31,7 @@ import ai.houyi.zhuque.auth.service.UserService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.UserQueryReq;
+import ai.houyi.zhuque.dao.model.Permission;
 import ai.houyi.zhuque.dao.model.Role;
 import ai.houyi.zhuque.dao.model.User;
 import io.swagger.annotations.Api;
@@ -96,5 +97,11 @@ public class UserController implements IController<User, UserQueryReq, Integer> 
 	@Path("/roles/{userId}")
 	public List<Role> getUserRoles(Integer userId) {
 		return userService.getUserRoles(userId);
+	}
+	
+	@GET
+	@Path("/permissions/{userId}")
+	public List<Permission> getUserPermissions(Integer userId){
+		return userService.getUserPermissions(userId);
 	}
 }
