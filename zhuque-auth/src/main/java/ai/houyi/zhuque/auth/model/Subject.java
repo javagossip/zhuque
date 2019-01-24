@@ -46,6 +46,13 @@ public class Subject {
 		return false;
 	}
 
+	public boolean hasRole(String role) {
+		if (roles != null) {
+			return roles.contains(role);
+		}
+		return false;
+	}
+
 	public User getUser() {
 		return user;
 	}
