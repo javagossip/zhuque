@@ -13,27 +13,17 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.auth.controller;
+package ai.houyi.zhuque.auth.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ai.houyi.dorado.rest.annotation.Controller;
-import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.auth.model.AuthReq;
 import ai.houyi.zhuque.auth.model.Subject;
-import ai.houyi.zhuque.auth.service.AuthService;
 
 /**
  *
  * @author weiping wang
  */
-@Controller
-@Path("/auth")
-public class AuthController {
-	@Autowired
-	private AuthService authService;
-	
-	public Subject auth(AuthReq authReq) {
-		return authService.auth(authReq);
-	}
+public interface AuthService {
+
+	Subject auth(AuthReq authReq);
+
 }
