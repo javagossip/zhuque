@@ -65,7 +65,6 @@ public class MaterialController implements IController<Material, MaterialQueryRe
 	@POST
 	@Path("/list")
 	public Page<Material> selectPage(MaterialQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
 		return materialService.selectPageList(queryReq);
 	}
 }

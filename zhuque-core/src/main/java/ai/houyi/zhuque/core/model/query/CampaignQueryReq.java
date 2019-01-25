@@ -34,7 +34,7 @@ public class CampaignQueryReq extends QueryReq<CampaignExample> {
 	private Integer status;
 
 	@Override
-	public CampaignExample toExample() {
+	public CampaignExample buildExample() {
 		CampaignExample example = new CampaignExample();
 		CampaignExample.Criteria criteria = example.createCriteria();
 

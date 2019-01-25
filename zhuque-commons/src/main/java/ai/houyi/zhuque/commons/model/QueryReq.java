@@ -43,12 +43,19 @@ public abstract class QueryReq<E> {
 	protected Integer pageSize;
 
 	public void initPageInfoIfNeed() {
+		if (pageNo != null && pageNo > 0)
+			pageNo = pageNo - 1;
 		if (pageNo == null)
-			pageNo = Constants.INIT_PAGE_NO-1;
+			pageNo = Constants.INIT_PAGE_NO - 1;
 		if (pageSize == null)
 			pageSize = Constants.DEFAULT_PAGE_SIZE;
 
 	}
 
-	public abstract E toExample();
+	public final E toExample() {
+		initPageInfoIfNeed();
+		return buildExample();
+	}
+	
+	public abstract E buildExample();
 }

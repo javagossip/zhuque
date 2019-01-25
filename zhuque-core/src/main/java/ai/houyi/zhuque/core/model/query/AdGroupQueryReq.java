@@ -36,7 +36,7 @@ public class AdGroupQueryReq extends QueryReq<AdGroupExample> {
 	private List<Integer> campaignIds;
 
 	@Override
-	public AdGroupExample toExample() {
+	public AdGroupExample buildExample() {
 		AdGroupExample example = new AdGroupExample();
 		example.page(pageNo, pageSize);
 

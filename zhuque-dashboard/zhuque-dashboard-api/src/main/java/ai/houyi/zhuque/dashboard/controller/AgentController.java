@@ -85,7 +85,6 @@ public class AgentController implements IController<Agent, AgentQueryReq, Intege
 	@POST
 	@Path("/list")
 	public Page<Agent> selectPage(AgentQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
 		return agentService.selectPageList(queryReq);
 	}
 }

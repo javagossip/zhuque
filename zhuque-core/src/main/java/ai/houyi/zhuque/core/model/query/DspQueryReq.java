@@ -29,7 +29,7 @@ public class DspQueryReq extends QueryReq<DspExample> {
 	private String name;
 
 	@Override
-	public DspExample toExample() {
+	public DspExample buildExample() {
 		DspExample example = new DspExample();
 		DspExample.Criteria criteria = example.createCriteria();
 

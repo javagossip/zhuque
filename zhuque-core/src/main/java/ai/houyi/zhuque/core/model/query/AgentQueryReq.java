@@ -29,7 +29,7 @@ public class AgentQueryReq extends QueryReq<AgentExample> {
 	private String name;
 
 	@Override
-	public AgentExample toExample() {
+	public AgentExample buildExample() {
 		AgentExample example = new AgentExample();
 		AgentExample.Criteria criteria = example.createCriteria();
 

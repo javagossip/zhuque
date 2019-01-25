@@ -79,7 +79,6 @@ public class TemplateController implements IController<Template, TemplateQueryRe
 	@POST
 	@Path("/list")
 	public Page<Template> selectPage(TemplateQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
 		return templateService.selectPageList(queryReq);
 	}
 

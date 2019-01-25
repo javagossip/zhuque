@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.MaterialExample;
 public class MaterialQueryReq extends QueryReq<MaterialExample> {
 
 	@Override
-	public MaterialExample toExample() {
+	public MaterialExample buildExample() {
 		//TODO
 		return null;
 	}

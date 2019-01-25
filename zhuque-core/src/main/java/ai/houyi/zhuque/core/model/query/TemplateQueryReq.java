@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.TemplateExample;
 public class TemplateQueryReq extends QueryReq<TemplateExample> {
 
 	@Override
-	public TemplateExample toExample() {
+	public TemplateExample buildExample() {
 		return null;
 	}
 

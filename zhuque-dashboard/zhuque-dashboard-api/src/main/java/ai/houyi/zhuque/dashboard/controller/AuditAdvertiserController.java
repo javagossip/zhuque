@@ -67,7 +67,6 @@ public class AuditAdvertiserController implements IController<AuditAdvertiser, A
 	@POST
 	@Path("/list")
 	public Page<AuditAdvertiser> selectPage(AuditAdvertiserQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
 		return auditAdvertiserService.selectPageList(queryReq);
 	}
 

@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.MenuExample;
 public class MenuQueryReq extends QueryReq<MenuExample> {
 
 	@Override
-	public MenuExample toExample() {
+	public MenuExample buildExample() {
 		return null;
 	}
 

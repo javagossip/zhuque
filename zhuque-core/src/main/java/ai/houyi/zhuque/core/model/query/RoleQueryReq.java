@@ -33,7 +33,7 @@ public class RoleQueryReq extends QueryReq<RoleExample> {
 	}
 
 	@Override
-	public RoleExample toExample() {
+	public RoleExample buildExample() {
 		RoleExample example = new RoleExample();
 		if (StringUtils.isNotBlank(name))
 			example.createCriteria().andNameLike(SQLUtils.toLikeString(name));

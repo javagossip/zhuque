@@ -32,7 +32,7 @@ public class AdvertiserQueryReq extends QueryReq<AdvertiserExample> {
 	private Integer agentId;
 
 	@Override
-	public AdvertiserExample toExample() {
+	public AdvertiserExample buildExample() {
 		AdvertiserExample example = new AdvertiserExample();
 		AdvertiserExample.Criteria criteria = example.createCriteria();
 

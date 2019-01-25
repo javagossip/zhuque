@@ -72,6 +72,7 @@ public class UserController implements IController<User, UserQueryReq, Integer> 
 	@POST
 	@Path("/list")
 	public Page<User> selectPage(UserQueryReq queryReq) {
+		queryReq.initPageInfoIfNeed();
 		return userService.selectPageList(queryReq);
 	}
 

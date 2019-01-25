@@ -28,7 +28,7 @@ public class AuditAdvertiserQueryReq extends QueryReq<AuditAdvertiserExample> {
 	private String name;
 
 	@Override
-	public AuditAdvertiserExample toExample() {
+	public AuditAdvertiserExample buildExample() {
 		AuditAdvertiserExample example = new AuditAdvertiserExample();
 		if(StringUtils.isNotBlank(name)) {
 			example.createCriteria().andNameLike(SQLUtils.toLikeString(name));

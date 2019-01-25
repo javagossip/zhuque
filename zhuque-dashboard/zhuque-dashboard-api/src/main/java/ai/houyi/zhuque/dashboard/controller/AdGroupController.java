@@ -67,7 +67,6 @@ public class AdGroupController implements IController<AdGroup, AdGroupQueryReq, 
 	@POST
 	@Path("/list")
 	public Page<AdGroup> selectPage(AdGroupQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
 		queryReq.setAdvertiserId(AuthContext.currentUser().getId());
 
 		return adGroupService.selectPageList(queryReq);

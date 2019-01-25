@@ -33,7 +33,7 @@ public class UserQueryReq extends QueryReq<UserExample> {
 	}
 
 	@Override
-	public UserExample toExample() {
+	public UserExample buildExample() {
 		UserExample example = new UserExample();
 
 		if (StringUtils.isNotBlank(name))

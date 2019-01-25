@@ -25,7 +25,7 @@ import ai.houyi.zhuque.dao.model.PermissionExample;
 public class PermissionQueryReq extends QueryReq<PermissionExample> {
 
 	@Override
-	public PermissionExample toExample() {
+	public PermissionExample buildExample() {
 		return null;
 	}
 }

@@ -32,7 +32,7 @@ public class CreativeQueryReq extends QueryReq<CreativeExample> {
 	private Integer adGroupId;
 
 	@Override
-	public CreativeExample toExample() {
+	public CreativeExample buildExample() {
 		CreativeExample example = new CreativeExample();
 
 		CreativeExample.Criteria criteria = example.createCriteria();

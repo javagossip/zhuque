@@ -85,7 +85,6 @@ public class DspController implements IController<Dsp, DspQueryReq, Integer>{
 	@POST
 	@Path("/list")
 	public Page<Dsp> selectPage(DspQueryReq queryReq) {
-		queryReq.initPageInfoIfNeed();
 		return dspService.selectPageList(queryReq);
 	}
 }
