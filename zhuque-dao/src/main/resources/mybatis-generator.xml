@@ -59,7 +59,7 @@
 		<!--  <table tableName="advertiser_audit" schema="zhuque" domainObjectName="AuditAdvertiser">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table> -->
-		<table tableName="user" schema="zhuque">
+		<table tableName="session" schema="zhuque">
 			<generatedKey column="id" sqlStatement="JDBC" />
 		</table>
 	</context>

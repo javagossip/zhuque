@@ -29,7 +29,7 @@ public class Subject {
 	private List<String> roles;
 	private List<String> permissions;
 	private List<Menu> menus;
-	private String token;
+	private Session session;
 
 	public Subject(User user, List<String> roles, List<String> permissions) {
 		this.user = user;
