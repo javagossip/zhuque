@@ -69,6 +69,9 @@ public class RoleServiceImpl implements RoleService {
 
 		userRoleMapper.deleteByExample(example);
 		roleMapper.deleteByPrimaryKey(pk);
+
+		RolePermissionExample rpe = new RolePermissionExample().createCriteria().andRoleIdEqualTo(pk).example();
+		rolePermissionMapper.deleteByExample(rpe);
 	}
 
 	@Override

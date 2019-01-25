@@ -17,17 +17,23 @@ package ai.houyi.zhuque.auth.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ai.houyi.zhuque.auth.service.MenuService;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.MenuQueryReq;
 import ai.houyi.zhuque.dao.MenuMapper;
+import ai.houyi.zhuque.dao.PermissionMapper;
+import ai.houyi.zhuque.dao.RolePermissionMapper;
 import ai.houyi.zhuque.dao.model.Menu;
 import ai.houyi.zhuque.dao.model.MenuExample;
+import ai.houyi.zhuque.dao.model.PermissionExample;
+import ai.houyi.zhuque.dao.model.RolePermissionExample;
 
 /**
  * @author weiping wang
@@ -36,7 +42,11 @@ import ai.houyi.zhuque.dao.model.MenuExample;
 public class MenuServiceImpl implements MenuService {
 	@Autowired
 	private MenuMapper menuMapper;
-	
+	@Autowired
+	private PermissionMapper permissionMapper;
+	@Autowired
+	private RolePermissionMapper rolePermissionMapper;
+
 	@Override
 	public void save(Menu t) {
 		menuMapper.insertSelective(t);
@@ -49,8 +59,18 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Integer pk) {
 		menuMapper.deleteByPrimaryKey(pk);
+
+		PermissionExample example = PermissionExample.newAndCreateCriteria().andMenuIdEqualTo(pk).example();
+		permissionMapper.deleteByExample(example);
+
+		List<Integer> permissionIdList = permissionMapper.selectByExample(example).stream().map(p -> p.getId())
+				.collect(Collectors.toList());
+		if (!permissionIdList.isEmpty())
+			rolePermissionMapper.deleteByExample(
+					RolePermissionExample.newAndCreateCriteria().andPermissionIdIn(permissionIdList).example());
 	}
 
 	@Override
@@ -73,7 +93,9 @@ public class MenuServiceImpl implements MenuService {
 				.andIf(pid != null, add -> add.andPidEqualTo(pid)).example();
 		List<Menu> menuList = menuMapper.selectByExample(example);
 		menuList.forEach(menu -> {
-			menu.setChildren(selectMenus(menu.getId()));
+			List<Menu> subMenus = selectMenus(menu.getId());
+			if (!subMenus.isEmpty())
+				menu.setChildren(subMenus);
 		});
 		return menuList;
 	}
