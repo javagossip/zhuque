@@ -22,4 +22,5 @@ package ai.houyi.zhuque.commons;
 public final class Constants {
 	public static final int DEFAULT_PAGE_SIZE = 20;
 	public static final int INIT_PAGE_NO = 1;
+	public static final String SIGN_COMMA = ",";
 }

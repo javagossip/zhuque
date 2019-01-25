@@ -20,6 +20,8 @@ import java.util.List;
 import ai.houyi.zhuque.dao.model.Menu;
 import ai.houyi.zhuque.dao.model.Session;
 import ai.houyi.zhuque.dao.model.User;
+import javax.annotation.Generated;
+import java.util.Collections;
 
 /**
  *
@@ -31,6 +33,15 @@ public class Subject {
 	private List<String> permissions;
 	private List<Menu> menus;
 	private Session session;
+
+	@Generated("SparkTools")
+	private Subject(Builder builder) {
+		this.user = builder.user;
+		this.roles = builder.roles;
+		this.permissions = builder.permissions;
+		this.menus = builder.menus;
+		this.session = builder.session;
+	}
 
 	public Subject(User user, List<String> roles, List<String> permissions) {
 		this.user = user;
@@ -95,5 +106,58 @@ public class Subject {
 
 	public List<String> getPermissions() {
 		return permissions;
+	}
+
+	/**
+	 * Creates builder to build {@link Subject}.
+	 * @return created builder
+	 */
+	@Generated("SparkTools")
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	/**
+	 * Builder to build {@link Subject}.
+	 */
+	@Generated("SparkTools")
+	public static final class Builder {
+		private User user;
+		private List<String> roles = Collections.emptyList();
+		private List<String> permissions = Collections.emptyList();
+		private List<Menu> menus = Collections.emptyList();
+		private Session session;
+
+		private Builder() {
+		}
+
+		public Builder withUser(User user) {
+			this.user = user;
+			return this;
+		}
+
+		public Builder withRoles(List<String> roles) {
+			this.roles = roles;
+			return this;
+		}
+
+		public Builder withPermissions(List<String> permissions) {
+			this.permissions = permissions;
+			return this;
+		}
+
+		public Builder withMenus(List<Menu> menus) {
+			this.menus = menus;
+			return this;
+		}
+
+		public Builder withSession(Session session) {
+			this.session = session;
+			return this;
+		}
+
+		public Subject build() {
+			return new Subject(this);
+		}
 	}
 }

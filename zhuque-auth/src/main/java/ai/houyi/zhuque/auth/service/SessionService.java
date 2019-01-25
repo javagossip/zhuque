@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
+package ai.houyi.zhuque.auth.service;
 
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.core.IService;
@@ -25,4 +25,6 @@ import ai.houyi.zhuque.dao.model.Session;
  */
 public interface SessionService extends IService<Session, QueryReq<Object>, Integer> {
 	void deleteBySessionId(String sessionId);
+	
+	Session createOrSaveSession(Integer userId);
 }

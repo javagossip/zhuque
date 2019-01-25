@@ -13,16 +13,16 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service.impl;
+package ai.houyi.zhuque.auth.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.auth.service.PermissionService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.core.model.query.PermissionQueryReq;
-import ai.houyi.zhuque.core.service.PermissionService;
 import ai.houyi.zhuque.dao.PermissionMapper;
 import ai.houyi.zhuque.dao.model.Permission;
 import ai.houyi.zhuque.dao.model.PermissionExample;

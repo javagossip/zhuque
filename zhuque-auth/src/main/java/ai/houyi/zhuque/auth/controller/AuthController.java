@@ -18,10 +18,12 @@ package ai.houyi.zhuque.auth.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ai.houyi.dorado.rest.annotation.Controller;
+import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.zhuque.auth.model.AuthReq;
 import ai.houyi.zhuque.auth.model.Subject;
 import ai.houyi.zhuque.auth.service.AuthService;
+import io.swagger.annotations.Api;
 
 /**
  *
@@ -29,10 +31,12 @@ import ai.houyi.zhuque.auth.service.AuthService;
  */
 @Controller
 @Path("/auth")
+@Api(tags="用户认证api")
 public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
+	@POST
 	public Subject auth(AuthReq authReq) {
 		return authService.auth(authReq);
 	}

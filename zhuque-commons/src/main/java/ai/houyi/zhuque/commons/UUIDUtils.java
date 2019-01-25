@@ -13,27 +13,16 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.auth.service.impl;
+package ai.houyi.zhuque.commons;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import ai.houyi.zhuque.auth.model.AuthReq;
-import ai.houyi.zhuque.auth.model.Subject;
-import ai.houyi.zhuque.auth.service.AuthService;
-import ai.houyi.zhuque.auth.service.UserService;
+import java.util.UUID;
 
 /**
- *
  * @author weiping wang
  */
-@Service
-public class AuthServiceImpl implements AuthService {
-	@Autowired
-	private UserService userService;
-	
-	@Override
-	public Subject auth(AuthReq authReq) {
-		return userService.auth(authReq);
+public final class UUIDUtils {
+
+	public static String uuid() {
+		return UUID.randomUUID().toString().replace("-", "");
 	}
 }

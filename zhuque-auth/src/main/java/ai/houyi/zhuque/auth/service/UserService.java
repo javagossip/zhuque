@@ -17,8 +17,10 @@ package ai.houyi.zhuque.auth.service;
 
 import java.util.List;
 
+import ai.houyi.zhuque.auth.model.AuthReq;
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
+import ai.houyi.zhuque.auth.model.Subject;
 import ai.houyi.zhuque.core.IService;
 import ai.houyi.zhuque.core.model.query.UserQueryReq;
 import ai.houyi.zhuque.dao.model.Permission;
@@ -40,4 +42,6 @@ public interface UserService extends IService<User, UserQueryReq, Integer> {
 	List<Role> getUserRoles(Integer userId);
 	
 	List<Permission> getUserPermissions(Integer userId);
+
+	Subject auth(AuthReq authReq);
 }

@@ -13,18 +13,8 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service;
-
-import java.util.List;
-
-import ai.houyi.zhuque.core.IService;
-import ai.houyi.zhuque.core.model.query.PermissionQueryReq;
-import ai.houyi.zhuque.dao.model.Permission;
-
 /**
  * @author weiping wang
+ *
  */
-public interface PermissionService extends IService<Permission, PermissionQueryReq, Integer> {
-	
-	List<Permission> selectPermissionsAsTree();
-}
+package ai.houyi.zhuque.commons.redis;

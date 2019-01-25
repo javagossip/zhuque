@@ -24,10 +24,10 @@ import ai.houyi.dorado.rest.annotation.DELETE;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.zhuque.auth.service.PermissionService;
 import ai.houyi.zhuque.commons.page.Page;
 import ai.houyi.zhuque.commons.web.IController;
 import ai.houyi.zhuque.core.model.query.PermissionQueryReq;
-import ai.houyi.zhuque.core.service.PermissionService;
 import ai.houyi.zhuque.dao.model.Permission;
 import io.swagger.annotations.Api;
 

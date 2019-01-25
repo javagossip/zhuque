@@ -13,17 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package ai.houyi.zhuque.core.service.impl;
+package ai.houyi.zhuque.auth.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ai.houyi.zhuque.auth.service.SessionService;
+import ai.houyi.zhuque.commons.UUIDUtils;
 import ai.houyi.zhuque.commons.exception.ExceptionUtils;
 import ai.houyi.zhuque.commons.model.QueryReq;
 import ai.houyi.zhuque.commons.page.Page;
-import ai.houyi.zhuque.core.service.SessionService;
+import ai.houyi.zhuque.commons.redis.RedisTemplate;
 import ai.houyi.zhuque.dao.SessionMapper;
 import ai.houyi.zhuque.dao.model.Session;
 import ai.houyi.zhuque.dao.model.SessionExample;
@@ -86,5 +90,16 @@ public class SessionServiceImpl implements SessionService {
 	public void deleteBySessionId(String sessionId) {
 		SessionExample example = new SessionExample().createCriteria().andSessionIdEqualTo(sessionId).example();
 		sessionMapper.deleteByExample(example);
+	}
+
+	@Override
+	public Session createOrSaveSession(Integer userId) {
+		String sessionId = UUIDUtils.uuid();
+		Date expiredTime = DateUtils.addDays(new Date(), 7);
+
+		Session session = Session.builder().sessionId(sessionId).expiredTime(expiredTime).userId(userId).build();
+		sessionMapper.insertSelective(session);
+		RedisTemplate.execute(redis->redis.set(session.getSessionId(), null));
+		return session;
 	}
 }

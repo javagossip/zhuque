@@ -18,14 +18,18 @@ package ai.houyi.zhuque.auth.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ai.houyi.zhuque.auth.model.AuthReq;
 import ai.houyi.zhuque.auth.model.ChangePwdReq;
 import ai.houyi.zhuque.auth.model.ResetPasswdReq;
+import ai.houyi.zhuque.auth.model.Subject;
+import ai.houyi.zhuque.auth.service.MenuService;
 import ai.houyi.zhuque.auth.service.UserService;
 import ai.houyi.zhuque.commons.exception.ZhuqueException;
 import ai.houyi.zhuque.commons.page.Page;
@@ -34,6 +38,7 @@ import ai.houyi.zhuque.dao.PermissionMapper;
 import ai.houyi.zhuque.dao.RoleMapper;
 import ai.houyi.zhuque.dao.UserMapper;
 import ai.houyi.zhuque.dao.UserRoleMapper;
+import ai.houyi.zhuque.dao.model.Menu;
 import ai.houyi.zhuque.dao.model.Permission;
 import ai.houyi.zhuque.dao.model.Role;
 import ai.houyi.zhuque.dao.model.User;
@@ -54,6 +59,8 @@ public class UserServiceImpl implements UserService {
 	private RoleMapper roleMapper;
 	@Autowired
 	private PermissionMapper permissionMapper;
+	@Autowired
+	private MenuService menuService;
 
 	@Override
 	public void save(User t) {
@@ -149,5 +156,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Permission> getUserPermissions(Integer userId) {
 		return permissionMapper.getUserPermissions(userId);
+	}
+
+	@Override
+	public Subject auth(AuthReq authReq) {
+		UserExample example = new UserExample().createCriteria().andNameEqualTo(authReq.getUserName()).example();
+		User user = userMapper.selectOneByExample(example);
+		if (user == null)
+			throw new ZhuqueException("用户不存在: " + authReq.getUserName());
+
+		String md5HashPwd = DigestUtils.md5Hex(authReq.getPasswd());
+		if (!user.getPasswd().equals(md5HashPwd))
+			throw new ZhuqueException("密码不正确");
+
+		Integer userId = user.getId();
+		List<Menu> menuList = menuService.selectByUserId(user.getId());
+		List<String> permissionStringList = getUserPermissions(userId).stream().map(p -> p.getCode())
+				.collect(Collectors.toList());
+		List<String> roleStringList = getUserRoles(userId).stream().map(r -> r.getCode()).collect(Collectors.toList());
+
+		return Subject.builder().withMenus(menuList).withPermissions(permissionStringList).withRoles(roleStringList)
+				.withUser(user).withSession(null).build();
 	}
 }
