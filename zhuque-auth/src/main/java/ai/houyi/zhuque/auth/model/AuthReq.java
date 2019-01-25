@@ -20,5 +20,30 @@ package ai.houyi.zhuque.auth.model;
  * @author weiping wang
  */
 public class AuthReq {
-	
+	private String userName;
+	private String passwd;
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	/**
+	 * @return the passwd
+	 */
+	public String getPasswd() {
+		return passwd;
+	}
+	/**
+	 * @param passwd the passwd to set
+	 */
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 }
