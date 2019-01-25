@@ -18,6 +18,7 @@ package ai.houyi.zhuque.auth.model;
 import java.util.List;
 
 import ai.houyi.zhuque.dao.model.Menu;
+import ai.houyi.zhuque.dao.model.Session;
 import ai.houyi.zhuque.dao.model.User;
 
 /**
@@ -56,7 +57,6 @@ public class Subject {
 		return false;
 	}
 
-	
 	/**
 	 * @return the menus
 	 */
@@ -72,17 +72,17 @@ public class Subject {
 	}
 
 	/**
-	 * @return the token
+	 * @return the session
 	 */
-	public String getToken() {
-		return token;
+	public Session getSession() {
+		return session;
 	}
 
 	/**
-	 * @param token the token to set
+	 * @param session the session to set
 	 */
-	public void setToken(String token) {
-		this.token = token;
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 	public User getUser() {
