@@ -28,5 +28,4 @@ public class MenuQueryReq extends QueryReq<MenuExample> {
 	public MenuExample buildExample() {
 		return null;
 	}
-
 }

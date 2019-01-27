@@ -54,6 +54,6 @@ public interface MenuMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int batchInsertSelective(@Param("list") List<Menu> list, @Param("selective") Menu.Column ... selective);
-    
-    List<Menu> selectUserMenus(Integer userId);
+
+	List<Menu> selectUserMenus(Integer userId);
 }
