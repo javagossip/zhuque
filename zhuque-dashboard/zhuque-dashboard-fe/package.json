@@ -2,7 +2,7 @@
   "name": "vue-admin-template",
   "version": "3.8.0",
   "license": "MIT",
-  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
+  "description": "A vue admin template with Element UI & axios& iconfont & permission control & lint",
   "author": "Pan <panfree23@gmail.com>",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
