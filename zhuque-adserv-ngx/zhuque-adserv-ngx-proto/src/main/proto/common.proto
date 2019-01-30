@@ -100,7 +100,7 @@ enum AgentType {
 	kAgentTypeNM = 2; //普通代理商
 }
 
-enum DeliveryMode {
+enum DeliveryMethod {
     kDefault = 1;
     kSmoothBudgetDelivery = 2;
 }
@@ -126,16 +126,22 @@ enum EntityType {
     kAreaGroup = 12;
 }
 
+//出价策略，自动出价&手动出价
+enum BidStrategy {
+    kAutomatic = 1;
+    kManual = 2; 
+}
+
 message MapEntry {
     optional string key = 1;
     optional string value = 2;
 }
 
-message FrequencyCapping {
-    optional bool frequency_capping = 1; //是否启用频次控制
+message FreqCapping {
+    optional bool freq_capping = 1; //是否启用频次控制
+    optional bool ip_capping = 4; //是否ip频控
 	optional uint32 frequency = 2; //频次
-	optional FrequencyPeriod frequency_period = 3; //频次控制周期
-	optional bool ip_capping = 4; //是否ip频控
+	optional FreqPeriod freq_period = 3; //频次控制周期
 }
 
 message Pmp {

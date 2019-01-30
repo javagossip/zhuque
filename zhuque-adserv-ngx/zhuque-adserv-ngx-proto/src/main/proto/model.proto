@@ -25,10 +25,26 @@ option optimize_for = SPEED;
 
 //推广活动/计划
 message Campaign{
+    optional uint32 campaign_id = 1;
+    optional uint32 advertiser_id = 2;
+    optional string name = 3;
+    optional uint32 status = 4; 
 }
 
 //广告组
 message AdGroup{
+    optional uint32 group_id = 1;
+    optional uint32 campaign_id = 2;
+    optional DeliveryMethod delivery_method = 3;
+    optional PromotionType promotion_type = 4;
+    optional string landing_page = 5;
+    optional CostType cost_type = 6;
+    optional string app_id = 7;
+    optional string pkg_name = 8;
+    optional BidStrategy bid_strategy = 9;
+    optional FreqCapping freq_capping = 10;
+    
+    optional TimeTarget time_target = 4;
 }
 
 //推广创意
